@@ -4,13 +4,16 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.ApiFactory
 import com.nitroxis.app.quranresearch.Utils.DropDownValues
+import com.nitroxis.app.quranresearch.Utils.Model
 import com.skyhope.materialtagview.TagView
 import com.skyhope.materialtagview.enums.TagSeparator
 import kotlinx.android.synthetic.main.fragment_search.*
@@ -20,7 +23,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jetbrains.anko.okButton
-import org.jetbrains.anko.sdk27.coroutines.onItemSelectedListener
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 
@@ -28,10 +31,12 @@ import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class SearchFragment : Fragment(),AdapterView.OnItemSelectedListener {
+class SearchFragment : Fragment() {
 
     private var param1: String? = null
     private var param2: String? = null
+    lateinit var selected_language: String
+    lateinit var selected_keyword: Array<String>
     private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,57 +61,73 @@ class SearchFragment : Fragment(),AdapterView.OnItemSelectedListener {
         val tagList = arrayOf("Cow", "Ants")
         tagView.setTagList(*tagList)
         tagView.addTagLimit(5)
+        val keyword = tagView.toString()
+        selected_keyword = arrayOf(keyword)
         tagView.setTagBackgroundColor(R.color.colorAccent)
-         Log.d("Entered Tags",tagView.tag.toString())
+        //val g= arrayOf(tagView)
+
         val Language = DropDownValues.lang.map {
             it.second
         }
+
         val lang_adapter = ArrayAdapter(v.context, android.R.layout.simple_spinner_item, Language)
         lang_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         v.lang_spinner.adapter = lang_adapter
-        v.lang_spinner.onItemSelectedListener {
-            this.onItemSelected { adapterView, view, position, l ->
-                v.lang_spinner.setSelection(8)
+        v.lang_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                if (p0 == null) {
+                    v.lang_spinner.setSelection(8)
+
+                }
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+
+                selected_language = p0?.selectedItem.toString()
+                //  Log.d("TAG", p0?.selectedItem.toString())
             }
         }
+        searchbtn.onClick {
+            val api = ApiFactory(v.context).myApi
 
-        val api = ApiFactory(v.context).myApi
+            GlobalScope.launch {
+                //  val dialog = indeterminateProgressDialog("Searching Query")
+                //dialog.show()
+                withContext(Dispatchers.IO) {
+                    try {
+                        val parameters = Model.AyaSearchBody(
+                            q = selected_keyword,
+                            lang = selected_language
+                        )
+                        val r = api.search(params = parameters)
+                        if (r.isSuccessful && r.code() == 200) {
+                            withContext(Dispatchers.Main) {
+                                //  dialog.dismiss()
 
-
-     /*   GlobalScope.launch {
-            val dialog = indeterminateProgressDialog("Searching Query")
-            dialog.show()
-            withContext(Dispatchers.IO) {
-                try {
-                    val r = api.search()
-                    if (r.isSuccessful && r.code() == 200) {
-                        withContext(Dispatchers.Main) {
-                            dialog.dismiss()
-
-                            Log.d("response", r.message())
-                            Log.d("error", r.message())
-                            Log.d("response", r.message())
-                            //   startActivity<FilterFragment>()
-                        }
-                    } else {
-                        Log.d("The Result for Error", r.errorBody()?.string().toString())
-                        Log.d("response code ", r.code().toString())
-                        throw Exception(r.errorBody()?.string())
-                    }
-                } catch (e: Exception) {
-                    Log.d("The Result for Error", e.message)
-                    withContext(Dispatchers.Main) {
-                        dialog.dismiss()
-
-                        alert("No Result Foud For this Keyword.Please Enter a Valid Keyword") {
-                            okButton {
-                                it.dismiss()
+                                Log.d("response", r.message())
+                                Log.d("error", r.message())
+                                Log.d("response", r.message())
                             }
-                        }.show()
+                        } else {
+                            Log.d("The Result for Error", r.errorBody()?.string().toString())
+                            Log.d("response code ", r.code().toString())
+                            throw Exception(r.errorBody()?.string())
+                        }
+                    } catch (e: Exception) {
+                        Log.d("The Result for Error", e.message)
+                        withContext(Dispatchers.Main) {
+                            //dialog.dismiss()
+
+                            alert("No Result Found For this Keyword.Please Enter a Valid Keyword") {
+                                okButton {
+                                    it.dismiss()
+                                }
+                            }.show()
+                        }
                     }
                 }
             }
-        }*/
+        }
         return v
 
     }
@@ -144,7 +165,6 @@ class SearchFragment : Fragment(),AdapterView.OnItemSelectedListener {
                 }
             }
     }
-
 
 
 }
