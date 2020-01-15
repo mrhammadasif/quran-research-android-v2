@@ -196,12 +196,6 @@
                     android:textSize="17sp"
                     android:textStyle="normal" />
 
-                <net.igenius.customcheckbox.CustomCheckBox
-                    android:id="@+id/checkbox"
-                    android:layout_width="24dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="right"
-                    app:small_tick="true" />
 
             </LinearLayout>
 

@@ -1,7 +1,9 @@
 package com.nitroxis.app.quranresearch
 
+import android.Manifest
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.nitroxis.app.quranresearch.Fragment.FilterFragment
@@ -9,14 +11,17 @@ import com.nitroxis.app.quranresearch.Fragment.HistoryFragment
 import com.nitroxis.app.quranresearch.Fragment.SearchFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
+import pub.devrel.easypermissions.EasyPermissions
+import java.security.AccessController.getContext
 
 
 class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionListener,
-    HistoryFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener {
+    HistoryFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener{
 
     lateinit var filterFragment: FilterFragment
     lateinit var searchFragment: SearchFragment
     lateinit var historyFragment: HistoryFragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +29,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
 
 
         bottomBar.onItemSelected = {
-          //  toast(it.toString())
+            //  toast(it.toString())
             // status.text = "Item $it selected"
             if (it == 1) {
                 supportFragmentManager
@@ -56,8 +61,12 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
 
 
         bottomBar.onItemReselected = {
-            // status.text = "Item $it re-selected"
+            toast("Item $it re-selected")
+
         }
+        bottomBar.setActiveItem(1)
+
+
         historyFragment = HistoryFragment.newInstance()
         searchFragment = SearchFragment.newInstance()
         filterFragment = FilterFragment.newInstance()
@@ -66,6 +75,8 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
     }
 
     override fun onFragmentInteraction(uri: Uri) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
+
+
 }

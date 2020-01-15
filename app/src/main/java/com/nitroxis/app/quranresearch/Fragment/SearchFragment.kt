@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.ApiFactory
@@ -24,8 +25,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onItemSelectedListener
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
+import org.jetbrains.anko.support.v4.toast
 
 
 private const val ARG_PARAM1 = "param1"
@@ -35,6 +38,8 @@ class SearchFragment : Fragment() {
 
     private var param1: String? = null
     private var param2: String? = null
+    var runnable: Runnable? = null
+    var runnable2: Runnable? = null
     lateinit var selected_language: String
     lateinit var selected_keyword: Array<String>
     private var listener: OnFragmentInteractionListener? = null
@@ -71,28 +76,50 @@ class SearchFragment : Fragment() {
         }
 
         val lang_adapter = ArrayAdapter(v.context, android.R.layout.simple_spinner_item, Language)
-        lang_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        lang_adapter.setDropDownViewResource(android.R.layout.simple_list_item_1)
         v.lang_spinner.adapter = lang_adapter
-        v.lang_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                if (p0 == null) {
-                    v.lang_spinner.setSelection(8)
 
-                }
-            }
+        /*   v.lang_spinner.onItemSelectedListener {
+               onItemSelected { adapterView, view, pos, l ->
+                   toast(pos.toString())
+               }
+           }
+    */
+        /*  runnable = Runnable {
+              GlobalScope.launch {
 
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
 
-                selected_language = p0?.selectedItem.toString()
-                //  Log.d("TAG", p0?.selectedItem.toString())
-            }
-        }
-        searchbtn.onClick {
-            val api = ApiFactory(v.context).myApi
+                  v.lang_spinner.onItemSelectedListener {
+                      this.onItemSelected { adapterView, view, position, l ->
+                          if (position == 0) {
+                              val u = v.lang_spinner.setSelection(8)
+                              Log.d("h1235", u.toString())
+                              toast(u.toString())
+                          } else {
+                              GlobalScope.launch {
+                                  selected_language = v.lang_spinner[position].toString()
+                                  val int = v.lang_spinner[position].toString()
+                                  Log.d("h1235", int.toString())
 
-            GlobalScope.launch {
-                //  val dialog = indeterminateProgressDialog("Searching Query")
-                //dialog.show()
+                                  toast(int)
+
+                              }
+
+                          }
+                      }
+                  }
+              }
+          } */
+
+
+        GlobalScope.launch {
+            searchbtn.onClick {
+                val api = ApiFactory(context!!.applicationContext).myApi
+                toast(api.toString())
+
+
+                val dialog = indeterminateProgressDialog("Searching Query")
+                dialog.show()
                 withContext(Dispatchers.IO) {
                     try {
                         val parameters = Model.AyaSearchBody(
@@ -112,22 +139,42 @@ class SearchFragment : Fragment() {
                             Log.d("The Result for Error", r.errorBody()?.string().toString())
                             Log.d("response code ", r.code().toString())
                             throw Exception(r.errorBody()?.string())
+                            dialog.dismiss()
                         }
                     } catch (e: Exception) {
                         Log.d("The Result for Error", e.message)
                         withContext(Dispatchers.Main) {
-                            //dialog.dismiss()
+                            dialog.dismiss()
 
-                            alert("No Result Found For this Keyword.Please Enter a Valid Keyword") {
+                            alert(e.message.toString()) {
                                 okButton {
                                     it.dismiss()
                                 }
+
                             }.show()
                         }
                     }
                 }
+
             }
         }
+
+        v.lang_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                if (p0 == null) {
+                    v.lang_spinner.setSelection(8)
+                    toast("$p0")
+                }
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+
+                selected_language = p0?.selectedItem.toString()
+                toast(selected_language)
+                //  Log.d("TAG", p0?.selectedItem.toString())
+            }
+        }
+
         return v
 
     }
@@ -150,6 +197,7 @@ class SearchFragment : Fragment() {
         super.onDetach()
         listener = null
     }
+
 
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(uri: Uri)
