@@ -55,7 +55,7 @@ class Model {
         val ayaFrom: Int = 1,
         val ayaTo: Int = 114,
         val origin: String? = null,
-        val type: String = "tafsir",
+        val type: String? = null,
         val edition: String? = null
     )
 

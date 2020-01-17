@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.nitroxis.app.quranresearch.R
@@ -29,6 +30,7 @@ import org.jetbrains.anko.sdk27.coroutines.onItemSelectedListener
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.toast
+import java.util.ArrayList
 
 
 private const val ARG_PARAM1 = "param1"
@@ -38,10 +40,7 @@ class SearchFragment : Fragment() {
 
     private var param1: String? = null
     private var param2: String? = null
-    var runnable: Runnable? = null
-    var runnable2: Runnable? = null
     lateinit var selected_language: String
-    lateinit var selected_keyword: Array<String>
     private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +49,7 @@ class SearchFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
 
     }
 
@@ -62,14 +62,10 @@ class SearchFragment : Fragment() {
 
         val tagView: TagView = v.findViewById(R.id.text_view_show_more)
         tagView.addTagSeparator(TagSeparator.SPACE_SEPARATOR)
-
-        val tagList = arrayOf("Cow", "Ants")
-        tagView.setTagList(*tagList)
         tagView.addTagLimit(5)
-        val keyword = tagView.toString()
-        selected_keyword = arrayOf(keyword)
+        tagView.setTagList(arrayListOf())
+
         tagView.setTagBackgroundColor(R.color.colorAccent)
-        //val g= arrayOf(tagView)
 
         val Language = DropDownValues.lang.map {
             it.second
@@ -79,84 +75,83 @@ class SearchFragment : Fragment() {
         lang_adapter.setDropDownViewResource(android.R.layout.simple_list_item_1)
         v.lang_spinner.adapter = lang_adapter
 
-        /*   v.lang_spinner.onItemSelectedListener {
-               onItemSelected { adapterView, view, pos, l ->
-                   toast(pos.toString())
-               }
-           }
-    */
-        /*  runnable = Runnable {
-              GlobalScope.launch {
-
-
-                  v.lang_spinner.onItemSelectedListener {
-                      this.onItemSelected { adapterView, view, position, l ->
-                          if (position == 0) {
-                              val u = v.lang_spinner.setSelection(8)
-                              Log.d("h1235", u.toString())
-                              toast(u.toString())
-                          } else {
-                              GlobalScope.launch {
-                                  selected_language = v.lang_spinner[position].toString()
-                                  val int = v.lang_spinner[position].toString()
-                                  Log.d("h1235", int.toString())
-
-                                  toast(int)
-
-                              }
-
-                          }
-                      }
-                  }
-              }
-          } */
-
 
         GlobalScope.launch {
-            searchbtn.onClick {
-                val api = ApiFactory(context!!.applicationContext).myApi
-                toast(api.toString())
+            withContext(Dispatchers.Main) {
+
+                searchbtn.onClick {
+                    val api = ApiFactory(context!!.applicationContext).myApi
+                    toast(api.toString())
+
+                    val keywords = arrayListOf<String>()
+                    var selectedLanguage = ""
+                    withContext(Dispatchers.Main) {
+
+                        keywords.addAll(tagView.selectedTags.map { it.tagText })
+                        selectedLanguage =
+                            DropDownValues.lang[v.lang_spinner.selectedItemPosition].first
+                    }
+
+                    withContext(Dispatchers.Main) {
+                        val dialog = indeterminateProgressDialog("Searching Query")
+                        dialog.show()
+                        withContext(Dispatchers.IO) {
+                            try {
+                                val parameters = Model.AyaSearchBody(
+                                    q = keywords.toTypedArray(),
+                                    lang = selectedLanguage
+                                )
+                                val r = api.search(params = parameters)
+                                if (r.isSuccessful && r.code() == 200) {
+                                    withContext(Dispatchers.Main) {
+
+                                        dialog.dismiss()
+                                       // val u = r.body().toString()
 
 
-                val dialog = indeterminateProgressDialog("Searching Query")
-                dialog.show()
-                withContext(Dispatchers.IO) {
-                    try {
-                        val parameters = Model.AyaSearchBody(
-                            q = selected_keyword,
-                            lang = selected_language
-                        )
-                        val r = api.search(params = parameters)
-                        if (r.isSuccessful && r.code() == 200) {
-                            withContext(Dispatchers.Main) {
-                                //  dialog.dismiss()
-
-                                Log.d("response", r.message())
-                                Log.d("error", r.message())
-                                Log.d("response", r.message())
-                            }
-                        } else {
-                            Log.d("The Result for Error", r.errorBody()?.string().toString())
-                            Log.d("response code ", r.code().toString())
-                            throw Exception(r.errorBody()?.string())
-                            dialog.dismiss()
-                        }
-                    } catch (e: Exception) {
-                        Log.d("The Result for Error", e.message)
-                        withContext(Dispatchers.Main) {
-                            dialog.dismiss()
-
-                            alert(e.message.toString()) {
-                                okButton {
-                                    it.dismiss()
+                                      //  Toast.makeText(context,"Message${r.code()}",Toast.LENGTH_SHORT).show()
+                                        //toast(r.code().toString())
+                                        //Toast.makeText(context,"Here it is tag View ${parameters.q}",Toast.LENGTH_SHORT).show()
+                                       // Toast.makeText(context,"Here it is Language \n ${parameters.lang}",Toast.LENGTH_LONG).show()
+                                        Toast.makeText(context,"Here it is Language \n ${r.body().toString()}",Toast.LENGTH_LONG).show()
+                                        Log.d("response1", r.code().toString())
+                                        Log.d("keywords", keywords.toString())
+                                        toast(r.body().toString())
+                                        Log.d("response1", r.body().toString())
+                                        Log.d("response1", parameters.lang)
+                                        Log.d("response", r.message())
+                                        Log.d("error", r.message())
+                                        Log.d("response", r.message())
+                                    }
+                                } else {
+                                    Log.d(
+                                        "The Result for Error",
+                                        r.errorBody()?.string().toString()
+                                    )
+                                    Log.d("response code ", r.code().toString())
+                                    throw Exception(r.errorBody()?.string())
+                                    dialog.dismiss()
                                 }
+                            } catch (e: Exception) {
+                                Log.d("The Result for Error", e.message)
+                                withContext(Dispatchers.Main) {
+                                    dialog.dismiss()
 
-                            }.show()
+                                    alert(e.message.toString()) {
+                                        okButton {
+                                            it.dismiss()
+                                        }
+
+                                    }.show()
+                                }
+                            }
                         }
                     }
-                }
 
+
+                }
             }
+
         }
 
         v.lang_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

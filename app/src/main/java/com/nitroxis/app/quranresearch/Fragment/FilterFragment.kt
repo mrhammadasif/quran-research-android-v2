@@ -31,21 +31,19 @@ class FilterFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val v=inflater.inflate(R.layout.fragment_filter, container, false)
+    ): View?     {
+        val v = inflater.inflate(R.layout.fragment_filter, container, false)
 
         val Origin = DropDownValues.origin.map {
             it.second
         }
 
-        val origin_adapter= ArrayAdapter(v.context, android.R.layout.simple_spinner_item, Origin)
+        val origin_adapter = ArrayAdapter(v.context, android.R.layout.simple_spinner_item, Origin)
         origin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         v.origin_spinner.adapter = origin_adapter
 
@@ -53,7 +51,7 @@ class FilterFragment : Fragment() {
             it.second
         }
 
-        val edition_adapter= ArrayAdapter(v.context, android.R.layout.simple_spinner_item,EDition)
+        val edition_adapter = ArrayAdapter(v.context, android.R.layout.simple_spinner_item, EDition)
         edition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         v.edition_spinner.adapter = edition_adapter
 
