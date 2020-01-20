@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.nitroxis.app.quranresearch.Fragment.FilterFragment
 import com.nitroxis.app.quranresearch.Fragment.HistoryFragment
 import com.nitroxis.app.quranresearch.Fragment.SearchFragment
+import com.nitroxis.app.quranresearch.Utils.Model
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 import pub.devrel.easypermissions.EasyPermissions
@@ -75,6 +76,10 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
     }
 
     override fun onFragmentInteraction(uri: Uri) {
+
+    }
+
+    override fun onFetchNewAyats(model: Model.AyaSearchBody) {
 
     }
 

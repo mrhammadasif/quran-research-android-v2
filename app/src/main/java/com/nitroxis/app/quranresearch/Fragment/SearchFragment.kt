@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.ApiFactory
@@ -26,11 +25,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.sdk27.coroutines.onClick
-import org.jetbrains.anko.sdk27.coroutines.onItemSelectedListener
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.toast
-import java.util.ArrayList
 
 
 private const val ARG_PARAM1 = "param1"
@@ -81,7 +78,6 @@ class SearchFragment : Fragment() {
 
                 searchbtn.onClick {
                     val api = ApiFactory(context!!.applicationContext).myApi
-                    toast(api.toString())
 
                     val keywords = arrayListOf<String>()
                     var selectedLanguage = ""
@@ -106,14 +102,11 @@ class SearchFragment : Fragment() {
                                     withContext(Dispatchers.Main) {
 
                                         dialog.dismiss()
-                                       // val u = r.body().toString()
-
-
-                                      //  Toast.makeText(context,"Message${r.code()}",Toast.LENGTH_SHORT).show()
-                                        //toast(r.code().toString())
-                                        //Toast.makeText(context,"Here it is tag View ${parameters.q}",Toast.LENGTH_SHORT).show()
-                                       // Toast.makeText(context,"Here it is Language \n ${parameters.lang}",Toast.LENGTH_LONG).show()
-                                        Toast.makeText(context,"Here it is Language \n ${r.body().toString()}",Toast.LENGTH_LONG).show()
+                                        Toast.makeText(
+                                            context,
+                                            "Here it is Language \n ${r.body().toString()}",
+                                            Toast.LENGTH_LONG
+                                        ).show()
                                         Log.d("response1", r.code().toString())
                                         Log.d("keywords", keywords.toString())
                                         toast(r.body().toString())
@@ -158,14 +151,14 @@ class SearchFragment : Fragment() {
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 if (p0 == null) {
                     v.lang_spinner.setSelection(8)
-                    toast("$p0")
+                    //toast("$p0")
                 }
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
 
                 selected_language = p0?.selectedItem.toString()
-                toast(selected_language)
+                // toast(selected_language)
                 //  Log.d("TAG", p0?.selectedItem.toString())
             }
         }
@@ -175,7 +168,7 @@ class SearchFragment : Fragment() {
     }
 
     fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+        // listener?.onFragmentInteraction(uri)
     }
 
 
@@ -195,7 +188,7 @@ class SearchFragment : Fragment() {
 
 
     interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(uri: Uri)
+        fun onFetchNewAyats(model: Model.AyaSearchBody)
     }
 
     companion object {
