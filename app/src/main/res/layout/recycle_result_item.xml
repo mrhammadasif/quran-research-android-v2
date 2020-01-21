@@ -5,106 +5,26 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <TextView
-        android:id="@+id/total"
-        android:layout_width="fill_parent"
-        android:layout_height="20dip"
-        android:gravity="start|center"
-        android:text="Total"
-        android:visibility="gone"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/limit"
+        android:id="@+id/sourcetext"
         android:layout_width="fill_parent"
-        android:layout_height="20dip"
+        android:layout_height="wrap_content"
         android:gravity="start|center"
-        android:text="Limit"
-        android:visibility="gone"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/page"
-        android:layout_width="fill_parent"
-        android:layout_height="20dip"
-        android:gravity="start|center"
-        android:text="Page"
-        android:visibility="gone"
-        android:textColor="#000"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/pages"
-        android:layout_width="fill_parent"
-        android:layout_height="20dip"
-        android:gravity="start|center"
-        android:text="Pages"
-        android:textColor="#000"
-        android:visibility="gone"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/surah"
-        android:layout_width="fill_parent"
-        android:layout_height="20dip"
-        android:gravity="start|center"
-        android:text="Surah"
-        android:textColor="#000"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/edition"
-        android:layout_width="fill_parent"
-        android:layout_height="20dip"
-        android:gravity="start|center"
-        android:text="Edition"
-        android:textColor="#000"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/meta"
-        android:layout_width="fill_parent"
-        android:layout_height="20dip"
-        android:gravity="start|center"
-        android:text="Meta"
+        android:text="Source Text"
         android:textColor="#000"
         android:textSize="12sp" />
 
     <TextView
         android:id="@+id/text"
         android:layout_width="fill_parent"
-        android:layout_height="20dip"
+        android:layout_height="wrap_content"
         android:gravity="start|center"
         android:text="Text"
         android:textColor="#000"
         android:textSize="12sp" />
 
-    <TextView
-        android:id="@+id/aya"
-        android:layout_width="fill_parent"
-        android:layout_height="20dip"
-        android:gravity="start|center"
-        android:text="Aya"
-        android:textColor="#000"
-        android:textSize="12sp" />
 
-    <TextView
-        android:id="@+id/ayaid"
-        android:layout_width="fill_parent"
-        android:layout_height="20dip"
-        android:gravity="start|center"
-        android:text="ID"
-        android:textColor="#000"
-        android:textSize="12sp" />
 
-    <TextView
-        android:id="@+id/sourcetext"
-        android:layout_width="fill_parent"
-        android:layout_height="20dip"
-        android:gravity="start|center"
-        android:text="Source Text"
-        android:textColor="#000"
-        android:textSize="12sp" />
+
 </LinearLayout>

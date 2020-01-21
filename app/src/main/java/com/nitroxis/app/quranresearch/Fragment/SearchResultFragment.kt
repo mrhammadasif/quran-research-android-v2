@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_search_result.view.*
 private const val ARG_PARAM1 = "result"
 
 
-
 class SearchResultFragment : Fragment() {
     private var ayasResult: ArrayList<Model.AyaObject>? = null
 
@@ -48,7 +47,6 @@ class SearchResultFragment : Fragment() {
 
         return myView
     }
-
 
 
     override fun onAttach(context: Context) {
