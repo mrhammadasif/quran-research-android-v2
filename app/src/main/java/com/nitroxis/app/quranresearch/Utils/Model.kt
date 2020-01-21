@@ -1,15 +1,17 @@
 package com.nitroxis.app.quranresearch.Utils
 
+import java.io.Serializable
+
 class Model {
 
     data class AyaObject (
-        val sura: SuraObject,
-        val edition: AyaEdition,
-        val meta: AyaMeta,
-        val text: String,
-        val aya: Int,
-        val id: String,
-        val sourceText: String
+        val sura: SuraObject? = null,
+        val edition: AyaEdition? = null,
+        val meta: AyaMeta? = null,
+        val text: String?= null,
+        val aya: Int ?= null,
+        val id: String? = null,
+        val sourceText: String? = null
     )
 
 
@@ -57,7 +59,7 @@ class Model {
         val origin: String? = null,
         val type: String? = null,
         val edition: String? = null
-    )
+    ):Serializable
 
     data class AyaSearchResult(
         val total:Int = 0,

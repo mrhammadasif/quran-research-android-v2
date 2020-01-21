@@ -218,6 +218,12 @@
                 android:entries="@array/languages"
                 android:spinnerMode="dropdown"
                 android:textAlignment="textStart" />
+            <Button
+                android:layout_width="match_parent"
+                android:id="@+id/filter"
+                android:layout_height="wrap_content"
+                android:text="Search"/>
+
         </LinearLayout>
     </ScrollView>
 

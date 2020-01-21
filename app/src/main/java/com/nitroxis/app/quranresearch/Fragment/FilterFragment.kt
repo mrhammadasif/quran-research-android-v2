@@ -12,6 +12,7 @@ import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.DropDownValues
 import it.sephiroth.android.library.rangeseekbar.RangeSeekBar
 import kotlinx.android.synthetic.main.fragment_filter.view.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
 
 private const val ARG_PARAM1 = "param1"
@@ -36,7 +37,7 @@ class FilterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View?     {
+    ): View? {
         val v = inflater.inflate(R.layout.fragment_filter, container, false)
 
         val Origin = DropDownValues.origin.map {
@@ -47,11 +48,11 @@ class FilterFragment : Fragment() {
         origin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         v.origin_spinner.adapter = origin_adapter
 
-        val EDition = DropDownValues.editionType.map {
+        val Edition = DropDownValues.editionType.map {
             it.second
         }
 
-        val edition_adapter = ArrayAdapter(v.context, android.R.layout.simple_spinner_item, EDition)
+        val edition_adapter = ArrayAdapter(v.context, android.R.layout.simple_spinner_item, Edition)
         edition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         v.edition_spinner.adapter = edition_adapter
 
@@ -67,8 +68,13 @@ class FilterFragment : Fragment() {
             ) {
             }
 
-            override fun onStartTrackingTouch(seekBar: RangeSeekBar) {}
-            override fun onStopTrackingTouch(seekBar: RangeSeekBar) {}
+            override fun onStartTrackingTouch(seekBar: RangeSeekBar) {
+
+            }
+
+            override fun onStopTrackingTouch(seekBar: RangeSeekBar) {
+
+            }
         })
         v.rangeSeekBarsurah.setOnRangeSeekBarChangeListener(object :
             RangeSeekBar.OnRangeSeekBarChangeListener {
@@ -83,6 +89,9 @@ class FilterFragment : Fragment() {
             override fun onStartTrackingTouch(seekBar: RangeSeekBar) {}
             override fun onStopTrackingTouch(seekBar: RangeSeekBar) {}
         })
+        v.filter.onClick {
+
+        }
 
         return v
 
