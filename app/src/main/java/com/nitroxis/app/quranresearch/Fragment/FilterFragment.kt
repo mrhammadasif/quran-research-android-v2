@@ -3,16 +3,18 @@ package com.nitroxis.app.quranresearch.Fragment
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.DropDownValues
 import it.sephiroth.android.library.rangeseekbar.RangeSeekBar
 import kotlinx.android.synthetic.main.fragment_filter.view.*
-import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.textChangedListener
+import org.jetbrains.anko.support.v4.toast
 
 
 private const val ARG_PARAM1 = "param1"
@@ -56,7 +58,7 @@ class FilterFragment : Fragment() {
         edition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         v.edition_spinner.adapter = edition_adapter
 
-
+        //val sajda = if (v.sajda_checkbox.isChecked) true else false
 
         v.rangeSeekBarayat.setOnRangeSeekBarChangeListener(object :
             RangeSeekBar.OnRangeSeekBarChangeListener {
@@ -66,6 +68,7 @@ class FilterFragment : Fragment() {
                 progressEnd: Int,
                 fromUser: Boolean
             ) {
+
             }
 
             override fun onStartTrackingTouch(seekBar: RangeSeekBar) {
@@ -76,7 +79,7 @@ class FilterFragment : Fragment() {
 
             }
         })
-        v.rangeSeekBarsurah.setOnRangeSeekBarChangeListener(object :
+        v.rangeSeekBarayat.setOnRangeSeekBarChangeListener(object :
             RangeSeekBar.OnRangeSeekBarChangeListener {
             override fun onProgressChanged(
                 seekBar: RangeSeekBar,
@@ -84,18 +87,70 @@ class FilterFragment : Fragment() {
                 progressEnd: Int,
                 fromUser: Boolean
             ) {
+
+                val ayattextend = v.ayattext2.text
+                toast(progressEnd.toString())
+                v.range_seekbar.text = seekBar.progressStart.toString() + " - " + seekBar.progressEnd
+                //  progressEnd.absoluteValue(ayattextend.toString())
+
+                if(fromUser) {
+                    v.ayattext1.setText(seekBar.progressStart.toString())
+                    v.ayattext2.setText(seekBar.progressEnd.toString())
+                }
             }
 
-            override fun onStartTrackingTouch(seekBar: RangeSeekBar) {}
-            override fun onStopTrackingTouch(seekBar: RangeSeekBar) {}
-        })
-        v.filter.onClick {
+            override fun onStartTrackingTouch(seekBar: RangeSeekBar) {
+                //toast(seekBar.progressEnd.toString())
+            }
 
+            override fun onStopTrackingTouch(seekBar: RangeSeekBar) {
+
+            }
+        })
+
+//        v.ayattext2.textChangedListener {
+//            onTextChanged { charSequence, i, i2, i3 ->
+//
+//            }
+//        }
+//        v.ayattext1.doOnTextChanged { text, start, count, after ->
+//            v.rangeSeekBarayat.setProgress(text.toString().toInt(), v.ayattext2.toString().toInt(), true)
+//        }
+        v.ayattext2.doOnTextChanged { text, start, count, after ->
+            v.rangeSeekBarayat.setProgress(v.ayattext1.toString().toIntOrNull() ?: 1, text.toString().toIntOrNull() ?: 114, true)
         }
+
+        //initializeSeekBar(v.rangeSeekBarayat, v.range_seekbar)
+        //initializeSeekBar(v.rangeSeekBarsurah, v.range_seekbar2)
 
         return v
 
     }
+
+    /*  private fun initializeSeekBar(seekbar: RangeSeekBar, textView: TextView) {
+          seekbar.setOnRangeSeekBarChangeListener(object : OnRangeSeekBarChangeListener {
+              override fun onProgressChanged(
+                  seekBar: RangeSeekBar,
+                  progressStart: Int,
+                  progressEnd: Int,
+                  fromUser: Boolean
+              ) {
+                  updateRangeText(textView, seekBar)
+              }
+
+              override fun onStartTrackingTouch(seekBar: RangeSeekBar) {
+
+              }
+
+              override fun onStopTrackingTouch(seekBar: RangeSeekBar) {}
+          })
+          updateRangeText(textView, seekbar)
+      }
+
+      private fun updateRangeText(textView: TextView, seekBar: RangeSeekBar) {
+          textView.text = seekBar.progressStart.toString() + " - " + seekBar.progressEnd
+      } */
+
 
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)
@@ -120,7 +175,6 @@ class FilterFragment : Fragment() {
     }
 
     companion object {
-
 
         @JvmStatic
         fun newInstance() =

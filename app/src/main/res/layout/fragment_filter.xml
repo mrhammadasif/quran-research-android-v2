@@ -64,13 +64,14 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <EditText
+
+                <TextView
                     android:id="@+id/ayattext1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@null"
                     android:gravity="center"
+                    android:maxLines="1"
                     android:hint="1"
                     android:textColor="@color/black"
                     android:textSize="15sp"
@@ -81,9 +82,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@null"
                     android:gravity="center"
                     android:hint="100"
+                    android:maxLines="1"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="normal" />
@@ -141,8 +142,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@null"
                     android:gravity="center"
+                    android:maxLines="1"
                     android:hint="1"
                     android:textColor="@color/black"
                     android:textSize="15sp"
@@ -153,9 +154,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@null"
                     android:gravity="center"
                     android:hint="100"
+                    android:maxLines="1"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="normal" />
@@ -176,7 +177,6 @@
                 android:layout_height="35dp"
                 android:layout_marginTop="5dp"
                 android:dropDownSelector="@color/colorPrimary"
-                android:entries="@array/languages"
                 android:spinnerMode="dropdown"
                 android:textAlignment="textStart" />
 
@@ -197,6 +197,15 @@
                     android:textSize="17sp"
                     android:textStyle="normal" />
 
+                <net.igenius.customcheckbox.CustomCheckBox
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:id="@+id/sajda_checkbox"
+                    >
+
+                </net.igenius.customcheckbox.CustomCheckBox>
+
 
             </LinearLayout>
 
@@ -215,12 +224,11 @@
                 android:layout_height="35dp"
                 android:layout_marginTop="5dp"
                 android:dropDownSelector="@color/colorPrimary"
-                android:entries="@array/languages"
                 android:spinnerMode="dropdown"
                 android:textAlignment="textStart" />
             <Button
                 android:layout_width="match_parent"
-                android:id="@+id/filter"
+                android:id="@+id/filterbtn"
                 android:layout_height="wrap_content"
                 android:text="Search"/>
 

@@ -82,11 +82,8 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
         }
         bottomBar.setActiveItem(0)
 
-
-
-
-
     }
+
 
     override fun onFragmentInteraction(uri: Uri) {
         //  searchFragment.onResult()
