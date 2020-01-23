@@ -117,6 +117,7 @@ object DropDownValues {
         "113" to "الفلق <Al-Falaq>",
         "114" to "الناس <An-Naas>"
     )
+
     val origin = arrayListOf(
         "Medinan" to "Medinan",
         "Meccan" to "Meccan"

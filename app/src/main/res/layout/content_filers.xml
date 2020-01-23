@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/filterfragment"
     android:layout_width="match_parent"
+    android:layout_margin="10dp"
     android:layout_height="match_parent"
     tools:context=".Fragment.FilterFragment">
 
@@ -223,7 +224,7 @@
                 android:textAlignment="textStart" />
 
             <Button
-                android:id="@+id/filterbtn"
+                android:id="@+id/c_filterbtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Search" />

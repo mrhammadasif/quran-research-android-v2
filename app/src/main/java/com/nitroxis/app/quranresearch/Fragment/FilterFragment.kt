@@ -7,13 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.DropDownValues
 import it.sephiroth.android.library.rangeseekbar.RangeSeekBar
 import kotlinx.android.synthetic.main.fragment_filter.view.*
-import org.jetbrains.anko.sdk27.coroutines.textChangedListener
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.toast
 
 
@@ -26,6 +25,11 @@ class FilterFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+    lateinit var ayastart: String
+    lateinit var ayaend: String
+    lateinit var surahstart: String
+    lateinit var surahend: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,98 +62,109 @@ class FilterFragment : Fragment() {
         edition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         v.edition_spinner.adapter = edition_adapter
 
-        //val sajda = if (v.sajda_checkbox.isChecked) true else false
 
-        v.rangeSeekBarayat.setOnRangeSeekBarChangeListener(object :
-            RangeSeekBar.OnRangeSeekBarChangeListener {
-            override fun onProgressChanged(
-                seekBar: RangeSeekBar,
-                progressStart: Int,
-                progressEnd: Int,
-                fromUser: Boolean
-            ) {
-
-            }
-
-            override fun onStartTrackingTouch(seekBar: RangeSeekBar) {
-
-            }
-
-            override fun onStopTrackingTouch(seekBar: RangeSeekBar) {
-
-            }
-        })
-        v.rangeSeekBarayat.setOnRangeSeekBarChangeListener(object :
-            RangeSeekBar.OnRangeSeekBarChangeListener {
-            override fun onProgressChanged(
-                seekBar: RangeSeekBar,
-                progressStart: Int,
-                progressEnd: Int,
-                fromUser: Boolean
-            ) {
-
-                val ayattextend = v.ayattext2.text
-                toast(progressEnd.toString())
-                v.range_seekbar.text = seekBar.progressStart.toString() + " - " + seekBar.progressEnd
-                //  progressEnd.absoluteValue(ayattextend.toString())
-
-                if(fromUser) {
-                    v.ayattext1.setText(seekBar.progressStart.toString())
-                    v.ayattext2.setText(seekBar.progressEnd.toString())
-                }
-            }
-
-            override fun onStartTrackingTouch(seekBar: RangeSeekBar) {
-                //toast(seekBar.progressEnd.toString())
-            }
-
-            override fun onStopTrackingTouch(seekBar: RangeSeekBar) {
-
-            }
-        })
-
-//        v.ayattext2.textChangedListener {
-//            onTextChanged { charSequence, i, i2, i3 ->
-//
-//            }
-//        }
-//        v.ayattext1.doOnTextChanged { text, start, count, after ->
-//            v.rangeSeekBarayat.setProgress(text.toString().toInt(), v.ayattext2.toString().toInt(), true)
-//        }
-        v.ayattext2.doOnTextChanged { text, start, count, after ->
-            v.rangeSeekBarayat.setProgress(v.ayattext1.toString().toIntOrNull() ?: 1, text.toString().toIntOrNull() ?: 114, true)
+        val sajda = DropDownValues.sajda.map {
+            it.second
         }
 
-        //initializeSeekBar(v.rangeSeekBarayat, v.range_seekbar)
-        //initializeSeekBar(v.rangeSeekBarsurah, v.range_seekbar2)
+        val sajda_adapter = ArrayAdapter(v.context, android.R.layout.simple_spinner_item, sajda)
+        sajda_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        v.sajda_spinner.adapter = sajda_adapter
 
+        v.rangeSeekBarsurah.setOnRangeSeekBarChangeListener(object :
+            RangeSeekBar.OnRangeSeekBarChangeListener {
+            override fun onProgressChanged(
+                seekBar: RangeSeekBar,
+                progressStart: Int,
+                progressEnd: Int,
+                fromUser: Boolean
+            ) {
+                v.range_seekbar1.text =
+                    seekBar.progressStart.toString() + " - " + seekBar.progressEnd.toString()
+                surahstart = seekBar.progressStart.toString()
+                surahend = seekBar.progressEnd.toString()
+                toast(v.range_seekbar1.toString())
+
+/*
+                if (fromUser) {
+                    v.surahtext1.setText(seekBar.progressStart.toString())
+                    v.surahtext2.setText(seekBar.progressEnd.toString())
+                } */
+
+            }
+
+            override fun onStartTrackingTouch(seekBar: RangeSeekBar) {
+
+            }
+
+            override fun onStopTrackingTouch(seekBar: RangeSeekBar) {
+
+            }
+        })
+        v.rangeSeekBarayat.setOnRangeSeekBarChangeListener(object :
+            RangeSeekBar.OnRangeSeekBarChangeListener {
+            override fun onProgressChanged(
+                seekBar: RangeSeekBar,
+                progressStart: Int,
+                progressEnd: Int,
+                fromUser: Boolean
+            ) {
+
+                v.range_seekbar.text =
+                    seekBar.progressStart.toString() + " - " + seekBar.progressEnd.toString()
+                ayastart = seekBar.progressStart.toString()
+                ayaend = seekBar.progressEnd.toString()
+
+                /*    if (fromUser) {
+                        v.ayattext1.setText(seekBar.progressStart.toString())
+                        v.ayattext2.setText(seekBar.progressEnd.toString())
+                    }*/
+            }
+
+            override fun onStartTrackingTouch(seekBar: RangeSeekBar) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: RangeSeekBar) {
+
+            }
+        })
+/*
+        v.ayattext1.doOnTextChanged { text, start, count, after ->
+            v.rangeSeekBarayat.setProgress(
+                text.toString().toIntOrNull() ?: 1,
+                v.ayattext2.toString().toIntOrNull() ?: 114,
+                true
+            )
+        }
+
+        v.ayattext2.doOnTextChanged { text, start, count, after ->
+            v.rangeSeekBarayat.setProgress(
+                v.ayattext1.toString().toIntOrNull() ?: 1,
+                text.toString().toIntOrNull() ?: 114,
+                true
+            )
+        }
+
+
+        v.surahtext2.doOnTextChanged { text, start, count, after ->
+            v.rangeSeekBarsurah.setProgress(
+                v.surahtext1.toString().toIntOrNull() ?: 1,
+                text.toString().toIntOrNull() ?: 114,
+                true
+            )
+        }*/
+
+        v.filterbtn.onClick {
+            var i = v.range_seekbar1.toString()
+            val edition = DropDownValues.editionType[v.edition_spinner.selectedItemPosition].first
+            val origin = DropDownValues.origin[v.origin_spinner.selectedItemPosition].first
+            val sajda = DropDownValues.sajda[v.sajda_spinner.selectedItemPosition].first
+            val v = v.range_seekbar.text.toString()
+
+
+        }
         return v
-
     }
-
-    /*  private fun initializeSeekBar(seekbar: RangeSeekBar, textView: TextView) {
-          seekbar.setOnRangeSeekBarChangeListener(object : OnRangeSeekBarChangeListener {
-              override fun onProgressChanged(
-                  seekBar: RangeSeekBar,
-                  progressStart: Int,
-                  progressEnd: Int,
-                  fromUser: Boolean
-              ) {
-                  updateRangeText(textView, seekBar)
-              }
-
-              override fun onStartTrackingTouch(seekBar: RangeSeekBar) {
-
-              }
-
-              override fun onStopTrackingTouch(seekBar: RangeSeekBar) {}
-          })
-          updateRangeText(textView, seekbar)
-      }
-
-      private fun updateRangeText(textView: TextView, seekBar: RangeSeekBar) {
-          textView.text = seekBar.progressStart.toString() + " - " + seekBar.progressEnd
-      } */
 
 
     fun onButtonPressed(uri: Uri) {
@@ -172,6 +187,8 @@ class FilterFragment : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(uri: Uri)
+       // fun newfilters(filtermodel: Model.AyaSearchBody)
+
     }
 
     companion object {

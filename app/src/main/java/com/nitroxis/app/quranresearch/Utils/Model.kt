@@ -37,6 +37,7 @@ class Model {
         val source: String,
         val identifier: String
     )
+
     data class SuraObject(
         val order: SuraOrder,
         val name: String,

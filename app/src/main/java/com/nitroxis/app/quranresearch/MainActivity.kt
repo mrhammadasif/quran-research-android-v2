@@ -2,14 +2,9 @@ package com.nitroxis.app.quranresearch
 
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.HandlerCompat
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.nitroxis.app.quranresearch.Adapter.SearchResultListAdapter
 import com.nitroxis.app.quranresearch.Fragment.FilterFragment
 import com.nitroxis.app.quranresearch.Fragment.HistoryFragment
 import com.nitroxis.app.quranresearch.Fragment.SearchFragment
@@ -24,7 +19,6 @@ import kotlinx.coroutines.withContext
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.okButton
-import org.jetbrains.anko.toast
 
 
 class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionListener,
@@ -89,6 +83,11 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
         //  searchFragment.onResult()
     }
 
+    override fun searchfilters(ayaSearchBody: Model.AyaSearchBody) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
     override fun onFetchNewAyats(model: Model.AyaSearchBody) {
 
         val api = ApiFactory(this@MainActivity!!.applicationContext).myApi
@@ -99,13 +98,9 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                 myDialog.show()
                 withContext(Dispatchers.IO) {
                     try {
-                        //  val parameters = Model.AyaSearchBody()
                         val r = api.search(params = model)
                         if (r.isSuccessful && r.code() == 200) {
-//                            myDialog.dismiss()
                             withContext(Dispatchers.Main) {
-                                //                                toast(r.body().toString())
-//                                toast(r.code().toString())
                                 myDialog.dismiss()
 
                                 val ayaresult = r.body()!!

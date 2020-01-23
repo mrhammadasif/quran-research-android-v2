@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
@@ -16,7 +15,7 @@ import com.skyhope.materialtagview.TagView
 import com.skyhope.materialtagview.enums.TagSeparator
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
-import org.jetbrains.anko.support.v4.indeterminateProgressDialog
+import org.jetbrains.anko.support.v4.toast
 
 
 private const val ARG_PARAM1 = "param1"
@@ -62,6 +61,7 @@ class SearchFragment : Fragment() {
 
         v.searchbtn.onClick {
 
+            toast(selected_language)
             val keywords = arrayListOf<String>()
             var selectedLanguage = ""
 
@@ -73,6 +73,7 @@ class SearchFragment : Fragment() {
                 q = keywords.toTypedArray(),
                 lang = selectedLanguage
             )
+
             listener?.onFetchNewAyats(model = parameter)
             /*     withContext(Dispatchers.IO) {
                      try {
