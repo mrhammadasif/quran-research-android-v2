@@ -32,7 +32,7 @@ internal class SearchResultListAdapter(
     }
 
     override fun getItemCount(): Int {
-        Log.d("countofayas", arrayList.size.toString())
+        Log.d("countofa" + "yas", arrayList.size.toString())
         return arrayList.size
     }
 

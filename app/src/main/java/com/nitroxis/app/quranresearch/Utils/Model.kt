@@ -1,6 +1,6 @@
 package com.nitroxis.app.quranresearch.Utils
 
-import java.io.Serializable
+
 
 class Model {
 
@@ -51,7 +51,7 @@ class Model {
 
     data class AyaSearchBody(
         val q: Array<String>,
-        val lang: String = "en",
+        val lang: String="en",
         val limit: Int = 10,
         val page: Int = 1,
         val sura: Array<String>? = null,
@@ -60,7 +60,8 @@ class Model {
         val origin: String? = null,
         val type: String? = null,
         val edition: String? = null
-    ):Serializable
+    )
+
 
     data class AyaSearchResult(
         val total:Int = 0,

@@ -16,19 +16,16 @@ import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.DropDownValues
 import com.nitroxis.app.quranresearch.Utils.Model
 import com.nitroxis.app.quranresearch.Utils.fromJson
+import com.skyhope.materialtagview.TagView
+import com.skyhope.materialtagview.enums.TagSeparator
 import it.sephiroth.android.library.rangeseekbar.RangeSeekBar
 import kotlinx.android.synthetic.main.content_filers.view.*
 import kotlinx.android.synthetic.main.content_filers.view.edition_spinner
 import kotlinx.android.synthetic.main.content_filers.view.origin_spinner
 import kotlinx.android.synthetic.main.content_filers.view.sajda_spinner
-import kotlinx.android.synthetic.main.fragment_filter.view.*
-import kotlinx.android.synthetic.main.fragment_filter.view.filterbtn
 import kotlinx.android.synthetic.main.fragment_filter.view.rangeSeekBarayat
-import kotlinx.android.synthetic.main.fragment_filter.view.rangeSeekBarsurah
 import kotlinx.android.synthetic.main.fragment_filter.view.range_seekbar
-import kotlinx.android.synthetic.main.fragment_filter.view.range_seekbar1
 import kotlinx.android.synthetic.main.fragment_search_result.view.*
-import org.jetbrains.anko.okButton
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.toast
@@ -38,14 +35,19 @@ private const val ARG_PARAM1 = "result"
 
 class SearchResultFragment : Fragment() {
     private var ayasResult: ArrayList<Model.AyaObject>? = null
-
+    private var model: Model.AyaSearchBody? = null
+    public var ayastart = 0
+    public var ayaend = 114
     private var listener: OnFragmentInteractionListener? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             val jsonRes = it.getString(ARG_PARAM1) ?: "[]"
             ayasResult = Gson().fromJson<ArrayList<Model.AyaObject>>(jsonRes)
+            model = Gson().fromJson<Model.AyaSearchBody>(it.getString("model") ?: "{}")
+
         }
     }
 
@@ -53,12 +55,13 @@ class SearchResultFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val myView = inflater.inflate(R.layout.fragment_search_result, container, false)
 
         myView.recycle_search.layoutManager = LinearLayoutManager(myView.context)
+
         myView.recycle_search.adapter =
             ayasResult?.let { SearchResultListAdapter(it, myView.context) }
+
         myView.filtermore.onClick {
             alert {
                 val alertdialog =
@@ -66,7 +69,6 @@ class SearchResultFragment : Fragment() {
                 val Origin = DropDownValues.origin.map {
                     it.second
                 }
-
                 val origin_adapter =
                     ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, Origin)
                 origin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -75,51 +77,28 @@ class SearchResultFragment : Fragment() {
                 val Edition = DropDownValues.editionType.map {
                     it.second
                 }
-
                 val edition_adapter =
                     ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, Edition)
                 edition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 alertdialog.edition_spinner.adapter = edition_adapter
 
-
                 val sajda = DropDownValues.sajda.map {
                     it.second
                 }
-                val sajdaarray = arrayListOf<String>("---Any One---", "Yes", "No")
+                val sajdaarray = arrayListOf("---Any One---", "Yes", "No")
 
                 val sajda_adapter =
                     ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, sajdaarray)
                 sajda_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 alertdialog.sajda_spinner.adapter = sajda_adapter
 
-                alertdialog.rangeSeekBarsurah.setOnRangeSeekBarChangeListener(object :
-                    RangeSeekBar.OnRangeSeekBarChangeListener {
-                    override fun onProgressChanged(
-                        seekBar: RangeSeekBar,
-                        progressStart: Int,
-                        progressEnd: Int,
-                        fromUser: Boolean
-                    ) {
-                        alertdialog.range_seekbar1.text =
-                            seekBar.progressStart.toString() + " - " + seekBar.progressEnd.toString()
+                val tagView: TagView = alertdialog.findViewById(R.id.surahtag)
+                tagView.addTagSeparator(TagSeparator.SPACE_SEPARATOR)
+                tagView.addTagLimit(5)
+                tagView.setTagList(arrayListOf("bakra"))
+                val surahkeyword = arrayListOf<String>()
+                surahkeyword.addAll(tagView.selectedTags.map { it.tagText })
 
-
-/*
-                if (fromUser) {
-                    v.surahtext1.setText(seekBar.progressStart.toString())
-                    v.surahtext2.setText(seekBar.progressEnd.toString())
-                } */
-
-                    }
-
-                    override fun onStartTrackingTouch(seekBar: RangeSeekBar) {
-
-                    }
-
-                    override fun onStopTrackingTouch(seekBar: RangeSeekBar) {
-
-                    }
-                })
                 alertdialog.rangeSeekBarayat.setOnRangeSeekBarChangeListener(object :
                     RangeSeekBar.OnRangeSeekBarChangeListener {
                     override fun onProgressChanged(
@@ -128,36 +107,44 @@ class SearchResultFragment : Fragment() {
                         progressEnd: Int,
                         fromUser: Boolean
                     ) {
-
                         alertdialog.range_seekbar.text =
                             seekBar.progressStart.toString() + " - " + seekBar.progressEnd.toString()
-
-
+                        Log.d("102838383", seekBar.progressStart.toString())
+                        ayastart = seekBar.progressStart
+                        ayaend = seekBar.progressEnd
+                        Log.d("000000", ayastart.toString())
                         /*    if (fromUser) {
                                 v.ayattext1.setText(seekBar.progressStart.toString())
                                 v.ayattext2.setText(seekBar.progressEnd.toString())
                             }*/
                     }
 
-                    override fun onStartTrackingTouch(seekBar: RangeSeekBar) {
-                    }
-
-                    override fun onStopTrackingTouch(seekBar: RangeSeekBar) {
-
-                    }
+                    override fun onStartTrackingTouch(seekBar: RangeSeekBar) {}
+                    override fun onStopTrackingTouch(seekBar: RangeSeekBar) {}
                 })
 
                 alertdialog.c_filterbtn.onClick {
-                    listener?.searchfilters(ayaSearchBody = )
+                    val Edition =
+                        DropDownValues.lang[alertdialog.edition_spinner.selectedItemPosition].first
+                    val origin =
+                        DropDownValues.origin[alertdialog.origin_spinner.selectedItemPosition].first
+                    val searchfilters = Model.AyaSearchBody(
+                        sura = surahkeyword.toTypedArray(),
+                        q = model!!.q, lang = model!!.lang,
+                        ayaFrom = ayastart,
+                        ayaTo = ayaend,
+                        type = Edition,
+                        origin = origin
+                    )
+                    toast(searchfilters.toString())
+                    listener?.searchfilters(morefilters = searchfilters)
                 }
-                okButton { it.dismiss() }
+
                 customView = alertdialog
                 isCancelable = false
 
             }.show()
-
         }
-
         return myView
     }
 
@@ -180,16 +167,17 @@ class SearchResultFragment : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(uri: Uri)
-        fun searchfilters(ayaSearchBody: Model.AyaSearchBody)
+        fun searchfilters(morefilters: Model.AyaSearchBody)
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(result: ArrayList<Model.AyaObject>) =
+        fun newInstance(result: ArrayList<Model.AyaObject>, model: Model.AyaSearchBody) =
             SearchResultFragment().apply {
                 arguments = Bundle().apply {
                     Log.d("countRecv", result.size.toString())
                     putString("result", Gson().toJson(result))
+                    putString("model", Gson().toJson(model))
                 }
             }
     }

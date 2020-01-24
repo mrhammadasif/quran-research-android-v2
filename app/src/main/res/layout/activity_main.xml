@@ -30,6 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu_bottom"
         app:sideMargins="10dp"
+        android:visibility="gone"
         app:textColor="@color/colorPrimaryDark"
         app:textSize="14sp" />
 

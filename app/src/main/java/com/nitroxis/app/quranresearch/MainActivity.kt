@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
     lateinit var filterFragment: FilterFragment
     lateinit var searchFragment: SearchFragment
     lateinit var historyFragment: HistoryFragment
+    lateinit var filtermodel:Model.AyaSearchBody
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +48,6 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.container, searchFragment)
-//                    .addToBackStack(searchFragment.toString())
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit()
             }
@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.container, historyFragment)
-//                    .addToBackStack(historyFragment.toString())
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit()
             }
@@ -64,29 +63,25 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.container, filterFragment)
-//                    .addToBackStack(filterFragment.toString())
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit()
             }
-
         }
 
         bottomBar.onItemReselected = {
             // toast("Item $it re-selected")
         }
         bottomBar.setActiveItem(0)
-
     }
-
 
     override fun onFragmentInteraction(uri: Uri) {
-        //  searchFragment.onResult()
+
     }
 
-    override fun searchfilters(ayaSearchBody: Model.AyaSearchBody) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun searchfilters(morefilters: Model.AyaSearchBody) {
+     filtermodel=morefilters
 
+    }
 
     override fun onFetchNewAyats(model: Model.AyaSearchBody) {
 
@@ -102,9 +97,8 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                         if (r.isSuccessful && r.code() == 200) {
                             withContext(Dispatchers.Main) {
                                 myDialog.dismiss()
-
                                 val ayaresult = r.body()!!
-                                val sf = SearchResultFragment.newInstance(ayaresult.ayas)
+                                val sf = SearchResultFragment.newInstance(ayaresult.ayas,filtermodel)
 
                                 supportFragmentManager
                                     .beginTransaction()
@@ -120,7 +114,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                                 Log.d("response", r.message())
 
                             }
-                            null
+
                         } else if (r.code() == 204) {
                             withContext(Dispatchers.Main) {
                                 myDialog.dismiss()
@@ -139,10 +133,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                                 "The Result for Error", r.errorBody()?.string().toString()
                             )
                             Log.d("response code ", r.code().toString())
-
-
                             throw Exception(r.errorBody()?.string())
-
                         }
                     } catch (e: Exception) {
                         myDialog.dismiss()
@@ -156,10 +147,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                             }.show()
                         }
                     }
-                }
-            }
-
+                } }
         }
     }
-
 }
