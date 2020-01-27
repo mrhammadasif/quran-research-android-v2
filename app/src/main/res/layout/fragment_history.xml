@@ -7,5 +7,4 @@
     android:background="@color/white"
     tools:context=".Fragment.HistoryFragment">
 
-    <include layout="@layout/content_search"></include>
 </FrameLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimaryDark">#76A30C</color>
     <color name="colorAccent">#D81B60</color>
     <color name="black">#070707</color>
     <color name="red">#9C0D0D</color>
@@ -9,5 +9,8 @@
     <color name="white">#F0EEF1</color>
     <color name="searchbtn">#76A30C</color>
     <color name="layoutbg">#F2F2F2</color>
-    <color name="wwhite">#FFFFFF</color>
+    <color name="ayabgwhite">#FFFFFF</color>
+    <color name="ayabg">#DEEDD0</color>
+    <color name="dialogbg">#FFFFFF</color>
+    <color name="dialogitembg">#A2A2A2</color>
 </resources>

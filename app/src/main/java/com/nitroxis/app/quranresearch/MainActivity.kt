@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
     lateinit var filterFragment: FilterFragment
     lateinit var searchFragment: SearchFragment
     lateinit var historyFragment: HistoryFragment
-    lateinit var filtermodel:Model.AyaSearchBody
+    lateinit var filtermodel: Model.AyaSearchBody
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
     }
 
     override fun searchfilters(morefilters: Model.AyaSearchBody) {
-     filtermodel=morefilters
+        filtermodel = morefilters
 
     }
 
@@ -98,7 +98,8 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                             withContext(Dispatchers.Main) {
                                 myDialog.dismiss()
                                 val ayaresult = r.body()!!
-                                val sf = SearchResultFragment.newInstance(ayaresult.ayas,filtermodel)
+                                val sf =
+                                    SearchResultFragment.newInstance(ayaresult.ayas, filtermodel)
 
                                 supportFragmentManager
                                     .beginTransaction()
@@ -147,7 +148,8 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                             }.show()
                         }
                     }
-                } }
+                }
+            }
         }
     }
 }

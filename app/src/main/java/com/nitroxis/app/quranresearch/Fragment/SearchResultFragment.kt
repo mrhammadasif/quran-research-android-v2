@@ -64,21 +64,18 @@ class SearchResultFragment : Fragment() {
 
         myView.filtermore.onClick {
             alert {
-                val alertdialog =
-                    LayoutInflater.from(context).inflate(R.layout.content_filers, null, false)
+                val alertdialog = LayoutInflater.from(context).inflate(R.layout.content_filers, null, false)
                 val Origin = DropDownValues.origin.map {
                     it.second
                 }
-                val origin_adapter =
-                    ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, Origin)
+                val origin_adapter = ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, Origin)
                 origin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 alertdialog.origin_spinner.adapter = origin_adapter
 
                 val Edition = DropDownValues.editionType.map {
                     it.second
                 }
-                val edition_adapter =
-                    ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, Edition)
+                val edition_adapter = ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, Edition)
                 edition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 alertdialog.edition_spinner.adapter = edition_adapter
 
@@ -99,7 +96,7 @@ class SearchResultFragment : Fragment() {
                 val surahkeyword = arrayListOf<String>()
                 surahkeyword.addAll(tagView.selectedTags.map { it.tagText })
 
-                alertdialog.rangeSeekBarayat.setOnRangeSeekBarChangeListener(object :
+                alertdialog.rangebarayat.setOnRangeSeekBarChangeListener(object :
                     RangeSeekBar.OnRangeSeekBarChangeListener {
                     override fun onProgressChanged(
                         seekBar: RangeSeekBar,

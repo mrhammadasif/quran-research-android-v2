@@ -13,6 +13,7 @@ import com.nitroxis.app.quranresearch.Utils.DropDownValues
 import com.nitroxis.app.quranresearch.Utils.Model
 import com.skyhope.materialtagview.TagView
 import com.skyhope.materialtagview.enums.TagSeparator
+import kotlinx.android.synthetic.main.content_search.view.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.toast
@@ -45,9 +46,10 @@ class SearchFragment : Fragment() {
         val tagView: TagView = v.findViewById(R.id.text_view_show_more)
         tagView.addTagSeparator(TagSeparator.SPACE_SEPARATOR)
         tagView.addTagLimit(5)
-        tagView.setTagList(arrayListOf("cow"))
+        //tagView.setTagList(arrayListOf("cow"))
+        tagView.setTagList()
 
-        tagView.setTagBackgroundColor(R.color.colorAccent)
+        tagView.setTagTextColor(resources.getColor(R.color.black))
 
         val Language = DropDownValues.lang.map {
             it.second
@@ -56,8 +58,6 @@ class SearchFragment : Fragment() {
         val lang_adapter = ArrayAdapter(v.context, android.R.layout.simple_spinner_item, Language)
         lang_adapter.setDropDownViewResource(android.R.layout.simple_list_item_1)
         v.lang_spinner.adapter = lang_adapter
-
-
 
         v.searchbtn.onClick {
 

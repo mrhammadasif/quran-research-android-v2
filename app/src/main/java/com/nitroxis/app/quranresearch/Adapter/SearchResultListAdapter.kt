@@ -22,8 +22,7 @@ internal class SearchResultListAdapter(
         viewType: Int
     ): ViewHolder {
 
-        val v = LayoutInflater.from(context)
-            .inflate(R.layout.recycle_result_item, null, false)
+        val v = LayoutInflater.from(context).inflate(R.layout.recycle_result_item, null, false)
         return ViewHolder(v)
     }
 
@@ -39,10 +38,14 @@ internal class SearchResultListAdapter(
     internal inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(result: Model.AyaObject) {
             // itemView.findViewById<TextView>(android.R.layout.simple_expandable_list_item_1)
-          //  itemView.findViewById<TextView>(android.R.id.text1).text = result.sourceText
+            //  itemView.findViewById<TextView>(android.R.id.text1).text = result.sourceText
             //itemView.findViewById<TextView>(android.R.id.text2).text = result.text
-              itemView.sourcetext.text = result.sourceText
+            itemView.sura.text = "${result.sura?.name}" + "-" + "${result.sura?.startingFrom}"
+            itemView.aya.text = result.aya.toString()
+            itemView.edition.text = result.edition?.name
+            itemView.sourcetext.text = result.sourceText
             itemView.text.text = result.text
+
         }
     }
 }
