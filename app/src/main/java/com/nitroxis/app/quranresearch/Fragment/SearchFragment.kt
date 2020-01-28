@@ -14,7 +14,6 @@ import com.nitroxis.app.quranresearch.Utils.Model
 import com.skyhope.materialtagview.TagView
 import com.skyhope.materialtagview.enums.TagSeparator
 import kotlinx.android.synthetic.main.content_search.view.*
-import kotlinx.android.synthetic.main.fragment_search.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.toast
 
