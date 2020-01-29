@@ -12,7 +12,7 @@
     <LinearLayout
         android:id="@+id/cardView"
         android:layout_width="fill_parent"
-        android:layout_height="200dp"
+        android:layout_height="220dp"
         android:background="@drawable/cardshape"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/nestedScrollView"
@@ -58,10 +58,10 @@
                 android:visibility="visible" />
 
             <LinearLayout
+                android:id="@+id/inputlayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:id="@+id/inputlayout"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
@@ -80,8 +80,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/ayabgwhite"
-                        >
+                        app:cardBackgroundColor="@color/ayabgwhite">
 
                         <LinearLayout
                             android:layout_width="fill_parent"
@@ -128,8 +127,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/ayabgwhite"
-                        >
+                        app:cardBackgroundColor="@color/ayabgwhite">
 
                         <LinearLayout
                             android:layout_width="fill_parent"
@@ -199,26 +197,31 @@
                 </LinearLayout>
 
 
-
-
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/inforelative"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/inputlayout"
-                android:id="@+id/inforelative"
-                >
+                android:layout_below="@+id/inputlayout">
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/imagee"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:orientation="horizontal"
-                    android:padding="3dp"
+                    android:paddingBottom="60dp"
+                    android:layout_alignParentBottom="true"
                     android:weightSum="2"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    >
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -244,25 +247,15 @@
                         android:textStyle="bold" />
 
                 </LinearLayout>
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/ayabgwhite"
+                    android:padding="5dp"
+                    android:src="@drawable/nitroxis" />
             </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/imagee"
-                android:layout_gravity="bottom"
-                >
-
-
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="fill_parent"
-                        android:layout_height="50dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/ayabgwhite"
-                        android:padding="5dp"
-                        android:src="@drawable/nitroxis" />
-                </RelativeLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

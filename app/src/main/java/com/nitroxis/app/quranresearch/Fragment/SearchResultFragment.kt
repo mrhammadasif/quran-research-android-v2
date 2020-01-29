@@ -43,7 +43,7 @@ class SearchResultFragment : Fragment() {
         arguments?.let {
             val jsonRes = it.getString(ARG_PARAM1) ?: "[]"
             ayasResult = Gson().fromJson<ArrayList<Model.AyaObject>>(jsonRes)
-             model = Gson().fromJson<Model.AyaSearchBody>(it.getString("model") ?: "{}")
+            model = Gson().fromJson<Model.AyaSearchBody>(it.getString("model") ?: "{}")
         }
     }
 
@@ -58,6 +58,8 @@ class SearchResultFragment : Fragment() {
         myView.recycle_search1.adapter =
             ayasResult?.let { SearchResultListAdapter(it, myView.context) }
 
+        model?.q
+        model?.lang
         val mBottomSheetDialog = BottomSheetDialog(activity!!)
         val sheetView: View = activity!!.layoutInflater.inflate(R.layout.content_filers, null)
         mBottomSheetDialog.setContentView(sheetView)
@@ -75,7 +77,8 @@ class SearchResultFragment : Fragment() {
             val Edition = DropDownValues.editionType.map {
                 it.second
             }
-            val edition_adapter = ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, Edition)
+            val edition_adapter =
+                ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, Edition)
             edition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             mBottomSheetDialog.edition_spinner.adapter = edition_adapter
 
@@ -264,11 +267,12 @@ class SearchResultFragment : Fragment() {
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(uri: Uri)
         fun searchfilters(morefilters: Model.AyaSearchBody)
+
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(result: ArrayList<Model.AyaObject>,model: Model.AyaSearchBody) =
+        fun newInstance(result: ArrayList<Model.AyaObject>, model: Model.AyaSearchBody) =
             SearchResultFragment().apply {
                 arguments = Bundle().apply {
 
