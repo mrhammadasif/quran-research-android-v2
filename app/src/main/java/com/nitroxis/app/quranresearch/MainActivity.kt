@@ -99,8 +99,8 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                                 myDialog.dismiss()
                                 val ayaresult = r.body()!!
                                 val sf =
-                                    SearchResultFragment.newInstance(ayaresult.ayas)
-//, filtermodel
+                                    SearchResultFragment.newInstance(ayaresult.ayas, filtermodel)
+
                                 supportFragmentManager
                                     .beginTransaction()
                                     .replace(R.id.container, sf)

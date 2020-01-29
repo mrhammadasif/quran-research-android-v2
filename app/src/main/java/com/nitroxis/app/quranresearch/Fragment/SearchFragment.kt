@@ -147,9 +147,6 @@ class SearchFragment : Fragment() {
 
     }
 
-    fun onResult(ayatsResult: ArrayList<Model.AyaObject>) {
-
-    }
 
 
     override fun onAttach(context: Context) {

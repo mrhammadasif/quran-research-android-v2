@@ -3,25 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/filterfragment"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/ayabg"
     app:cardCornerRadius="10dp"
     tools:context=".Fragment.FilterFragment">
 
     <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:orientation="vertical"
             android:padding="5dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="20dp"
@@ -30,19 +30,19 @@
                 android:padding="2dp">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="@color/ayabgwhite"
                     app:cardCornerRadius="5dp">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="10dp">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Keyword"
@@ -51,14 +51,14 @@
                             android:textStyle="normal" />
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="1dp"
                             android:orientation="horizontal">
 
                             <com.skyhope.materialtagview.TagView
                                 android:id="@+id/text_view_show_more"
-                                android:layout_width="match_parent"
+                                android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 app:tag_separator="HASH_SEPARATOR" />
 
@@ -68,7 +68,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/border"
@@ -76,19 +76,19 @@
                 android:padding="2dp">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="@color/ayabgwhite"
-                    app:cardCornerRadius="5dp">
+                    >
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="10dp">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Language"
@@ -97,7 +97,7 @@
                             android:textStyle="normal" />
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="35dp"
                             android:layout_marginTop="1dp"
                             android:orientation="horizontal">
@@ -118,7 +118,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/border"
@@ -126,19 +126,19 @@
                 android:padding="2dp">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="@color/ayabgwhite"
                     app:cardCornerRadius="5dp">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="10dp">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Edition"
@@ -147,7 +147,7 @@
                             android:textStyle="normal" />
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="35dp"
                             android:layout_marginTop="1dp"
                             android:orientation="horizontal">
@@ -168,7 +168,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/border"
@@ -176,19 +176,19 @@
                 android:padding="2dp">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="@color/ayabgwhite"
-                    app:cardCornerRadius="5dp">
+                    >
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="10dp">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Sajda"
@@ -197,7 +197,7 @@
                             android:textStyle="normal" />
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="35dp"
                             android:layout_marginTop="1dp"
                             android:orientation="horizontal">
@@ -218,7 +218,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/border"
@@ -226,19 +226,19 @@
                 android:padding="2dp">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="@color/ayabgwhite"
                     app:cardCornerRadius="5dp">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="10dp">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Origin"
@@ -247,7 +247,7 @@
                             android:textStyle="normal" />
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="35dp"
                             android:layout_marginTop="1dp"
                             android:orientation="horizontal">
@@ -266,7 +266,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/border"
@@ -274,19 +274,19 @@
                 android:padding="2dp">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="@color/ayabgwhite"
                     app:cardCornerRadius="5dp">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="10dp">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Surah"
@@ -295,14 +295,14 @@
                             android:textStyle="normal" />
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="1dp"
                             android:orientation="horizontal">
 
                             <com.skyhope.materialtagview.TagView
                                 android:id="@+id/surahtag"
-                                android:layout_width="match_parent"
+                                android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 app:tag_background_color="@color/ayabg"
                                 app:tag_separator="HASH_SEPARATOR"
@@ -317,7 +317,7 @@
 
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/border"
@@ -325,25 +325,25 @@
                 android:padding="2dp">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="@color/ayabgwhite"
                     app:cardCornerRadius="5dp">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="10dp">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:weightSum="2">
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Ayat Range"
@@ -353,7 +353,7 @@
 
                             <TextView
                                 android:id="@+id/range_seekbar"
-                                android:layout_width="match_parent"
+                                android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="right"
@@ -367,7 +367,7 @@
                         <it.sephiroth.android.library.rangeseekbar.RangeSeekBar
                             android:id="@+id/rangebarayat"
                             style="@style/Base.Sephiroth.Widget.RangeSeekBar"
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:max="114"
@@ -379,7 +379,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="3">

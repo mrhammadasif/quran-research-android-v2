@@ -21,10 +21,8 @@ import com.skyhope.materialtagview.TagView
 import com.skyhope.materialtagview.enums.TagSeparator
 import it.sephiroth.android.library.rangeseekbar.RangeSeekBar
 import kotlinx.android.synthetic.main.content_filers.*
-import kotlinx.android.synthetic.main.content_filers.view.*
 import kotlinx.android.synthetic.main.fragment_search_result.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
-import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.toast
 import kotlinx.android.synthetic.main.fragment_search_result.view.recycle_search as recycle_search1
 
@@ -45,8 +43,7 @@ class SearchResultFragment : Fragment() {
         arguments?.let {
             val jsonRes = it.getString(ARG_PARAM1) ?: "[]"
             ayasResult = Gson().fromJson<ArrayList<Model.AyaObject>>(jsonRes)
-            // model = Gson().fromJson<Model.AyaSearchBody>(it.getString("model") ?: "{}")
-
+             model = Gson().fromJson<Model.AyaSearchBody>(it.getString("model") ?: "{}")
         }
     }
 
@@ -271,13 +268,13 @@ class SearchResultFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(result: ArrayList<Model.AyaObject>) =
+        fun newInstance(result: ArrayList<Model.AyaObject>,model: Model.AyaSearchBody) =
             SearchResultFragment().apply {
                 arguments = Bundle().apply {
-                    //, model: Model.AyaSearchBody
+
                     Log.d("countRecv", result.size.toString())
                     putString("result", Gson().toJson(result))
-                    //putString("model", Gson().toJson(model))
+                    putString("model", Gson().toJson(model))
                 }
             }
     }

@@ -1,45 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/searchfragment"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     android:background="@color/ayabg"
     tools:context=".Fragment.SearchFragment">
+
+
+    <LinearLayout
+        android:id="@+id/cardView"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/cardshape"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/nestedScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="fill_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/applogo" />
+    </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="fill_parent"
-        android:layout_height="617dp"
+        android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@id/disclaimer"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/cardView">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
-                android:layout_width="fill_parent"
-                android:layout_height="250dp"
-                android:visibility="visible"
-                app:cardBackgroundColor="@color/ayabgwhite"
-                app:cardCornerRadius="25dp"
-                app:cardPreventCornerOverlap="true">
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="fill_parent"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/applogo" />
-            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/textView"
@@ -58,6 +61,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:id="@+id/inputlayout"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
@@ -66,7 +70,7 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/border"
@@ -74,19 +78,19 @@
                     android:padding="2dp">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         app:cardBackgroundColor="@color/ayabgwhite"
-                        app:cardCornerRadius="5dp">
+                        >
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:padding="10dp">
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Keyword"
@@ -95,14 +99,14 @@
                                 android:textStyle="normal" />
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="1dp"
                                 android:orientation="horizontal">
 
                                 <com.skyhope.materialtagview.TagView
                                     android:id="@+id/text_view_show_more"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     app:tag_background_color="@color/ayabg"
                                     app:tag_separator="HASH_SEPARATOR"
@@ -114,7 +118,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/border"
@@ -122,19 +126,19 @@
                     android:padding="2dp">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         app:cardBackgroundColor="@color/ayabgwhite"
-                        app:cardCornerRadius="5dp">
+                        >
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:padding="10dp">
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Language"
@@ -143,7 +147,7 @@
                                 android:textStyle="normal" />
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="fill_parent"
                                 android:layout_height="35dp"
                                 android:layout_marginTop="1dp"
                                 android:orientation="horizontal">
@@ -166,7 +170,7 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="2"
@@ -174,7 +178,7 @@
                     >
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
 
@@ -194,64 +198,74 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
+
+
+
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/inputlayout"
+                android:id="@+id/inforelative"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal"
+                    android:padding="3dp"
+                    android:weightSum="2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="Disclaimer    "
+                        android:textAllCaps="true"
+                        android:textColor="@color/red"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="Privacy policy"
+                        android:textAllCaps="true"
+                        android:textColor="@color/red"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imagee"
+                android:layout_gravity="bottom"
+                >
+
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/ayabgwhite"
+                        android:padding="5dp"
+                        android:src="@drawable/nitroxis" />
+                </RelativeLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/ayabgwhite"
-            android:padding="10dp"
-            android:src="@drawable/nitroxis" />
-
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/disclaimer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="3dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintTop_toBottomOf="@id/nestedScrollView"
-        android:weightSum="2">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="Disclaimer    "
-            android:textAllCaps="true"
-            android:textColor="@color/red"
-            android:textSize="12dp"
-            android:textStyle="bold" />
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:text="Privacy policy"
-            android:textAllCaps="true"
-            android:textColor="@color/red"
-            android:textSize="12dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
