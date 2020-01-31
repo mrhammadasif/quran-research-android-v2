@@ -28,12 +28,14 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
     lateinit var filterFragment: FilterFragment
     lateinit var searchFragment: SearchFragment
     lateinit var historyFragment: HistoryFragment
-    lateinit var filtermodel: Model.AyaSearchBody
+    var filtermodel: Model.AyaSearchBody = Model.AyaSearchBody(q = arrayOf(""))
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
         historyFragment = HistoryFragment.newInstance()
         searchFragment = SearchFragment.newInstance()
         filterFragment = FilterFragment.newInstance()
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
             .replace(R.id.container, searchFragment)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
+
         bottomBar.onItemSelected = {
 
             if (it == 0) {
@@ -67,7 +70,6 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                     .commit()
             }
         }
-
         bottomBar.onItemReselected = {
             // toast("Item $it re-selected")
         }
@@ -149,6 +151,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                     }
                 }
             }
+
         }
     }
 }

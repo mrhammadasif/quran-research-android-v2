@@ -187,7 +187,7 @@ class FilterFragment : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(uri: Uri)
-       // fun newfilters(filtermodel: Model.AyaSearchBody)
+        // fun newfilters(filtermodel: Model.AyaSearchBody)
 
     }
 

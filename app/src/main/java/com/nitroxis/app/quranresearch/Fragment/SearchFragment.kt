@@ -13,7 +13,8 @@ import com.nitroxis.app.quranresearch.Utils.DropDownValues
 import com.nitroxis.app.quranresearch.Utils.Model
 import com.skyhope.materialtagview.TagView
 import com.skyhope.materialtagview.enums.TagSeparator
-import kotlinx.android.synthetic.main.content_search.view.*
+import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.fragment_search.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.toast
 
@@ -103,7 +104,7 @@ class SearchFragment : Fragment() {
                          } else {
                              dialog.dismiss()
                              Log.d(
-                                 "The Result for Error",
+                                  "The Result for Error",
                                  r.errorBody()?.string().toString()
                              )
                              Log.d("response code ", r.code().toString())
@@ -145,7 +146,6 @@ class SearchFragment : Fragment() {
         return v
 
     }
-
 
 
     override fun onAttach(context: Context) {

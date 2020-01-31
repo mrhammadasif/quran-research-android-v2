@@ -58,14 +58,17 @@ class SearchResultFragment : Fragment() {
         myView.recycle_search1.adapter =
             ayasResult?.let { SearchResultListAdapter(it, myView.context) }
 
-        model?.q
-        model?.lang
+        val m = model?.q
+        val r = model?.lang
         val mBottomSheetDialog = BottomSheetDialog(activity!!)
         val sheetView: View = activity!!.layoutInflater.inflate(R.layout.content_filers, null)
         mBottomSheetDialog.setContentView(sheetView)
         myView.filtermore.onClick {
 
+
             mBottomSheetDialog.show()
+            toast("keyword" + "{${m.toString()}}")
+            toast("Languages" + "{${r.toString()}}")
             val Origin = DropDownValues.origin.map {
                 it.second
             }
@@ -77,7 +80,8 @@ class SearchResultFragment : Fragment() {
             val Edition = DropDownValues.editionType.map {
                 it.second
             }
-            val edition_adapter = ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, Edition)
+            val edition_adapter =
+                ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, Edition)
             edition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             mBottomSheetDialog.edition_spinner.adapter = edition_adapter
 
@@ -104,7 +108,7 @@ class SearchResultFragment : Fragment() {
             val tagView: TagView = sheetView.findViewById(R.id.surahtag)
             tagView.addTagSeparator(TagSeparator.SPACE_SEPARATOR)
             tagView.addTagLimit(5)
-            // tagView.setTagList(arrayListOf("bakra"))
+             tagView.setTagList(arrayListOf("bakra"))
             val surahkeyword = arrayListOf<String>()
             surahkeyword.addAll(tagView.selectedTags.map { it.tagText })
 
@@ -135,14 +139,15 @@ class SearchResultFragment : Fragment() {
                 mBottomSheetDialog.dismiss()
             }
             mBottomSheetDialog.c_filterbtn.onClick {
-                mBottomSheetDialog.dismiss()
+
                 val Edition =
                     DropDownValues.lang[mBottomSheetDialog.edition_spinner.selectedItemPosition].first
                 val origin =
                     DropDownValues.origin[mBottomSheetDialog.origin_spinner.selectedItemPosition].first
                 val searchfilters = Model.AyaSearchBody(
                     sura = surahkeyword.toTypedArray(),
-                    q = model!!.q, lang = model!!.lang,
+                    q = model!!.q,
+                    lang = model!!.lang,
                     ayaFrom = ayastart,
                     ayaTo = ayaend,
                     type = Edition,
@@ -151,98 +156,8 @@ class SearchResultFragment : Fragment() {
                 toast(searchfilters.toString())
                 listener?.searchfilters(morefilters = searchfilters)
             }
-
         }
 
-        /* myView.filtermore.onClick {
-             alert {
-                 val alertdialog = LayoutInflater.from(context).inflate(R.layout.content_filers, null, false)
-                 val Origin = DropDownValues.origin.map {
-                     it.second
-                 }
-                 val origin_adapter = ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, Origin)
-                 origin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                 alertdialog.origin_spinner.adapter = origin_adapter
-
-                 val Edition = DropDownValues.editionType.map {
-                     it.second
-                 }
-                 val edition_adapter = ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, Edition)
-                 edition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                 alertdialog.edition_spinner.adapter = edition_adapter
-
-                 val sajda = DropDownValues.sajda.map {
-                     it.second
-                 }
-                 val sajdaarray = arrayListOf("---Any One---", "Yes", "No")
-
-                 val sajda_adapter =
-                     ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, sajdaarray)
-                 sajda_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                 alertdialog.sajda_spinner.adapter = sajda_adapter
-
-                 val Language = DropDownValues.lang.map {
-                     it.second
-                 }
-
-                 val lang_adapter = ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, Language)
-                 lang_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                 alertdialog.lang_spinner.adapter = lang_adapter
-
-
-                 val tagView: TagView = alertdialog.findViewById(R.id.surahtag)
-                 tagView.addTagSeparator(TagSeparator.SPACE_SEPARATOR)
-                 tagView.addTagLimit(5)
-                // tagView.setTagList(arrayListOf("bakra"))
-                 val surahkeyword = arrayListOf<String>()
-                 surahkeyword.addAll(tagView.selectedTags.map { it.tagText })
-
-                 alertdialog.rangebarayat.setOnRangeSeekBarChangeListener(object :
-                     RangeSeekBar.OnRangeSeekBarChangeListener {
-                     override fun onProgressChanged(
-                         seekBar: RangeSeekBar,
-                         progressStart: Int,
-                         progressEnd: Int,
-                         fromUser: Boolean
-                     ) {
-                         alertdialog.range_seekbar.text =
-                             seekBar.progressStart.toString() + " - " + seekBar.progressEnd.toString()
-                         Log.d("102838383", seekBar.progressStart.toString())
-                         ayastart = seekBar.progressStart
-                         ayaend = seekBar.progressEnd
-                         Log.d("000000", ayastart.toString())
-                         /*    if (fromUser) {
-                                 v.ayattext1.setText(seekBar.progressStart.toString())
-                                 v.ayattext2.setText(seekBar.progressEnd.toString())
-                             }*/
-                     }
-
-                     override fun onStartTrackingTouch(seekBar: RangeSeekBar) {}
-                     override fun onStopTrackingTouch(seekBar: RangeSeekBar) {}
-                 })
-
-                 alertdialog.c_filterbtn.onClick {
-                     val Edition =
-                         DropDownValues.lang[alertdialog.edition_spinner.selectedItemPosition].first
-                     val origin =
-                         DropDownValues.origin[alertdialog.origin_spinner.selectedItemPosition].first
-                     val searchfilters = Model.AyaSearchBody(
-                         sura = surahkeyword.toTypedArray(),
-                         q = model!!.q, lang = model!!.lang,
-                         ayaFrom = ayastart,
-                         ayaTo = ayaend,
-                         type = Edition,
-                         origin = origin
-                     )
-                     toast(searchfilters.toString())
-                     listener?.searchfilters(morefilters = searchfilters)
-                 }
-
-                 customView = alertdialog
-                 isCancelable = false
-
-             }.show()
-         } */
         return myView
     }
 
@@ -259,7 +174,6 @@ class SearchResultFragment : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
-        listener = null
     }
 
 
@@ -271,13 +185,13 @@ class SearchResultFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(result: ArrayList<Model.AyaObject>,model: Model.AyaSearchBody) =
+        fun newInstance(result: ArrayList<Model.AyaObject>,  model: Model.AyaSearchBody) =
             SearchResultFragment().apply {
                 arguments = Bundle().apply {
-
                     Log.d("countRecv", result.size.toString())
                     putString("result", Gson().toJson(result))
                     putString("model", Gson().toJson(model))
+
                 }
             }
     }
