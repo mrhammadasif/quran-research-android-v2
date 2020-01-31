@@ -61,7 +61,7 @@ class SearchFragment : Fragment() {
 
         v.searchbtn.onClick {
 
-            toast(selected_language)
+            //            toast(selected_language)
             val keywords = arrayListOf<String>()
             var selectedLanguage = ""
 
@@ -73,6 +73,8 @@ class SearchFragment : Fragment() {
                 q = keywords.toTypedArray(),
                 lang = selectedLanguage
             )
+            val v = keywords
+            toast(v.toString())
 
             listener?.onFetchNewAyats(model = parameter)
             /*     withContext(Dispatchers.IO) {

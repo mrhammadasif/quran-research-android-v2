@@ -21,10 +21,11 @@ import com.skyhope.materialtagview.TagView
 import com.skyhope.materialtagview.enums.TagSeparator
 import it.sephiroth.android.library.rangeseekbar.RangeSeekBar
 import kotlinx.android.synthetic.main.content_filers.*
+import kotlinx.android.synthetic.main.fragment_search_result.*
 import kotlinx.android.synthetic.main.fragment_search_result.view.*
+import kotlinx.android.synthetic.main.fragment_search_result.view.recycle_search
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.toast
-import kotlinx.android.synthetic.main.fragment_search_result.view.recycle_search as recycle_search1
 
 
 private const val ARG_PARAM1 = "result"
@@ -43,7 +44,7 @@ class SearchResultFragment : Fragment() {
         arguments?.let {
             val jsonRes = it.getString(ARG_PARAM1) ?: "[]"
             ayasResult = Gson().fromJson<ArrayList<Model.AyaObject>>(jsonRes)
-             model = Gson().fromJson<Model.AyaSearchBody>(it.getString("model") ?: "{}")
+            model = Gson().fromJson<Model.AyaSearchBody>(it.getString("model") ?: "{}")
         }
     }
 
@@ -51,29 +52,39 @@ class SearchResultFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val myView = inflater.inflate(R.layout.fragment_search_result, container, false)
 
-        myView.recycle_search1.layoutManager = LinearLayoutManager(myView.context)
+        var view: View = inflater.inflate(R.layout.fragment_search_result, container, false)
+        /*    var view: View = inflater.inflate(R.layout.fragment_search_result, container, false)
+            if (view == null) {
+                view = inflater.inflate(
+                    R.layout.fragment_search_result, container, false
+                )
+            } else {
+                (view.parent as ViewGroup).removeView(view)
+            } */
+        view.recycle_search.layoutManager = LinearLayoutManager(view.context)
 
-        myView.recycle_search1.adapter =
-            ayasResult?.let { SearchResultListAdapter(it, myView.context) }
+        view.recycle_search.adapter =
+            ayasResult?.let { SearchResultListAdapter(it, view.context) }
 
         val m = model?.q
         val r = model?.lang
         val mBottomSheetDialog = BottomSheetDialog(activity!!)
         val sheetView: View = activity!!.layoutInflater.inflate(R.layout.content_filers, null)
         mBottomSheetDialog.setContentView(sheetView)
-        myView.filtermore.onClick {
+        view.filtermore.onClick {
 
 
             mBottomSheetDialog.show()
             toast("keyword" + "{${m.toString()}}")
-            toast("Languages" + "{${r.toString()}}")
+            // toast("Languages" + "{${r.toString()}}")
+            Log.d("00000111", m.toString())
+
             val Origin = DropDownValues.origin.map {
                 it.second
             }
             val origin_adapter =
-                ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, Origin)
+                ArrayAdapter(view.context, android.R.layout.simple_spinner_item, Origin)
             origin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             mBottomSheetDialog.origin_spinner.adapter = origin_adapter
 
@@ -81,7 +92,7 @@ class SearchResultFragment : Fragment() {
                 it.second
             }
             val edition_adapter =
-                ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, Edition)
+                ArrayAdapter(view.context, android.R.layout.simple_spinner_item, Edition)
             edition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             mBottomSheetDialog.edition_spinner.adapter = edition_adapter
 
@@ -91,7 +102,7 @@ class SearchResultFragment : Fragment() {
             val sajdaarray = arrayListOf("---Any One---", "Yes", "No")
 
             val sajda_adapter =
-                ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, sajdaarray)
+                ArrayAdapter(view.context, android.R.layout.simple_spinner_item, sajdaarray)
             sajda_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             mBottomSheetDialog.sajda_spinner.adapter = sajda_adapter
 
@@ -100,7 +111,7 @@ class SearchResultFragment : Fragment() {
             }
 
             val lang_adapter =
-                ArrayAdapter(myView.context, android.R.layout.simple_spinner_item, Language)
+                ArrayAdapter(view.context, android.R.layout.simple_spinner_item, Language)
             lang_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             mBottomSheetDialog.lang_spinner.adapter = lang_adapter
 
@@ -108,7 +119,7 @@ class SearchResultFragment : Fragment() {
             val tagView: TagView = sheetView.findViewById(R.id.surahtag)
             tagView.addTagSeparator(TagSeparator.SPACE_SEPARATOR)
             tagView.addTagLimit(5)
-             tagView.setTagList(arrayListOf("bakra"))
+            tagView.setTagList(arrayListOf("bakra"))
             val surahkeyword = arrayListOf<String>()
             surahkeyword.addAll(tagView.selectedTags.map { it.tagText })
 
@@ -158,7 +169,7 @@ class SearchResultFragment : Fragment() {
             }
         }
 
-        return myView
+        return view
     }
 
 
@@ -185,7 +196,7 @@ class SearchResultFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(result: ArrayList<Model.AyaObject>,  model: Model.AyaSearchBody) =
+        fun newInstance(result: ArrayList<Model.AyaObject>, model: Model.AyaSearchBody) =
             SearchResultFragment().apply {
                 arguments = Bundle().apply {
                     Log.d("countRecv", result.size.toString())
