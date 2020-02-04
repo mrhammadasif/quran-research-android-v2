@@ -1,7 +1,6 @@
 package com.nitroxis.app.quranresearch.Fragment
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,14 +16,13 @@ import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.DropDownValues
 import com.nitroxis.app.quranresearch.Utils.Model
 import com.nitroxis.app.quranresearch.Utils.fromJson
-import com.skyhope.materialtagview.TagView
-import com.skyhope.materialtagview.enums.TagSeparator
 import it.sephiroth.android.library.rangeseekbar.RangeSeekBar
 import kotlinx.android.synthetic.main.content_filers.*
-import kotlinx.android.synthetic.main.fragment_search_result.*
+import kotlinx.android.synthetic.main.content_filers.lang_spinner
 import kotlinx.android.synthetic.main.fragment_search_result.view.*
 import kotlinx.android.synthetic.main.fragment_search_result.view.recycle_search
 import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.jetbrains.anko.support.v4.longToast
 import org.jetbrains.anko.support.v4.toast
 
 
@@ -34,8 +32,8 @@ private const val ARG_PARAM1 = "result"
 class SearchResultFragment : Fragment() {
     private var ayasResult: ArrayList<Model.AyaObject>? = null
     private var model: Model.AyaSearchBody? = null
-    public var ayastart = 0
-    public var ayaend = 114
+    var ayastart = 0
+    var ayaend = 114
     private var listener: OnFragmentInteractionListener? = null
 
 
@@ -63,12 +61,10 @@ class SearchResultFragment : Fragment() {
                 (view.parent as ViewGroup).removeView(view)
             } */
         view.recycle_search.layoutManager = LinearLayoutManager(view.context)
+        view.recycle_search.adapter = ayasResult?.let { SearchResultListAdapter(it, view.context) }
+        longToast(ayasResult.toString())
 
-        view.recycle_search.adapter =
-            ayasResult?.let { SearchResultListAdapter(it, view.context) }
 
-        val m = model?.q
-        val r = model?.lang
         val mBottomSheetDialog = BottomSheetDialog(activity!!)
         val sheetView: View = activity!!.layoutInflater.inflate(R.layout.content_filers, null)
         mBottomSheetDialog.setContentView(sheetView)
@@ -76,10 +72,6 @@ class SearchResultFragment : Fragment() {
 
 
             mBottomSheetDialog.show()
-            toast("keyword" + "{${m.toString()}}")
-            // toast("Languages" + "{${r.toString()}}")
-            Log.d("00000111", m.toString())
-
             val Origin = DropDownValues.origin.map {
                 it.second
             }
@@ -115,14 +107,6 @@ class SearchResultFragment : Fragment() {
             lang_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             mBottomSheetDialog.lang_spinner.adapter = lang_adapter
 
-
-            val tagView: TagView = sheetView.findViewById(R.id.surahtag)
-            tagView.addTagSeparator(TagSeparator.SPACE_SEPARATOR)
-            tagView.addTagLimit(5)
-            tagView.setTagList(arrayListOf("bakra"))
-            val surahkeyword = arrayListOf<String>()
-            surahkeyword.addAll(tagView.selectedTags.map { it.tagText })
-
             mBottomSheetDialog.rangebarayat.setOnRangeSeekBarChangeListener(object :
                 RangeSeekBar.OnRangeSeekBarChangeListener {
                 override fun onProgressChanged(
@@ -133,10 +117,8 @@ class SearchResultFragment : Fragment() {
                 ) {
                     mBottomSheetDialog.range_seekbar.text =
                         seekBar.progressStart.toString() + " - " + seekBar.progressEnd.toString()
-                    Log.d("102838383", seekBar.progressStart.toString())
                     ayastart = seekBar.progressStart
                     ayaend = seekBar.progressEnd
-                    Log.d("000000", ayastart.toString())
                     /*    if (fromUser) {
                             v.ayattext1.setText(seekBar.progressStart.toString())
                             v.ayattext2.setText(seekBar.progressEnd.toString())
@@ -147,25 +129,33 @@ class SearchResultFragment : Fragment() {
                 override fun onStopTrackingTouch(seekBar: RangeSeekBar) {}
             })
             mBottomSheetDialog.cancel.onClick {
-                mBottomSheetDialog.dismiss()
+                mBottomSheetDialog.hide()
             }
-            mBottomSheetDialog.c_filterbtn.onClick {
+            mBottomSheetDialog.applyfilter.onClick {
+
+                val keyword = model!!.q
+                val languageselected = model?.lang
+                val w = mBottomSheetDialog.edit_keyowrd.text.toString()
 
                 val Edition =
-                    DropDownValues.lang[mBottomSheetDialog.edition_spinner.selectedItemPosition].first
+                    DropDownValues.editionType[mBottomSheetDialog.edition_spinner.selectedItemPosition].first
                 val origin =
                     DropDownValues.origin[mBottomSheetDialog.origin_spinner.selectedItemPosition].first
-                val searchfilters = Model.AyaSearchBody(
-                    sura = surahkeyword.toTypedArray(),
-                    q = model!!.q,
-                    lang = model!!.lang,
-                    ayaFrom = ayastart,
-                    ayaTo = ayaend,
-                    type = Edition,
-                    origin = origin
-                )
-                toast(searchfilters.toString())
-                listener?.searchfilters(morefilters = searchfilters)
+                val lang =
+                    DropDownValues.lang[mBottomSheetDialog.lang_spinner.selectedItemPosition].first
+
+                val searchfilters =
+                    Model.AyaSearchBody(
+                        q = keyword,
+                        lang = lang
+                    )
+
+                model = searchfilters
+                model?.let { it1 -> listener?.onFetchNewAyats(it1) }
+                mBottomSheetDialog.dismiss()
+
+
+
             }
         }
 
@@ -189,8 +179,7 @@ class SearchResultFragment : Fragment() {
 
 
     interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(uri: Uri)
-        fun searchfilters(morefilters: Model.AyaSearchBody)
+        fun onFetchNewAyats(model: Model.AyaSearchBody)
 
     }
 
@@ -202,7 +191,6 @@ class SearchResultFragment : Fragment() {
                     Log.d("countRecv", result.size.toString())
                     putString("result", Gson().toJson(result))
                     putString("model", Gson().toJson(model))
-
                 }
             }
     }

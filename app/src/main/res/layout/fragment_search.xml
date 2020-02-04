@@ -110,9 +110,17 @@
                                     android:id="@+id/text_view_show_more"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
+                                    android:visibility="gone"
                                     app:tag_background_color="@color/ayabg"
                                     app:tag_separator="HASH_SEPARATOR"
                                     app:tag_text_color="@color/black" />
+                                <EditText
+                                    android:id="@+id/keyword_search"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@null"
+                                    android:hint="Enter Keyword"
+                                    android:visibility="visible" />
 
                             </LinearLayout>
                         </LinearLayout>

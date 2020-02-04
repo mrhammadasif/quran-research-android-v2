@@ -2,11 +2,14 @@ package com.nitroxis.app.quranresearch.Fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.DropDownValues
@@ -43,13 +46,15 @@ class SearchFragment : Fragment() {
     ): View? {
         val v = inflater.inflate(R.layout.fragment_search, container, false)
 
-        val tagView: TagView = v.findViewById(R.id.text_view_show_more)
+       /* val tagView: TagView = v.findViewById(R.id.text_view_show_more)
         tagView.addTagSeparator(TagSeparator.SPACE_SEPARATOR)
         tagView.addTagLimit(5)
         //tagView.setTagList(arrayListOf("cow"))
         tagView.setTagList()
 
         tagView.setTagTextColor(resources.getColor(R.color.black))
+        */
+        val word=v.keyword_search.toString()
 
         val Language = DropDownValues.lang.map {
             it.second
@@ -60,75 +65,22 @@ class SearchFragment : Fragment() {
         v.lang_spinner.adapter = lang_adapter
 
         v.searchbtn.onClick {
-
-            //            toast(selected_language)
-            val keywords = arrayListOf<String>()
             var selectedLanguage = ""
-
-            keywords.addAll(tagView.selectedTags.map { it.tagText })
+/*
+            val keywords = arrayListOf<String>()
+            var i=keywords.addAll(tagView.selectedTags.map { it.tagText })
+             q = keywords.toTypedArray(),
+ */        val word=v.keyword_search.text.toString()
+                toast(word)
             selectedLanguage = DropDownValues.lang[v.lang_spinner.selectedItemPosition].first
-
-
             val parameter = Model.AyaSearchBody(
-                q = keywords.toTypedArray(),
+                q = word,
                 lang = selectedLanguage
             )
-            val v = keywords
-            toast(v.toString())
-
+            
             listener?.onFetchNewAyats(model = parameter)
-            /*     withContext(Dispatchers.IO) {
-                     try {
-
-
-                         val r = api.search(params = parameters)
-                         if (r.isSuccessful && r.code() == 200) {
-                             withContext(Dispatchers.Main) {
-                                 dialog.dismiss()
-                                 Log.d("response1", r.code().toString())
-                                 Log.d("keywords", keywords.toString())
-                                 toast(r.message().toString())
-                                 Log.d("response1", r.body().toString())
-                                 Log.d("response1", parameters.lang)
-                                 Log.d("response", r.message())
-                                 Log.d("error", r.message())
-                                 Log.d("response", r.message())
-                                 /*                    listener?.onFetchNewAyats(
-                                                         Model.AyaSearchResult(
-                                                             total = r.body()!!.total,
-                                                             limit = r.body()!!.limit,
-                                                             page = r.body()!!.page,
-                                                             pages = r.body()!!.page,
-                                                             ayas = r.body()!!.ayas
-                                                         )
-                                                     ) */
-                             }
-                         } else {
-                             dialog.dismiss()
-                             Log.d(
-                                  "The Result for Error",
-                                 r.errorBody()?.string().toString()
-                             )
-                             Log.d("response code ", r.code().toString())
-                             throw Exception(r.errorBody()?.string())
-                         }
-                     } catch (e: Exception) {
-                         dialog.dismiss()
-                         Log.d("The Result for Error", e.message)
-                         withContext(Dispatchers.Main) {
-
-                             alert(e.message.toString()) {
-                                 okButton {
-                                     it.dismiss()
-                                 }
-
-                             }.show()
-                         }
-                     }
-                 } */
 
         }
-
 
         v.lang_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -146,7 +98,6 @@ class SearchFragment : Fragment() {
         }
 
         return v
-
     }
 
 
@@ -170,6 +121,12 @@ class SearchFragment : Fragment() {
         fun onFetchNewAyats(model: Model.AyaSearchBody)
 
     }
+     fun onNetworkConnectionChanged(isConnected: Boolean) {
+        if (!isConnected){
+
+        }
+
+    }
 
     companion object {
 
@@ -180,6 +137,5 @@ class SearchFragment : Fragment() {
                 }
             }
     }
-
 
 }

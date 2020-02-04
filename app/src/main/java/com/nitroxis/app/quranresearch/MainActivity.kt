@@ -16,9 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.indeterminateProgressDialog
-import org.jetbrains.anko.okButton
+import org.jetbrains.anko.*
 
 
 class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionListener,
@@ -28,7 +26,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
     lateinit var filterFragment: FilterFragment
     lateinit var searchFragment: SearchFragment
     lateinit var historyFragment: HistoryFragment
-    var filtermodel: Model.AyaSearchBody = Model.AyaSearchBody(q = arrayOf(""))
+  //  var filtermodel: Model.AyaSearchBody = Model.AyaSearchBody(q = arrayOf(""))
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,12 +78,9 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
 
     }
 
-    override fun searchfilters(morefilters: Model.AyaSearchBody) {
-        filtermodel = morefilters
-
-    }
 
     override fun onFetchNewAyats(model: Model.AyaSearchBody) {
+
 
         val api = ApiFactory(this@MainActivity!!.applicationContext).myApi
         GlobalScope.launch {
@@ -100,15 +95,14 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                             withContext(Dispatchers.Main) {
                                 myDialog.dismiss()
                                 val ayaresult = r.body()!!
-                                val sf = SearchResultFragment.newInstance(ayaresult.ayas, filtermodel)
-
+                                val sf = SearchResultFragment.newInstance(ayaresult.ayas, model = model)
                                 supportFragmentManager
                                     .beginTransaction()
                                     .replace(R.id.container, sf)
                                     .addToBackStack(searchFragment.toString())
                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                     .commit()
-
+                                Log.d("Model of new Ayat",model.toString())
                                 Log.d("response1", r.code().toString())
                                 Log.d("response1", r.body().toString())
                                 Log.d("response", r.message())
@@ -151,7 +145,6 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                     }
                 }
             }
-
         }
     }
 }

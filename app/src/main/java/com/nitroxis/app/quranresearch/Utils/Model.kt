@@ -50,7 +50,7 @@ class Model {
     )
 
     data class AyaSearchBody(
-        val q: Array<String>,
+        val q: String = "",
         val lang: String="en",
         val limit: Int = 10,
         val page: Int = 1,

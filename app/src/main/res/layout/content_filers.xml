@@ -19,7 +19,7 @@
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toTopOf="parent">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
@@ -67,11 +67,21 @@
                                 android:orientation="horizontal">
 
                                 <com.skyhope.materialtagview.TagView
-                                    android:id="@+id/text_view_show_more"
+                                    android:id="@+id/keyword"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    app:tag_separator="HASH_SEPARATOR" />
+                                    android:visibility="gone"
+                                    app:tag_background_color="@color/ayabg"
+                                    app:tag_separator="HASH_SEPARATOR"
+                                    app:tag_text_color="@color/black" />
 
+                                <EditText
+                                    android:id="@+id/edit_keyowrd"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@null"
+                                    android:hint="Enter Keyword"
+                                    android:visibility="visible" />
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -312,9 +322,17 @@
                                     android:id="@+id/surahtag"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
+                                    android:visibility="gone"
                                     app:tag_background_color="@color/ayabg"
                                     app:tag_separator="HASH_SEPARATOR"
                                     app:tag_text_color="@color/black" />
+
+                                <EditText
+                                    android:id="@+id/edit_Surah"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@null"
+                                    android:hint="Enter Surah NAme" />
 
 
                             </LinearLayout>
@@ -399,11 +417,24 @@
                         android:layout_weight="1"
                         android:orientation="vertical" />
 
-
                     <Button
-                        android:id="@+id/c_filterbtn"
+                        android:id="@+id/cancel"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:padding="5dp"
+                        android:text="Reset"
+                        android:textColor="@color/white"
+                        android:textStyle="normal" />
+
+                    <Button
+                        android:id="@+id/applyfilter"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/button"
                         android:drawableLeft="@drawable/ic_search_black_24dp"
@@ -413,23 +444,9 @@
                         android:textColor="@color/white"
                         android:textStyle="normal" />
 
-                    <Button
-                        android:id="@+id/cancel"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/button"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:padding="5dp"
-                        android:text="Cancel"
-                        android:textColor="@color/white"
-                        android:textStyle="normal" />
                 </LinearLayout>
-
             </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
 
