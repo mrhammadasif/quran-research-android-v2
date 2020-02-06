@@ -46,22 +46,21 @@ class SearchFragment : Fragment() {
     ): View? {
         val v = inflater.inflate(R.layout.fragment_search, container, false)
 
-       /* val tagView: TagView = v.findViewById(R.id.text_view_show_more)
-        tagView.addTagSeparator(TagSeparator.SPACE_SEPARATOR)
-        tagView.addTagLimit(5)
-        //tagView.setTagList(arrayListOf("cow"))
-        tagView.setTagList()
+        /* val tagView: TagView = v.findViewById(R.id.text_view_show_more)
+         tagView.addTagSeparator(TagSeparator.SPACE_SEPARATOR)
+         tagView.addTagLimit(5)
+         //tagView.setTagList(arrayListOf("cow"))
+         tagView.setTagList()
 
-        tagView.setTagTextColor(resources.getColor(R.color.black))
-        */
-        val word=v.keyword_search.toString()
+         tagView.setTagTextColor(resources.getColor(R.color.black))
+         */
+        val word = v.keyword_search.toString()
 
         val Language = DropDownValues.lang.map {
             it.second
         }
 
-        val lang_adapter = ArrayAdapter(v.context, android.R.layout.simple_spinner_item, Language)
-        lang_adapter.setDropDownViewResource(android.R.layout.simple_list_item_1)
+        val lang_adapter = ArrayAdapter(v.context, R.layout.text, Language)
         v.lang_spinner.adapter = lang_adapter
 
         v.searchbtn.onClick {
@@ -70,14 +69,14 @@ class SearchFragment : Fragment() {
             val keywords = arrayListOf<String>()
             var i=keywords.addAll(tagView.selectedTags.map { it.tagText })
              q = keywords.toTypedArray(),
- */        val word=v.keyword_search.text.toString()
-                toast(word)
+ */
+            val word = v.keyword_search.text.toString()
             selectedLanguage = DropDownValues.lang[v.lang_spinner.selectedItemPosition].first
             val parameter = Model.AyaSearchBody(
                 q = word,
                 lang = selectedLanguage
             )
-            
+
             listener?.onFetchNewAyats(model = parameter)
 
         }
@@ -121,8 +120,9 @@ class SearchFragment : Fragment() {
         fun onFetchNewAyats(model: Model.AyaSearchBody)
 
     }
-     fun onNetworkConnectionChanged(isConnected: Boolean) {
-        if (!isConnected){
+
+    fun onNetworkConnectionChanged(isConnected: Boolean) {
+        if (!isConnected) {
 
         }
 

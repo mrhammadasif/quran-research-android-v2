@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,11 +15,13 @@ import com.google.gson.Gson
 import com.nitroxis.app.quranresearch.Adapter.SearchResultListAdapter
 import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.DropDownValues
+import com.nitroxis.app.quranresearch.Utils.DropDownValues.lang
 import com.nitroxis.app.quranresearch.Utils.Model
 import com.nitroxis.app.quranresearch.Utils.fromJson
 import it.sephiroth.android.library.rangeseekbar.RangeSeekBar
 import kotlinx.android.synthetic.main.content_filers.*
 import kotlinx.android.synthetic.main.content_filers.lang_spinner
+import kotlinx.android.synthetic.main.fragment_search.view.*
 import kotlinx.android.synthetic.main.fragment_search_result.view.*
 import kotlinx.android.synthetic.main.fragment_search_result.view.recycle_search
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -62,7 +65,6 @@ class SearchResultFragment : Fragment() {
             } */
         view.recycle_search.layoutManager = LinearLayoutManager(view.context)
         view.recycle_search.adapter = ayasResult?.let { SearchResultListAdapter(it, view.context) }
-        longToast(ayasResult.toString())
 
 
         val mBottomSheetDialog = BottomSheetDialog(activity!!)
@@ -76,16 +78,15 @@ class SearchResultFragment : Fragment() {
                 it.second
             }
             val origin_adapter =
-                ArrayAdapter(view.context, android.R.layout.simple_spinner_item, Origin)
-            origin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                ArrayAdapter(view.context, R.layout.text, Origin)
             mBottomSheetDialog.origin_spinner.adapter = origin_adapter
 
-            val Edition = DropDownValues.editionType.map {
+            val Edition = DropDownValues.edition.map {
                 it.second
             }
             val edition_adapter =
-                ArrayAdapter(view.context, android.R.layout.simple_spinner_item, Edition)
-            edition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                ArrayAdapter(view.context, R.layout.text, Edition)
+
             mBottomSheetDialog.edition_spinner.adapter = edition_adapter
 
             val sajda = DropDownValues.sajda.map {
@@ -94,17 +95,17 @@ class SearchResultFragment : Fragment() {
             val sajdaarray = arrayListOf("---Any One---", "Yes", "No")
 
             val sajda_adapter =
-                ArrayAdapter(view.context, android.R.layout.simple_spinner_item, sajdaarray)
-            sajda_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                ArrayAdapter(view.context, R.layout.text, sajdaarray)
+
             mBottomSheetDialog.sajda_spinner.adapter = sajda_adapter
 
-            val Language = DropDownValues.lang.map {
+            val Language = lang.map {
                 it.second
             }
 
+
             val lang_adapter =
-                ArrayAdapter(view.context, android.R.layout.simple_spinner_item, Language)
-            lang_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                ArrayAdapter(view.context, R.layout.text, Language)
             mBottomSheetDialog.lang_spinner.adapter = lang_adapter
 
             mBottomSheetDialog.rangebarayat.setOnRangeSeekBarChangeListener(object :
@@ -128,33 +129,33 @@ class SearchResultFragment : Fragment() {
                 override fun onStartTrackingTouch(seekBar: RangeSeekBar) {}
                 override fun onStopTrackingTouch(seekBar: RangeSeekBar) {}
             })
-            mBottomSheetDialog.cancel.onClick {
-                mBottomSheetDialog.hide()
+        val b=   mBottomSheetDialog.edit_keyowrd.text.indexOf(model!!.q)
+            toast(b.toString())
+            mBottomSheetDialog.resetfilter.onClick {
+                mBottomSheetDialog.edit_keyowrd.setText(model!!.q)
             }
             mBottomSheetDialog.applyfilter.onClick {
 
                 val keyword = model!!.q
                 val languageselected = model?.lang
-                val w = mBottomSheetDialog.edit_keyowrd.text.toString()
+
+                val enteredkeyword = mBottomSheetDialog.edit_keyowrd.text.toString()
 
                 val Edition =
-                    DropDownValues.editionType[mBottomSheetDialog.edition_spinner.selectedItemPosition].first
+                    DropDownValues.edition[mBottomSheetDialog.edition_spinner.selectedItemPosition].first
                 val origin =
                     DropDownValues.origin[mBottomSheetDialog.origin_spinner.selectedItemPosition].first
                 val lang =
                     DropDownValues.lang[mBottomSheetDialog.lang_spinner.selectedItemPosition].first
 
-                val searchfilters =
-                    Model.AyaSearchBody(
-                        q = keyword,
-                        lang = lang
-                    )
+                val searchfilters = Model.AyaSearchBody(
+                    q = enteredkeyword,
+                    lang = lang
+                )
 
                 model = searchfilters
                 model?.let { it1 -> listener?.onFetchNewAyats(it1) }
                 mBottomSheetDialog.dismiss()
-
-
 
             }
         }

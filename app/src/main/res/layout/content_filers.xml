@@ -78,9 +78,11 @@
                                 <EditText
                                     android:id="@+id/edit_keyowrd"
                                     android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="18dp"
+                                    android:layout_marginStart="5dp"
                                     android:background="@null"
                                     android:hint="Enter Keyword"
+                                    android:textSize="15dp"
                                     android:visibility="visible" />
                             </LinearLayout>
                         </LinearLayout>
@@ -103,13 +105,14 @@
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="10dp">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
                                 android:layout_weight="1"
+                                android:padding="5dp"
                                 android:text="Language"
                                 android:textColor="@color/dialogitembg"
                                 android:textSize="12sp"
@@ -153,13 +156,14 @@
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="10dp">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
                                 android:layout_weight="1"
+                                android:padding="5dp"
                                 android:text="Edition"
                                 android:textColor="@color/dialogitembg"
                                 android:textSize="12sp"
@@ -202,13 +206,14 @@
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="10dp">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
                                 android:layout_weight="1"
+                                android:padding="5dp"
                                 android:text="Sajda"
                                 android:textColor="@color/dialogitembg"
                                 android:textSize="12sp"
@@ -252,13 +257,14 @@
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="10dp">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
                                 android:layout_weight="1"
+                                android:padding="5dp"
                                 android:text="Origin"
                                 android:textColor="@color/dialogitembg"
                                 android:textSize="12sp"
@@ -275,6 +281,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="30dp"
                                     android:layout_weight="1"
+
                                     android:spinnerMode="dropdown"
                                     android:textAlignment="textEnd" />
                             </LinearLayout>
@@ -330,9 +337,11 @@
                                 <EditText
                                     android:id="@+id/edit_Surah"
                                     android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="18dp"
+                                    android:layout_marginStart="5dp"
                                     android:background="@null"
-                                    android:hint="Enter Surah NAme" />
+                                    android:hint="Enter Surah NAme"
+                                    android:textSize="15dp" />
 
 
                             </LinearLayout>
@@ -418,7 +427,7 @@
                         android:orientation="vertical" />
 
                     <Button
-                        android:id="@+id/cancel"
+                        android:id="@+id/resetfilter"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_alignParentLeft="true"

@@ -47,12 +47,11 @@
                         <TextView
                             android:id="@+id/sura"
                             android:layout_width="wrap_content"
-                            android:layout_height="25dp"
+                            android:layout_height="28dp"
                             android:fontFamily="@font/me_quran"
                             android:text="Sura"
-                            android:layout_marginBottom="5dp"
                             android:textColor="@color/black"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -94,6 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="3dp"
                     app:cardBackgroundColor="@color/ayabg"
                     app:cardCornerRadius="5dp">
 

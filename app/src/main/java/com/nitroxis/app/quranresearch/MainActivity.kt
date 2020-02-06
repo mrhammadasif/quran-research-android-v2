@@ -1,5 +1,7 @@
 package com.nitroxis.app.quranresearch
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
     lateinit var filterFragment: FilterFragment
     lateinit var searchFragment: SearchFragment
     lateinit var historyFragment: HistoryFragment
-  //  var filtermodel: Model.AyaSearchBody = Model.AyaSearchBody(q = arrayOf(""))
+    //  var filtermodel: Model.AyaSearchBody = Model.AyaSearchBody(q = arrayOf(""))
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +76,11 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
         bottomBar.setActiveItem(0)
     }
 
+    fun Context.isNetworkReachable(): Boolean {
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        return cm!!.activeNetworkInfo != null && cm.activeNetworkInfo.isConnected
+    }
+
     override fun onFragmentInteraction(uri: Uri) {
 
     }
@@ -88,60 +95,79 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
             withContext(Dispatchers.Main) {
                 val myDialog = indeterminateProgressDialog("Searching Query")
                 myDialog.show()
-                withContext(Dispatchers.IO) {
-                    try {
-                        val r = api.search(params = model)
-                        if (r.isSuccessful && r.code() == 200) {
-                            withContext(Dispatchers.Main) {
+                if (isNetworkReachable()) {
+                    withContext(Dispatchers.IO) {
+                        try {
+
+                            val r = api.search(params = model)
+                            if (r.isSuccessful && r.code() == 200) {
+                                withContext(Dispatchers.Main) {
+                                    myDialog.dismiss()
+                                    val ayaresult = r.body()!!
+                                    val sf =
+                                        SearchResultFragment.newInstance(
+                                            ayaresult.ayas,
+                                            model = model
+                                        )
+                                    supportFragmentManager
+                                        .beginTransaction()
+                                        .replace(R.id.container, sf)
+                                        .addToBackStack(searchFragment.toString())
+                                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                        .commit()
+                                    Log.d("Model of new Ayat", model.toString())
+                                    Log.d("response1", r.code().toString())
+                                    Log.d("response1", r.body().toString())
+                                    Log.d("response", r.message())
+                                    Log.d("error", r.message())
+                                    Log.d("response", r.message())
+
+                                }
+
+                            } else if (r.code() == 204) {
+                                withContext(Dispatchers.Main) {
+                                    myDialog.dismiss()
+                                    alert("No Query Found For This Keyword") {
+                                        okButton {
+                                            it.dismiss()
+//                                        finish()
+                                        }
+                                    }.show()
+                                }
+                                null
+
+                            } else {
                                 myDialog.dismiss()
-                                val ayaresult = r.body()!!
-                                val sf = SearchResultFragment.newInstance(ayaresult.ayas, model = model)
-                                supportFragmentManager
-                                    .beginTransaction()
-                                    .replace(R.id.container, sf)
-                                    .addToBackStack(searchFragment.toString())
-                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                                    .commit()
-                                Log.d("Model of new Ayat",model.toString())
-                                Log.d("response1", r.code().toString())
-                                Log.d("response1", r.body().toString())
-                                Log.d("response", r.message())
-                                Log.d("error", r.message())
-                                Log.d("response", r.message())
+                                Log.d(
+                                    "The Result for Error", r.errorBody()?.string().toString()
+                                )
+                                Log.d("response code ", r.code().toString())
+                                throw Exception(r.errorBody()?.string())
 
                             }
-
-                        } else if (r.code() == 204) {
+                        } catch (e: Exception) {
+                            myDialog.dismiss()
+                            Log.d("The Result for Error", e.message)
                             withContext(Dispatchers.Main) {
                                 myDialog.dismiss()
-                                alert("No Query Found For This Keyword") {
+                                alert(e.message.toString()) {
                                     okButton {
                                         it.dismiss()
-//                                        finish()
                                     }
                                 }.show()
                             }
-                            null
-
-                        } else {
-                            myDialog.dismiss()
-                            Log.d(
-                                "The Result for Error", r.errorBody()?.string().toString()
-                            )
-                            Log.d("response code ", r.code().toString())
-                            throw Exception(r.errorBody()?.string())
                         }
-                    } catch (e: Exception) {
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
                         myDialog.dismiss()
-                        Log.d("The Result for Error", e.message)
-                        withContext(Dispatchers.Main) {
+                        alert("No Internet Connection.Please Check Your Internet Connection And Try Again!") {
+                            okButton {
+                                it.dismiss()
+                                finish()
+                            }
+                        }.show()
 
-                            alert(e.message.toString()) {
-                                okButton {
-                                    it.dismiss()
-                                }
-                            }.show()
-                        }
                     }
                 }
             }

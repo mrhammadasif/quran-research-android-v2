@@ -40,7 +40,7 @@ internal class SearchResultListAdapter(
             // itemView.findViewById<TextView>(android.R.layout.simple_expandable_list_item_1)
             //  itemView.findViewById<TextView>(android.R.id.text1).text = result.sourceText
             //itemView.findViewById<TextView>(android.R.id.text2).text = result.text
-            itemView.sura.text = "${result.sura?.name}" + "-" + "${result.sura?.startingFrom}"
+            itemView.sura.text = "${result.sura?.name}" + "-" + "${result.sura?.order?.quran}"
             itemView.aya.text = result.aya.toString()
             itemView.edition.text = result.edition?.name
             itemView.sourcetext.text = result.sourceText

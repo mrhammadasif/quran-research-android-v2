@@ -71,4 +71,5 @@ class Model {
         val ayas: ArrayList<AyaObject>
     )
 
+
 }
