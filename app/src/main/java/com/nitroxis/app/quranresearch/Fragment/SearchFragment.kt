@@ -10,15 +10,20 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.DropDownValues
 import com.nitroxis.app.quranresearch.Utils.Model
 import com.skyhope.materialtagview.TagView
 import com.skyhope.materialtagview.enums.TagSeparator
+import kotlinx.android.synthetic.main.content_filers.view.*
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
+import kotlinx.android.synthetic.main.fragment_search.view.lang_spinner
+import org.jetbrains.anko.okButton
 import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.toast
 
 
@@ -55,15 +60,22 @@ class SearchFragment : Fragment() {
          tagView.setTagTextColor(resources.getColor(R.color.black))
          */
         val word = v.keyword_search.toString()
-
         val Language = DropDownValues.lang.map {
             it.second
         }
 
-        val lang_adapter = ArrayAdapter(v.context, R.layout.text, Language)
+        val lang_adapter = ArrayAdapter(v.context, android.R.layout.simple_list_item_1, Language)
         v.lang_spinner.adapter = lang_adapter
+        v.lang_spinner.setSelection(8)
 
         v.searchbtn.onClick {
+            if (v.keyword_search.text.isNullOrEmpty()) {
+                v.keyword_search.requestFocus()
+                alert("Enter Keyword to Search") {
+                    okButton { it.dismiss() }
+                }.show()
+                return@onClick
+            }
             var selectedLanguage = ""
 /*
             val keywords = arrayListOf<String>()
@@ -72,6 +84,10 @@ class SearchFragment : Fragment() {
  */
             val word = v.keyword_search.text.toString()
             selectedLanguage = DropDownValues.lang[v.lang_spinner.selectedItemPosition].first
+
+            val i = v.lang_spinner.selectedItemPosition
+            Log.d("0101010", i.toString())
+
             val parameter = Model.AyaSearchBody(
                 q = word,
                 lang = selectedLanguage

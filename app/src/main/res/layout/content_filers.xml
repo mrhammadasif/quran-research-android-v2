@@ -79,7 +79,6 @@
                                     android:id="@+id/edit_keyowrd"
                                     android:layout_width="fill_parent"
                                     android:layout_height="18dp"
-                                    android:layout_marginStart="5dp"
                                     android:background="@null"
                                     android:hint="Enter Keyword"
                                     android:textSize="15dp"
@@ -112,24 +111,23 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
                                 android:layout_weight="1"
-                                android:padding="5dp"
-                                android:text="Language"
+                                android:paddingTop="3dp"
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"                                android:text="Language"
                                 android:textColor="@color/dialogitembg"
                                 android:textSize="12sp"
                                 android:textStyle="normal" />
 
                             <LinearLayout
-                                android:layout_width="fill_parent"
-                                android:layout_height="35dp"
-                                android:layout_marginTop="1dp"
-                                android:orientation="horizontal">
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:minHeight="52dp">                                android:orientation="horizontal">
 
                                 <Spinner
                                     android:id="@+id/lang_spinner"
-                                    android:layout_width="0dp"
-                                    android:layout_height="30dp"
-                                    android:layout_weight="1"
-                                    android:spinnerMode="dropdown"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:spinnerMode="dialog"
                                     android:textAlignment="textEnd" />
 
 
@@ -163,25 +161,74 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
                                 android:layout_weight="1"
-                                android:padding="5dp"
                                 android:text="Edition"
+                                android:paddingTop="3dp"
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
                                 android:textColor="@color/dialogitembg"
                                 android:textSize="12sp"
                                 android:textStyle="normal" />
 
                             <LinearLayout
-                                android:layout_width="fill_parent"
-                                android:layout_height="35dp"
-                                android:layout_marginTop="1dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:minHeight="52dp"
                                 android:orientation="horizontal">
 
                                 <Spinner
                                     android:id="@+id/edition_spinner"
-                                    android:layout_width="0dp"
-                                    android:layout_height="30dp"
-                                    android:layout_weight="1"
-                                    android:spinnerMode="dropdown"
-                                    android:textAlignment="textEnd" />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:spinnerMode="dialog" />
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/border"
+                    android:orientation="vertical"
+                    android:padding="2dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/ayabgwhite"
+                        app:cardCornerRadius="5dp">
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_weight="1"
+                                android:paddingTop="3dp"
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
+                                android:text="Edition Type"
+                                android:textColor="@color/dialogitembg"
+                                android:textSize="12sp"
+                                android:textStyle="normal" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:orientation="horizontal">
+
+                                <Spinner
+                                    android:id="@+id/editiontype_spinner"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:spinnerMode="dialog" />
 
 
                             </LinearLayout>
@@ -213,7 +260,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
                                 android:layout_weight="1"
-                                android:padding="5dp"
+                                android:paddingTop="3dp"
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
                                 android:text="Sajda"
                                 android:textColor="@color/dialogitembg"
                                 android:textSize="12sp"
@@ -221,16 +270,14 @@
 
                             <LinearLayout
                                 android:layout_width="fill_parent"
-                                android:layout_height="35dp"
-                                android:layout_marginTop="1dp"
+                                android:layout_height="48dp"
                                 android:orientation="horizontal">
 
                                 <Spinner
                                     android:id="@+id/sajda_spinner"
-                                    android:layout_width="0dp"
-                                    android:layout_height="30dp"
-                                    android:layout_weight="1"
-                                    android:spinnerMode="dropdown"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:spinnerMode="dialog"
                                     android:textAlignment="textEnd" />
 
 
@@ -264,7 +311,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
                                 android:layout_weight="1"
-                                android:padding="5dp"
+                                android:paddingTop="3dp"
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
                                 android:text="Origin"
                                 android:textColor="@color/dialogitembg"
                                 android:textSize="12sp"
@@ -272,17 +321,14 @@
 
                             <LinearLayout
                                 android:layout_width="fill_parent"
-                                android:layout_height="35dp"
-                                android:layout_marginTop="1dp"
+                                android:layout_height="48dp"
                                 android:orientation="horizontal">
 
                                 <Spinner
                                     android:id="@+id/origin_spinner"
-                                    android:layout_width="0dp"
-                                    android:layout_height="30dp"
-                                    android:layout_weight="1"
-
-                                    android:spinnerMode="dropdown"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:spinnerMode="dialog"
                                     android:textAlignment="textEnd" />
                             </LinearLayout>
 
@@ -320,31 +366,20 @@
                                 android:textStyle="normal" />
 
                             <LinearLayout
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="1dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:minHeight="52dp"
                                 android:orientation="horizontal">
 
-                                <com.skyhope.materialtagview.TagView
-                                    android:id="@+id/surahtag"
-                                    android:layout_width="fill_parent"
+                                <Spinner
+                                    android:id="@+id/edit_surah"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:visibility="gone"
-                                    app:tag_background_color="@color/ayabg"
-                                    app:tag_separator="HASH_SEPARATOR"
-                                    app:tag_text_color="@color/black" />
-
-                                <EditText
-                                    android:id="@+id/edit_Surah"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="18dp"
-                                    android:layout_marginStart="5dp"
-                                    android:background="@null"
-                                    android:hint="Enter Surah NAme"
-                                    android:textSize="15dp" />
+                                    android:spinnerMode="dialog" />
 
 
                             </LinearLayout>
+
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -405,7 +440,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
-                                android:max="114"
+                                android:max="286"
                                 app:range_progress_endValue="60"
                                 app:range_progress_startEnd_minDiff="1"
                                 app:range_progress_startValue="50" />

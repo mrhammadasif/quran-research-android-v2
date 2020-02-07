@@ -99,6 +99,8 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                     withContext(Dispatchers.IO) {
                         try {
 
+
+                            Log.d("123456",model.toString())
                             val r = api.search(params = model)
                             if (r.isSuccessful && r.code() == 200) {
                                 withContext(Dispatchers.Main) {
@@ -127,6 +129,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                             } else if (r.code() == 204) {
                                 withContext(Dispatchers.Main) {
                                     myDialog.dismiss()
+                                    Log.d("responsecode",r.code().toString())
                                     alert("No Query Found For This Keyword") {
                                         okButton {
                                             it.dismiss()
