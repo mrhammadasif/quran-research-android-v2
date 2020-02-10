@@ -2,6 +2,7 @@ package com.nitroxis.app.quranresearch.Fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -156,6 +157,7 @@ class SearchResultFragment : Fragment() {
                 //Log.d("000", v.toString())
 
             }
+
             mBottomSheetDialog.applyfilter.onClick {
                 if (mBottomSheetDialog.edit_keyowrd.text.isNullOrEmpty()) {
                     mBottomSheetDialog.edit_keyowrd.requestFocus()
@@ -230,6 +232,10 @@ class SearchResultFragment : Fragment() {
         }
 
         return view
+    }
+    fun Context.isNetworkReachable(): Boolean {
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        return cm!!.activeNetworkInfo != null && cm.activeNetworkInfo.isConnected
     }
 
 

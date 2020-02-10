@@ -471,12 +471,13 @@
                         android:layout_height="50dp"
                         android:layout_alignParentLeft="true"
                         android:layout_weight="1"
-                        android:background="@drawable/button"
+                        android:background="@null"
                         android:fontFamily="@font/montserrat_regular"
                         android:padding="5dp"
                         android:text="Reset"
-                        android:textColor="@color/white"
-                        android:textStyle="normal" />
+
+                        android:textColor="@color/red"
+                        android:textStyle="bold" />
 
                     <Button
                         android:id="@+id/applyfilter"
