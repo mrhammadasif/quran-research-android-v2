@@ -82,22 +82,28 @@ class SearchResultFragment : Fragment() {
             mBottomSheetDialog.show()
             mBottomSheetDialog.edit_keyowrd.setText(model!!.q)
 
-            mBottomSheetDialog.lang_spinner.adapter = MySpinnerAdapter(view.context, DropDownValues.lang)
+            mBottomSheetDialog.lang_spinner.adapter =
+                MySpinnerAdapter(view.context, DropDownValues.lang)
             mBottomSheetDialog.lang_spinner.setSelection(8)
 
-            mBottomSheetDialog.edition_spinner.adapter = MySpinnerAdapter(view.context, DropDownValues.edition)
+            mBottomSheetDialog.edition_spinner.adapter =
+                MySpinnerAdapter(view.context, DropDownValues.edition)
             mBottomSheetDialog.edition_spinner.setSelection(0)
 
-            mBottomSheetDialog.editiontype_spinner.adapter = MySpinnerAdapter(view.context, DropDownValues.editionType)
+            mBottomSheetDialog.editiontype_spinner.adapter =
+                MySpinnerAdapter(view.context, DropDownValues.editionType)
             mBottomSheetDialog.editiontype_spinner.setSelection(0)
 
-            mBottomSheetDialog.origin_spinner.adapter = MySpinnerAdapter(view.context, DropDownValues.origin)
+            mBottomSheetDialog.origin_spinner.adapter =
+                MySpinnerAdapter(view.context, DropDownValues.origin)
             mBottomSheetDialog.editiontype_spinner.setSelection(0)
 
-            mBottomSheetDialog.surah_spinner.adapter = MySpinnerAdapter(view.context, DropDownValues.surah)
+            mBottomSheetDialog.surah_spinner.adapter =
+                MySpinnerAdapter(view.context, DropDownValues.surah)
             mBottomSheetDialog.surah_spinner.setSelection(0)
 
-            mBottomSheetDialog.sajda_spinner.adapter = MySpinnerAdapter(view.context, DropDownValues.sajda)
+            mBottomSheetDialog.sajda_spinner.adapter =
+                MySpinnerAdapter(view.context, DropDownValues.sajda)
             mBottomSheetDialog.sajda_spinner.setSelection(0)
 
             /*
@@ -143,7 +149,9 @@ class SearchResultFragment : Fragment() {
                 // val v = lang.indexOf(model!!.lang)
                 //val o=lang.get(model.q.toInt())
                 //Log.d("000", v.toString())
-
+            }
+            mBottomSheetDialog.closebtn.onClick {
+                mBottomSheetDialog.dismiss()
             }
 
             mBottomSheetDialog.applyfilter.onClick {
@@ -151,9 +159,7 @@ class SearchResultFragment : Fragment() {
 
                 if (mBottomSheetDialog.edit_keyowrd.text.isNullOrEmpty()) {
                     mBottomSheetDialog.edit_keyowrd.requestFocus()
-                    alert("Enter Keyword to Search") {
-                        okButton { it.dismiss() }
-                    }.show()
+                    mBottomSheetDialog.edit_keyowrd.error = "Enter Keyword To Search"
                     return@onClick
                 }
 
@@ -172,7 +178,8 @@ class SearchResultFragment : Fragment() {
                     DropDownValues.editionType[mBottomSheetDialog.editiontype_spinner.selectedItemPosition].first
                 val surah =
                     DropDownValues.surah[mBottomSheetDialog.surah_spinner.selectedItemPosition].first
-                val sajda = DropDownValues.sajda[mBottomSheetDialog.sajda_spinner.selectedItemPosition].first
+                val sajda =
+                    DropDownValues.sajda[mBottomSheetDialog.sajda_spinner.selectedItemPosition].first
                 Log.d("type", edition_type)
                 Log.d("Edition", edition)
                 Log.d("origin", origin)

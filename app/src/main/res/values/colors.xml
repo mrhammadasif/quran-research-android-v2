@@ -15,4 +15,6 @@
     <color name="dialogitembg">#A2A2A2</color>
     <color name="bg">#F7F7F7</color>
     <color name="spinnerlistdivider">#C4C1C1</color>
+    <color name="grey">#757474</color>
+
 </resources>
