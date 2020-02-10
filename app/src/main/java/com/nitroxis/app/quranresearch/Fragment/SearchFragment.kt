@@ -6,19 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Toast
-import androidx.core.view.isEmpty
+import android.widget.*
 import androidx.fragment.app.Fragment
+import com.nitroxis.app.quranresearch.Adapter.MySpinnerAdapter
 import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.DropDownValues
 import com.nitroxis.app.quranresearch.Utils.Model
-import com.skyhope.materialtagview.TagView
-import com.skyhope.materialtagview.enums.TagSeparator
-import kotlinx.android.synthetic.main.content_filers.view.*
-import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import kotlinx.android.synthetic.main.fragment_search.view.lang_spinner
 import org.jetbrains.anko.okButton
@@ -35,6 +28,7 @@ class SearchFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var selected_language: String
+    // val selectedLanguage
     private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,15 +52,34 @@ class SearchFragment : Fragment() {
          tagView.setTagList()
 
          tagView.setTagTextColor(resources.getColor(R.color.black))
-         */
-        val word = v.keyword_search.toString()
-        val Language = DropDownValues.lang.map {
-            it.second
+
+         v.lang_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                if (p0 == null) {
+                }
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+               selected_language = p0?.selectedItem.toString()
+            }
         }
 
         val lang_adapter = ArrayAdapter(v.context, android.R.layout.simple_list_item_1, Language)
         v.lang_spinner.adapter = lang_adapter
+
+            val keywords = arrayListOf<String>()
+            var i=keywords.addAll(tagView.selectedTags.map { it.tagText })
+             q = keywords.toTypedArray(),
+          val word = v.keyword_search.toString()
+          val Language = DropDownValues.lang.map {
+            it.second
+        }
+        */
+
+
+        v.lang_spinner.adapter = MySpinnerAdapter(v.context, DropDownValues.lang)
         v.lang_spinner.setSelection(8)
+
 
         v.searchbtn.onClick {
             if (v.keyword_search.text.isNullOrEmpty()) {
@@ -77,40 +90,22 @@ class SearchFragment : Fragment() {
                 return@onClick
             }
             var selectedLanguage = ""
-/*
-            val keywords = arrayListOf<String>()
-            var i=keywords.addAll(tagView.selectedTags.map { it.tagText })
-             q = keywords.toTypedArray(),
- */
-            val word = v.keyword_search.text.toString()
-            selectedLanguage = DropDownValues.lang[v.lang_spinner.selectedItemPosition].first
 
-            val i = v.lang_spinner.selectedItemPosition
-            Log.d("0101010", i.toString())
+            val word = v.keyword_search.text.toString()
+           selectedLanguage = DropDownValues.lang[v.lang_spinner.selectedItemPosition].first
 
             val parameter = Model.AyaSearchBody(
                 q = word,
                 lang = selectedLanguage
             )
+            Log.d("000",parameter.toString())
+
 
             listener?.onFetchNewAyats(model = parameter)
 
         }
 
-        v.lang_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                if (p0 == null) {
-                    v.lang_spinner.setSelection(8)
-                    //toast("$p0")
-                }
-            }
 
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-
-                selected_language = p0?.selectedItem.toString()
-
-            }
-        }
 
         return v
     }

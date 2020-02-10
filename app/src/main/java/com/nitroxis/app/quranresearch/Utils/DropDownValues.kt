@@ -19,7 +19,8 @@ object DropDownValues {
         "14" to "ابراهيم <Ibrahim>",
         "15" to "الحجر <Al-Hijr>",
         "16" to "النحل <An-Nahl>",
-        "17" to "الإسراء <Al-Israa>",
+        "17" to "الإس]" +
+                "راء <Al-Israa>",
         "18" to "الكهف <Al-Kahf>",
         "19" to "مريم <Maryam>",
         "20" to "طه <Taa-Haa>",
