@@ -47,11 +47,11 @@
                         <TextView
                             android:id="@+id/sura"
                             android:layout_width="wrap_content"
-                            android:layout_height="28dp"
+                            android:layout_height="33dp"
                             android:fontFamily="@font/me_quran"
                             android:text="Sura"
                             android:textColor="@color/black"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -80,7 +80,8 @@
                             android:id="@+id/aya"
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
-                            android:layout_margin="2dp"
+                            android:layout_marginTop="8dp"
+
                             android:fontFamily="@font/montserrat_regular"
                             android:text="Aya"
                             android:textColor="@color/black"
@@ -114,9 +115,9 @@
                             android:id="@+id/edition"
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
-                            android:layout_margin="2dp"
                             android:fontFamily="@font/montserrat_regular"
                             android:text="Edition"
+                            android:layout_marginTop="8dp"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
