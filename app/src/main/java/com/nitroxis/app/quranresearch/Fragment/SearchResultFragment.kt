@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import kotlinx.android.synthetic.main.fragment_search_result.view.*
 import kotlinx.android.synthetic.main.fragment_search_result.view.recycle_search
+import kotlinx.android.synthetic.main.recycle_result_item.*
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.alert
@@ -62,6 +63,8 @@ class SearchResultFragment : Fragment() {
     ): View? {
 
         var view: View = inflater.inflate(R.layout.fragment_search_result, container, false)
+        var language: String
+        var word: String
         /*    var view: View = inflater.inflate(R.layout.fragment_search_result, container, false)
             if (view == null) {
                 view = inflater.inflate(
@@ -72,7 +75,6 @@ class SearchResultFragment : Fragment() {
             } */
         view.recycle_search.layoutManager = LinearLayoutManager(view.context)
         view.recycle_search.adapter = ayasResult?.let { SearchResultListAdapter(it, view.context) }
-        toast(model!!.lang)
 
 
         val mBottomSheetDialog = BottomSheetDialog(activity!!)
@@ -85,20 +87,25 @@ class SearchResultFragment : Fragment() {
             mBottomSheetDialog.show()
             mBottomSheetDialog.edit_keyowrd.setText(model!!.q)
 
-            mBottomSheetDialog.lang_spinner.adapter = MySpinnerAdapter(view.context, DropDownValues.lang)
+            mBottomSheetDialog.lang_spinner.adapter =
+                MySpinnerAdapter(view.context, DropDownValues.lang)
             mBottomSheetDialog.lang_spinner.setSelection(8)
 
-            mBottomSheetDialog.edition_spinner.adapter = MySpinnerAdapter(view.context, DropDownValues.edition)
+            mBottomSheetDialog.edition_spinner.adapter =
+                MySpinnerAdapter(view.context, DropDownValues.edition)
             mBottomSheetDialog.edition_spinner.setSelection(0)
 
-            mBottomSheetDialog.editiontype_spinner.adapter = MySpinnerAdapter(view.context, DropDownValues.editionType)
+            mBottomSheetDialog.editiontype_spinner.adapter =
+                MySpinnerAdapter(view.context, DropDownValues.editionType)
             mBottomSheetDialog.editiontype_spinner.setSelection(0)
 
-            mBottomSheetDialog.origin_spinner.adapter = MySpinnerAdapter(view.context, DropDownValues.origin)
+            mBottomSheetDialog.origin_spinner.adapter =
+                MySpinnerAdapter(view.context, DropDownValues.origin)
             mBottomSheetDialog.editiontype_spinner.setSelection(0)
 
-            mBottomSheetDialog.edit_surah.adapter = MySpinnerAdapter(view.context, DropDownValues.surah)
-            mBottomSheetDialog.edit_surah.setSelection(0)
+            mBottomSheetDialog.surah_spinner.adapter =
+                MySpinnerAdapter(view.context, DropDownValues.surah)
+            mBottomSheetDialog.surah_spinner.setSelection(0)
 
             /*
              val Origin = DropDownValues.origin.map {
@@ -119,10 +126,15 @@ class SearchResultFragment : Fragment() {
                     progressEnd: Int,
                     fromUser: Boolean
                 ) {
-                    mBottomSheetDialog.range_seekbar.text = seekBar.progressStart.toString() + " - " + seekBar.progressEnd.toString()
+                    mBottomSheetDialog.range_seekbar.text =
+                        seekBar.progressStart.toString() + " - " + seekBar.progressEnd.toString()
+
                     ayastart = seekBar.progressStart
                     ayaend = seekBar.progressEnd
+                    Log.d("aya tstart", ayastart.toString())
+                    Log.d("aya end", ayaend.toString())
                     /*    if (fromUser) {
+
                             v.ayattext1.setText(seekBar.progressStart.toString())
                             v.ayattext2.setText(seekBar.progressEnd.toString())
                         }*/
@@ -132,10 +144,12 @@ class SearchResultFragment : Fragment() {
                 override fun onStopTrackingTouch(seekBar: RangeSeekBar) {}
             })
 
-            mBottomSheetDialog.resetfilter.onClick {
 
-                val lang = lang[mBottomSheetDialog.lang_spinner.selectedItemPosition].first
-                toast(lang)
+            mBottomSheetDialog.resetfilter.onClick {
+                mBottomSheetDialog.edit_keyowrd.setText("")
+
+                language = lang[mBottomSheetDialog.lang_spinner.selectedItemPosition].first
+                toast(language)
 
                 // val v = lang.indexOf(model!!.lang)
                 //val o=lang.get(model.q.toInt())
@@ -151,11 +165,8 @@ class SearchResultFragment : Fragment() {
                     return@onClick
                 }
 
-                val keyword = model!!.q
-                val languageselected = model?.lang
-
-
                 val enteredkeyword = mBottomSheetDialog.edit_keyowrd.text.toString()
+                toast(enteredkeyword)
 
                 val Edition =
                     DropDownValues.edition[mBottomSheetDialog.edition_spinner.selectedItemPosition].first
@@ -166,6 +177,8 @@ class SearchResultFragment : Fragment() {
                     DropDownValues.lang[mBottomSheetDialog.lang_spinner.selectedItemPosition].first
                 val edition_type =
                     DropDownValues.editionType[mBottomSheetDialog.editiontype_spinner.selectedItemPosition].first
+                val surah =
+                    DropDownValues.surah[mBottomSheetDialog.surah_spinner.selectedItemPosition].first
                 Log.d("type", edition_type)
                 Log.d("Edition", Edition)
                 Log.d("origin", origin)
@@ -174,17 +187,21 @@ class SearchResultFragment : Fragment() {
                 val posorigin = mBottomSheetDialog.origin_spinner.selectedItemPosition
                 val posedition = mBottomSheetDialog.edition_spinner.selectedItemPosition
                 val poseditiontype = mBottomSheetDialog.editiontype_spinner.selectedItemPosition
+                val posSurah = mBottomSheetDialog.surah_spinner.selectedItemPosition
                 val searchfilters = Model.AyaSearchBody(
                     q = enteredkeyword,
                     lang = lang,
                     edition = Edition,
                     origin = null,
                     type = edition_type,
-                  //  sura = enteredsurah,
+                    sura = surah,
                     ayaTo = ayastart,
                     ayaFrom = ayaend
                 )
 
+                if (posSurah == 0) {
+                    searchfilters.sura = null
+                }
                 if (posorigin == 0) {
                     searchfilters.origin = null
                 }
@@ -197,16 +214,16 @@ class SearchResultFragment : Fragment() {
                     searchfilters.type = null
                 }
 
+                val filteredmodel = searchfilters
 
-                alert(model.toString()) {
+                alert(filteredmodel.toString()) {
                     okButton {
                         it.dismiss()
                     }
                 }.show()
-                Log.d("Language", lang)
-                Log.d("MMM", model.toString())
-                model?.let { it1 -> listener?.onFetchNewAyats(it1) }
-                Log.d("MMM Listener", model.toString())
+                Log.d("MMM", filteredmodel.toString())
+                filteredmodel?.let { it1 -> listener?.onFetchNewAyats(it1) }
+                Log.d("MMM Listener", filteredmodel.toString())
                 mBottomSheetDialog.dismiss()
 
             }

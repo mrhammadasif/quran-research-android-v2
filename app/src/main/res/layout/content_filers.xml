@@ -354,13 +354,17 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="10dp">
+                            >
 
                             <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Surah"
+                                android:layout_marginStart="5dp"
+                                android:paddingTop="3dp"
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
                                 android:textColor="@color/dialogitembg"
                                 android:textSize="12sp"
                                 android:textStyle="normal" />
@@ -372,7 +376,7 @@
                                 android:orientation="horizontal">
 
                                 <Spinner
-                                    android:id="@+id/edit_surah"
+                                    android:id="@+id/surah_spinner"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:spinnerMode="dialog" />

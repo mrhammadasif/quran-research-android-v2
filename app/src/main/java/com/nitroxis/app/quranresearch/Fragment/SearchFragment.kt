@@ -75,8 +75,6 @@ class SearchFragment : Fragment() {
             it.second
         }
         */
-
-
         v.lang_spinner.adapter = MySpinnerAdapter(v.context, DropDownValues.lang)
         v.lang_spinner.setSelection(8)
 
@@ -92,20 +90,17 @@ class SearchFragment : Fragment() {
             var selectedLanguage = ""
 
             val word = v.keyword_search.text.toString()
-           selectedLanguage = DropDownValues.lang[v.lang_spinner.selectedItemPosition].first
+            selectedLanguage = DropDownValues.lang[v.lang_spinner.selectedItemPosition].first
+            Log.d("language",selectedLanguage)
 
             val parameter = Model.AyaSearchBody(
                 q = word,
                 lang = selectedLanguage
             )
-            Log.d("000",parameter.toString())
-
-
+            Log.d("000", parameter.toString())
             listener?.onFetchNewAyats(model = parameter)
 
         }
-
-
 
         return v
     }

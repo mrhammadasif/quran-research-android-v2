@@ -170,9 +170,9 @@ class Model {
         var lang: String="en",
         var limit: Int = 10,
         var page: Int = 1,
-        var sura: String= "",
+        var sura: String?= null,
         var ayaFrom: Int = 1,
-        var ayaTo: Int = 114,
+        var ayaTo: Int = 286,
         var origin: String? = null,
         var type: String? = null,
         var edition: String? = null

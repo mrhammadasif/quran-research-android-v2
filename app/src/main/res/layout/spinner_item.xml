@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:minHeight="48dp"
-    android:paddingStart="8dp"
-    android:paddingEnd="8dp"
-    android:gravity="start"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:gravity="start"
+    android:minHeight="48dp"
+    android:orientation="vertical"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp">
 
     <TextView
-        android:gravity="start"
         android:id="@+id/text2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:gravity="start"
+        android:text="Hahaha i am very long value in this line and this is going to be second line and this is too long"
         android:textColor="@color/black"
-        android:text="Hahaha i am very long value in this line and this is going to be second line and this is too long" />
+        android:visibility="visible" />
 
     <TextView
         android:id="@+id/text1"
@@ -23,11 +23,11 @@
         android:layout_height="wrap_content"
         android:gravity="start"
         android:text="asdasd" />
+
     <View
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/default_inactive_item_color"
-        />
+        android:layout_marginTop="8dp"
+        android:background="@color/spinnerlistdivider" />
 
 </LinearLayout>
