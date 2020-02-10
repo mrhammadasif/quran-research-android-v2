@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.content_filers.*
 import kotlinx.android.synthetic.main.content_filers.lang_spinner
 import kotlinx.android.synthetic.main.fragment_search_result.view.*
 import kotlinx.android.synthetic.main.fragment_search_result.view.recycle_search
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.alert
@@ -154,9 +155,6 @@ class SearchResultFragment : Fragment() {
 
             mBottomSheetDialog.applyfilter.onClick {
 
-                if(context?.isNetworkReachable() == true) {
-                    // net avail
-                }
 
                 if (mBottomSheetDialog.edit_keyowrd.text.isNullOrEmpty()) {
                     mBottomSheetDialog.edit_keyowrd.requestFocus()
@@ -232,7 +230,15 @@ class SearchResultFragment : Fragment() {
                     }
                 }.show()
                 Log.d("MMM", filteredModel.toString())
-                filteredModel?.let { it1 -> listener?.onFetchNewAyats(it1) }
+                if (context?.isNetworkReachable() == true) {
+                    filteredModel?.let { it1 -> listener?.onFetchNewAyats(it1) }
+                } else {
+                    alert("No Internet Connection.Please Check Your Internet Connection And Try Again!") {
+                        okButton {
+                            it.dismiss()
+                        }
+                    }.show()
+                }
                 Log.d("MMM Listener", filteredModel.toString())
                 mBottomSheetDialog.dismiss()
 
@@ -241,7 +247,6 @@ class SearchResultFragment : Fragment() {
 
         return view
     }
-
 
 
     override fun onAttach(context: Context) {
