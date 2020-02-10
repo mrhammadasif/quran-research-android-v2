@@ -1,6 +1,8 @@
 package com.nitroxis.app.quranresearch.Adapter
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +46,16 @@ internal class SearchResultListAdapter(
             itemView.aya.text = result.aya.toString()
             itemView.edition.text = result.edition?.name
             itemView.sourcetext.text = result.sourceText
-            itemView.text.text = result.text
+            // itemView.text.text = result.text
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                itemView.text.text =
+                    Html.fromHtml(result.text, Html.FROM_HTML_OPTION_USE_CSS_COLORS)
+            } else {
+
+                itemView.text.text =
+                    Html.fromHtml(result.text)
+            }
+
 
         }
     }

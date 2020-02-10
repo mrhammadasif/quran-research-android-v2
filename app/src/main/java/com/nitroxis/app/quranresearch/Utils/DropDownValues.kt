@@ -127,8 +127,8 @@ object DropDownValues {
     )
     val sajda = arrayListOf(
         "---Any One---" to "",
-        "recommended" to "recommended",
-        "obligatory" to "obligatory"
+        "Inclusive" to "Yes",
+        "Exclusive" to "No"
     )
     val editionType = arrayListOf(
         "---Any One---" to "",

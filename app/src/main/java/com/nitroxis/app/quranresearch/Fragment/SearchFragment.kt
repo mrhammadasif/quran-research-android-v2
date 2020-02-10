@@ -91,13 +91,11 @@ class SearchFragment : Fragment() {
 
             val word = v.keyword_search.text.toString()
             selectedLanguage = DropDownValues.lang[v.lang_spinner.selectedItemPosition].first
-            Log.d("language",selectedLanguage)
 
             val parameter = Model.AyaSearchBody(
                 q = word,
                 lang = selectedLanguage
             )
-            Log.d("000", parameter.toString())
             listener?.onFetchNewAyats(model = parameter)
 
         }
@@ -122,18 +120,13 @@ class SearchFragment : Fragment() {
 
 
     interface OnFragmentInteractionListener {
-        //   fun onFetchNewAyats(model: Model.AyaSearchResult)
         fun onFetchNewAyats(model: Model.AyaSearchBody)
-
     }
 
     fun onNetworkConnectionChanged(isConnected: Boolean) {
         if (!isConnected) {
 
-        }
-
-    }
-
+        }}
     companion object {
 
         @JvmStatic

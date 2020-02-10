@@ -99,7 +99,6 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                     withContext(Dispatchers.IO) {
                         try {
 
-
                             Log.d("123456",model.toString())
                             val r = api.search(params = model)
                             if (r.isSuccessful && r.code() == 200) {

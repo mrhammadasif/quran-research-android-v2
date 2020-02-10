@@ -13,6 +13,7 @@ class ApiFactory(val context: Context){
         .build()
     )
     .baseUrl("https://quran.nitroxis.com")
+//    .baseUrl("http://192.168.0.8:42010")
     .addConverterFactory(GsonConverterFactory.create())
     .build()
 
