@@ -23,6 +23,7 @@ import com.nitroxis.app.quranresearch.Utils.isNetworkReachable
 import it.sephiroth.android.library.rangeseekbar.RangeSeekBar
 import kotlinx.android.synthetic.main.content_filers.*
 import kotlinx.android.synthetic.main.content_filers.lang_spinner
+import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search_result.view.*
 import kotlinx.android.synthetic.main.fragment_search_result.view.recycle_search
 import org.jetbrains.anko.alert
@@ -76,7 +77,10 @@ class SearchResultFragment : Fragment() {
         val sheetView: View = activity!!.layoutInflater.inflate(R.layout.content_filers, null)
 
         mBottomSheetDialog.setContentView(sheetView)
+        //
         mBottomSheetDialog.setCancelable(false)
+        mBottomSheetDialog.setCanceledOnTouchOutside(false)
+        //mBottomSheetDialog.nestedScrollView.isSmoothScrollingEnabled=false
         view.filtermore.onClick {
 
 
