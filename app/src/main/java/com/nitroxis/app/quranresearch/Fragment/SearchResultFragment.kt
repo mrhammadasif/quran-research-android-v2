@@ -76,6 +76,7 @@ class SearchResultFragment : Fragment() {
         val sheetView: View = activity!!.layoutInflater.inflate(R.layout.content_filers, null)
 
         mBottomSheetDialog.setContentView(sheetView)
+        mBottomSheetDialog.setCancelable(false)
         view.filtermore.onClick {
 
 
