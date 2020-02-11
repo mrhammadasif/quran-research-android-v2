@@ -154,6 +154,39 @@ class SearchResultFragment : Fragment() {
                 // val v = lang.indexOf(model!!.lang)
                 //val o=lang.get(model.q.toInt())
                 //Log.d("000", v.toString())
+
+                mBottomSheetDialog.edition_spinner.setSelection(0)
+                mBottomSheetDialog.editiontype_spinner.setSelection(0)
+                mBottomSheetDialog.sajda_spinner.setSelection(0)
+                mBottomSheetDialog.origin_spinner.setSelection(0)
+                mBottomSheetDialog.surah_spinner.setSelection(0)
+                mBottomSheetDialog.rangebarayat.setOnRangeSeekBarChangeListener(object :
+                    RangeSeekBar.OnRangeSeekBarChangeListener {
+                    override fun onProgressChanged(
+                        seekBar: RangeSeekBar,
+                        progressStart: Int,
+                        progressEnd: Int,
+                        fromUser: Boolean
+                    ) {
+
+                        seekBar.max=286
+                        mBottomSheetDialog.range_seekbar.text = seekBar.progressStart.toString() + " - " + seekBar.progressEnd.toString()
+                      //  seekBar.progressStart=0
+                        ayaStart = seekBar.progressStart
+                        ayaEnd = seekBar.progressEnd
+                        Log.d("aya tstart", ayaStart.toString())
+                        Log.d("aya end", ayaEnd.toString())
+                        /*    if (fromUser) {
+
+                                v.ayattext1.setText(seekBar.progressStart.toString())
+                                v.ayattext2.setText(seekBar.progressEnd.toString())
+                            }*/
+                    }
+
+                    override fun onStartTrackingTouch(seekBar: RangeSeekBar) {}
+                    override fun onStopTrackingTouch(seekBar: RangeSeekBar) {}
+                })
+
             }
             mBottomSheetDialog.closebtn.onClick {
                 mBottomSheetDialog.dismiss()

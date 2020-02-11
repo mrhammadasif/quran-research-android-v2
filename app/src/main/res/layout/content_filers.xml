@@ -443,7 +443,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="right"
-                                    android:text="Range"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
@@ -457,9 +457,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:max="286"
-                                app:range_progress_endValue="60"
+                                app:range_progress_endValue="286"
+                                android:soundEffectsEnabled="true"
                                 app:range_progress_startEnd_minDiff="1"
-                                app:range_progress_startValue="50" />
+                                app:range_progress_startValue="0" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
