@@ -25,9 +25,6 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".SplashActivity"
-            android:windowSoftInputMode="adjustPan|adjustResize" />
-        <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan|adjustResize">
             <intent-filter>

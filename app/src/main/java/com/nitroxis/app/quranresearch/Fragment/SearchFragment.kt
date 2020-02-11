@@ -53,17 +53,6 @@ class SearchFragment : Fragment() {
 
          tagView.setTagTextColor(resources.getColor(R.color.black))
 
-         v.lang_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                if (p0 == null) {
-                }
-            }
-
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-               selected_language = p0?.selectedItem.toString()
-            }
-        }
-
         val lang_adapter = ArrayAdapter(v.context, android.R.layout.simple_list_item_1, Language)
         v.lang_spinner.adapter = lang_adapter
 
@@ -75,10 +64,12 @@ class SearchFragment : Fragment() {
             it.second
         }
         */
+
+        // Language Adapter
         v.lang_spinner.adapter = MySpinnerAdapter(v.context, DropDownValues.lang)
         v.lang_spinner.setSelection(8)
 
-
+       // Search Button On CLick
         v.searchbtn.onClick {
             if (v.keyword_search.text.isNullOrEmpty()) {
                 v.keyword_search.requestFocus()
