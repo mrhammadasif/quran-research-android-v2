@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import com.innovattic.rangeseekbar.RangeSeekBar
-import com.nitroxis.app.quranresearch.Adapter.MySpinnerAdapter
 import com.nitroxis.app.quranresearch.Adapter.SearchResultListAdapter
 import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.DropDownValues
@@ -52,12 +51,7 @@ class SearchResultFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var surahselect: String = "566"
-        var langselect: String = "566"
-        var editiontypeselect: String = "566"
-        var editionselect: String = "566"
-        var originselect: String = "566"
-        var sajdaselect: String = "566"
+
         var view: View = inflater.inflate(R.layout.fragment_search_result, container, false)
 
         /*    var view: View = inflater.inflate(R.layout.fragment_search_result, container, false)
@@ -104,7 +98,7 @@ class SearchResultFragment : Fragment() {
                         position: Int,
                         id: Long
                     ) {
-                        surahselect = options[position]
+                      var  surahselect = options[position]
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>) {
@@ -133,7 +127,7 @@ class SearchResultFragment : Fragment() {
                         position: Int,
                         id: Long
                     ) {
-                        langselect = optionslanguage[position]
+                       var langselect = optionslanguage[position]
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>) {
@@ -160,7 +154,7 @@ class SearchResultFragment : Fragment() {
                         position: Int,
                         id: Long
                     ) {
-                        editiontypeselect = optionstype[position]
+                     var   editiontypeselect = optionstype[position]
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>) {
@@ -188,7 +182,7 @@ class SearchResultFragment : Fragment() {
                         position: Int,
                         id: Long
                     ) {
-                        editionselect = optionsedition[position]
+                      var   editionselect = optionsedition[position]
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>) {
@@ -217,7 +211,7 @@ class SearchResultFragment : Fragment() {
                         position: Int,
                         id: Long
                     ) {
-                        originselect = optionsorigin[position]
+                       var originselect = optionsorigin[position]
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>) {
@@ -244,8 +238,9 @@ class SearchResultFragment : Fragment() {
                         position: Int,
                         id: Long
                     ) {
-                        sajdaselect = optionssajda[position]
+                       var sajdaselect = optionssajda[position]
                     }
+
                     override fun onNothingSelected(parent: AdapterView<*>) {}
                 }
 
@@ -276,8 +271,6 @@ class SearchResultFragment : Fragment() {
                   mBottomSheetDialog.sajda_spinner.setSelection(0)
 
       */
-
-
             //Range Seekbar
             mBottomSheetDialog.rangeSeekBar.setMinThumbValue(0)
             mBottomSheetDialog.rangeSeekBar.setMaxThumbValue(286)
@@ -321,7 +314,7 @@ class SearchResultFragment : Fragment() {
 
             // APPLY FILTER after dialog is closed
             mBottomSheetDialog.applyfilter.onClick {
-                toast(surahselect)
+
 
                 if (mBottomSheetDialog.edit_keyowrd.text.isNullOrEmpty()) {
                     mBottomSheetDialog.edit_keyowrd.requestFocus()
@@ -337,44 +330,38 @@ class SearchResultFragment : Fragment() {
 
 
                 val enteredKeyword = mBottomSheetDialog.edit_keyowrd.text.toString()
+                val lang = DropDownValues.lang[mBottomSheetDialog.langspinner.selectedItemPosition].first
 
-                /*     val edition =
-                         DropDownValues.edition[mBottomSheetDialog.edition_spinner.selectedItemPosition].first
+                val edition = DropDownValues.edition[mBottomSheetDialog.edition_spinner.selectedItemPosition].first
 
-                     val origin = DropDownValues.origin[mBottomSheetDialog.origin_spinner.selectedItemPosition].first
-                     //val lang = DropDownValues.lang[mBottomSheetDialog.lang_spinner.selectedItemPosition].first
-                     val edition_type =
-                         DropDownValues.editionType[mBottomSheetDialog.editiontype_spinner.selectedItemPosition].first
-                     val surah = DropDownValues.surah[mBottomSheetDialog.surah_spinner.selectedItemPosition].first
-                     val sajda =
-                         DropDownValues.sajda[mBottomSheetDialog.sajda_spinner.selectedItemPosition].first
+                val origin = DropDownValues.origin[mBottomSheetDialog.origin_spinner.selectedItemPosition].first
 
+                val edition_type = DropDownValues.editionType[mBottomSheetDialog.ed_typespinner.selectedItemPosition].first
+                val surah = DropDownValues.surah[mBottomSheetDialog.sspinner.selectedItemPosition].first
+                val sajda = DropDownValues.sajda[mBottomSheetDialog.sajda_spinner.selectedItemPosition].first
 
                      val posOrigin = mBottomSheetDialog.origin_spinner.selectedItemPosition
                      val posEdition = mBottomSheetDialog.edition_spinner.selectedItemPosition
-                     val posEditionType = mBottomSheetDialog.editiontype_spinner.selectedItemPosition
-                     val posSurah = mBottomSheetDialog.surah_spinner.selectedItemPosition
+                     val posEditionType = mBottomSheetDialog.ed_typespinner.selectedItemPosition
+                     val posSurah = mBottomSheetDialog.sspinner.selectedItemPosition
                      val posSajda = mBottomSheetDialog.sajda_spinner.selectedItemPosition
-                     val posss = mBottomSheetDialog.sspinner.selectedItemPosition
-     */
 
                 val searchFilters = Model.AyaSearchBody(
                     q = enteredKeyword,
-                    lang = langselect,
-                    edition = editionselect,
-                    origin = originselect,
-                    type = editiontypeselect,
-                    sura = surahselect,
+                    lang = lang,
+                    edition = edition,
+                    origin = origin,
+                    type = edition_type,
+                    sura = surah,
                     ayaTo = ayaEnd,
                     ayaFrom = ayaStart,
-                    sajda = sajdaselect
+                    sajda = sajda
                 )
 
-/*
                 if (posSajda == 0) {
                     searchFilters.sura = null
                 }
-                if (posss == 0) {
+                if (posSurah == 0) {
                     searchFilters.sura = null
                 }
                 if (posOrigin == 0) {
@@ -387,11 +374,10 @@ class SearchResultFragment : Fragment() {
 
                 if (posEditionType == 0) {
                     searchFilters.type = null
-                }*/
+                }
 
                 val filteredModel = searchFilters
 
-                toast(editiontypeselect)
                 if (context?.isNetworkReachable() == true) {
                     filteredModel?.let { it1 -> listener?.onFetchNewAyats(it1) }
                     alert(filteredModel.toString()) {

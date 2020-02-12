@@ -81,7 +81,6 @@ class SearchFragment : Fragment() {
         v.lang_spinner.setSelection(8)
 
         var optionslanguage = DropDownValues.lang.map { it.first }
-       var langselect:String=""
         v.lang_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>,
@@ -89,7 +88,7 @@ class SearchFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    langselect = optionslanguage[position]
+                    var langselect = optionslanguage[position]
                   }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -106,10 +105,9 @@ class SearchFragment : Fragment() {
                 return@onClick
             }
             var selectedLanguage = ""
-            selectedLanguage=langselect
 
             val word = v.keyword_search.text.toString()
-           // selectedLanguage = DropDownValues.lang[v.lang_spinner.selectedItemPosition].first
+            selectedLanguage = DropDownValues.lang[v.lang_spinner.selectedItemPosition].first
 
             val parameter = Model.AyaSearchBody(
                 q = word,
