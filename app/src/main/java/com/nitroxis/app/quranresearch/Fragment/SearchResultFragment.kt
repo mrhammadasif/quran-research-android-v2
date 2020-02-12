@@ -25,7 +25,6 @@ import kotlinx.android.synthetic.main.fragment_search_result.view.*
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.alert
-import org.jetbrains.anko.support.v4.toast
 
 
 private const val ARG_PARAM1 = "result"
@@ -100,10 +99,7 @@ class SearchResultFragment : Fragment() {
                     ) {
                       var  surahselect = options[position]
                     }
-
-                    override fun onNothingSelected(parent: AdapterView<*>) {
-
-                    }
+                    override fun onNothingSelected(parent: AdapterView<*>) {}
                 }
 
             //Seachable Language Adapter

@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
     lateinit var searchFragment: SearchFragment
     lateinit var historyFragment: HistoryFragment
     //  var filtermodel: Model.AyaSearchBody = Model.AyaSearchBody(q = arrayOf(""))
+      var emptymodel: Model.AyaSearchResult? =null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,6 +114,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                                     supportFragmentManager
                                         .beginTransaction()
                                         .replace(R.id.container, sf)
+                                        .addToBackStack(null)
                                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                         .commit()
                                     Log.d("Model of new Ayat", model.toString())
@@ -131,7 +133,6 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                                     alert("No Query Found For This Keyword") {
                                         okButton {
                                             it.dismiss()
-//                                        finish()
                                         }
                                     }.show()
                                 }
@@ -142,9 +143,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                                 Log.d(
                                     "The Result for Error", r.errorBody()?.string().toString()
                                 )
-                                Log.d("response code ", r.code().toString())
                                 throw Exception(r.errorBody()?.string())
-
                             }
                         } catch (e: Exception) {
                             myDialog.dismiss()

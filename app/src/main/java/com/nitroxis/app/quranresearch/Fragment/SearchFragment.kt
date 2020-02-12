@@ -2,23 +2,19 @@ package com.nitroxis.app.quranresearch.Fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import com.nitroxis.app.quranresearch.Adapter.MySpinnerAdapter
 import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.DropDownValues
 import com.nitroxis.app.quranresearch.Utils.Model
-import kotlinx.android.synthetic.main.content_filers.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
-import kotlinx.android.synthetic.main.fragment_search.view.lang_spinner
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.alert
-import org.jetbrains.anko.support.v4.toast
 
 
 private const val ARG_PARAM1 = "param1"
@@ -28,8 +24,7 @@ class SearchFragment : Fragment() {
 
     private var param1: String? = null
     private var param2: String? = null
-    lateinit var selected_language: String
-    // val selectedLanguage
+
     private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,7 +83,7 @@ class SearchFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    var langselect = optionslanguage[position]
+                   // var langselect = optionslanguage[position]
                   }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {

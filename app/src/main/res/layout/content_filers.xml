@@ -443,7 +443,7 @@
                                 card_view:rsb_max="286"
                                 card_view:rsb_minRange="0"
                                 card_view:rsb_touchRadius="40dp"
-                                card_view:rsb_trackColor="@color/grey"
+                                card_view:rsb_trackColor="@color/ayabg"
                                 card_view:rsb_trackRoundedCaps="true"
                                 card_view:rsb_trackSelectedColor="@color/searchbtn"
                                 card_view:rsb_trackThickness="40dp" />
