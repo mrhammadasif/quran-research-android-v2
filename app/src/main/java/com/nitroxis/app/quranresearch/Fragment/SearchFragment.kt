@@ -12,6 +12,7 @@ import com.nitroxis.app.quranresearch.Adapter.MySpinnerAdapter
 import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.DropDownValues
 import com.nitroxis.app.quranresearch.Utils.Model
+import kotlinx.android.synthetic.main.content_filers.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import kotlinx.android.synthetic.main.fragment_search.view.lang_spinner
 import org.jetbrains.anko.okButton
@@ -63,13 +64,39 @@ class SearchFragment : Fragment() {
           val Language = DropDownValues.lang.map {
             it.second
         }
-        */
+
 
         // Language Adapter
         v.lang_spinner.adapter = MySpinnerAdapter(v.context, DropDownValues.lang)
         v.lang_spinner.setSelection(8)
 
-       // Search Button On CLick
+*/
+        var language = DropDownValues.lang.map {
+            it.second
+        }
+
+        val languageAdapter = ArrayAdapter(v.context, android.R.layout.simple_spinner_item, language)
+        languageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        v.lang_spinner.adapter = languageAdapter
+        v.lang_spinner.setSelection(8)
+
+        var optionslanguage = DropDownValues.lang.map { it.first }
+       var langselect:String=""
+        v.lang_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+                    langselect = optionslanguage[position]
+                  }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+
+                }
+            }
+        // Search Button On CLick
         v.searchbtn.onClick {
             if (v.keyword_search.text.isNullOrEmpty()) {
                 v.keyword_search.requestFocus()
@@ -79,9 +106,10 @@ class SearchFragment : Fragment() {
                 return@onClick
             }
             var selectedLanguage = ""
+            selectedLanguage=langselect
 
             val word = v.keyword_search.text.toString()
-            selectedLanguage = DropDownValues.lang[v.lang_spinner.selectedItemPosition].first
+           // selectedLanguage = DropDownValues.lang[v.lang_spinner.selectedItemPosition].first
 
             val parameter = Model.AyaSearchBody(
                 q = word,
@@ -117,7 +145,9 @@ class SearchFragment : Fragment() {
     fun onNetworkConnectionChanged(isConnected: Boolean) {
         if (!isConnected) {
 
-        }}
+        }
+    }
+
     companion object {
 
         @JvmStatic

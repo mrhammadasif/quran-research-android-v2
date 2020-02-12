@@ -7,8 +7,7 @@
     android:layout_gravity="top"
     android:background="@drawable/cardshapetop"
     android:orientation="vertical"
-    app:ignore="NamespaceTypo"
-    >
+    app:ignore="NamespaceTypo">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,6 +83,7 @@
                                     android:background="@null"
                                     android:hint="Enter Keyword"
                                     android:textSize="15dp"
+                                    android:maxLines="1"
                                     android:visibility="visible" />
                             </LinearLayout>
                         </LinearLayout>
@@ -127,12 +127,11 @@
                                 android:minHeight="52dp"
                                 android:orientation="horizontal">
 
-                                <Spinner
-                                    android:id="@+id/lang_spinner"
+                                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                                    android:id="@+id/langspinner"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:spinnerMode="dialog"
-                                    android:textAlignment="textEnd" />
+                                    android:padding="5dp" />
 
 
                             </LinearLayout>
@@ -179,11 +178,11 @@
                                 android:minHeight="52dp"
                                 android:orientation="horizontal">
 
-                                <Spinner
+                                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                                     android:id="@+id/edition_spinner"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:spinnerMode="dialog" />
+                                    android:padding="5dp" />
 
 
                             </LinearLayout>
@@ -229,11 +228,11 @@
                                 android:layout_height="48dp"
                                 android:orientation="horizontal">
 
-                                <Spinner
-                                    android:id="@+id/editiontype_spinner"
+                                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                                    android:id="@+id/ed_typespinner"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:spinnerMode="dialog" />
+                                    android:padding="5dp" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -276,13 +275,11 @@
                                 android:layout_height="48dp"
                                 android:orientation="horizontal">
 
-                                <Spinner
+                                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                                     android:id="@+id/sajda_spinner"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:spinnerMode="dialog"
-                                    android:textAlignment="textEnd" />
-
+                                    android:padding="5dp" />
 
                             </LinearLayout>
 
@@ -327,12 +324,11 @@
                                 android:layout_height="48dp"
                                 android:orientation="horizontal">
 
-                                <Spinner
+                                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                                     android:id="@+id/origin_spinner"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:spinnerMode="dialog"
-                                    android:textAlignment="textEnd" />
+                                    android:padding="5dp" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -377,11 +373,11 @@
                                 android:minHeight="52dp"
                                 android:orientation="horizontal">
 
-                                <Spinner
-                                    android:id="@+id/surah_spinner"
+                                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                                    android:id="@+id/sspinner"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:spinnerMode="dialog" />
+                                    android:padding="5dp" />
 
 
                             </LinearLayout>

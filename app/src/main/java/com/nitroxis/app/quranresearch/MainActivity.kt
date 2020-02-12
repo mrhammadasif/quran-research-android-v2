@@ -113,7 +113,6 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                                     supportFragmentManager
                                         .beginTransaction()
                                         .replace(R.id.container, sf)
-                                        .addToBackStack(searchFragment.toString())
                                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                         .commit()
                                     Log.d("Model of new Ayat", model.toString())

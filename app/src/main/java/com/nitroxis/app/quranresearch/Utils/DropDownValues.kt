@@ -2,7 +2,7 @@ package com.nitroxis.app.quranresearch.Utils
 
 object DropDownValues {
     val surah = arrayListOf(
-        "---Any One---" to "",
+        "" to "---Any One---",
         "1" to "الفاتحة <Al-Faatiha>",
         "2" to "البقرة <Al-Baqara>",
         "3" to "آل عمران <Aal-i-Imraan>",
@@ -121,17 +121,17 @@ object DropDownValues {
     )
 
     val origin = arrayListOf(
-        "---Any One---" to "",
+        "" to "---Any One---",
         "Medinan" to "Medinan",
         "Meccan" to "Meccan"
     )
     val sajda = arrayListOf(
-        "---Any One---" to "",
+        "" to "---Any One---",
         "Inclusive" to "Yes",
         "Exclusive" to "No"
     )
     val editionType = arrayListOf(
-        "---Any One---" to "",
+        "" to "---Any One---",
         "quran" to "quran",
         "tafsir" to "tafsir",
         "translation" to "translation",
@@ -180,7 +180,7 @@ object DropDownValues {
         "zh" to "Chinese <中文 (Zhōngwén), 汉语, 漢語>"
     )
     val edition = arrayListOf(
-        "---Any One---" to "",
+        "" to "---Any One---",
         "sq.ahmeti" to "Albanian – by Sherif Ahmeti",
         "sq.mehdiu" to "Albanian – by Feti Mehdiu",
         "sq.nahi" to "Albanian – by Hasan Efendi Nahi",
