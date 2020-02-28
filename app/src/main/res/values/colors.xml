@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#76A30C</color>
     <color name="colorPrimaryDark">#76A30C</color>
     <color name="colorAccent">#76A30C</color>
     <color name="black">#070707</color>
@@ -16,5 +16,7 @@
     <color name="bg">#F7F7F7</color>
     <color name="spinnerlistdivider">#C4C1C1</color>
     <color name="grey">#757474</color>
+
+    <color name="black_overlay">#66000000</color>
 
 </resources>

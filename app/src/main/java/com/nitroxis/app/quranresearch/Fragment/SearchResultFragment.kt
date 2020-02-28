@@ -51,16 +51,8 @@ class SearchResultFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        var view: View = inflater.inflate(R.layout.fragment_search_result, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_search_result, container, false)
 
-        /*    var view: View = inflater.inflate(R.layout.fragment_search_result, container, false)
-            if (view == null) {
-                view = inflater.inflate(
-                    R.layout.fragment_search_result, container, false
-                )
-            } else {
-                (view.parent as ViewGroup).removeView(view)
-            } */
         view.recycle_search.layoutManager = LinearLayoutManager(view.context)
         view.recycle_search.adapter = ayasResult?.let { SearchResultListAdapter(it, view.context) }
 
@@ -78,7 +70,7 @@ class SearchResultFragment : Fragment() {
             mBottomSheetDialog.show()
 
             //searchable Edition adapter
-            var edition = DropDownValues.surah.map {
+            val edition = DropDownValues.surah.map {
                 it.second
             }
 
@@ -87,7 +79,7 @@ class SearchResultFragment : Fragment() {
             mBottomSheetDialog.sspinner.adapter = adapter
             mBottomSheetDialog.sspinner.setSelection(0)
 
-            var options = DropDownValues.surah.map { it.first }
+            val options = DropDownValues.surah.map { it.first }
 
             mBottomSheetDialog.sspinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
@@ -103,7 +95,7 @@ class SearchResultFragment : Fragment() {
                 }
 
             //Seachable Language Adapter
-            var language = DropDownValues.lang.map {
+            val language = DropDownValues.lang.map {
                 it.second
             }
 
@@ -113,7 +105,7 @@ class SearchResultFragment : Fragment() {
             mBottomSheetDialog.langspinner.adapter = languageAdapter
             mBottomSheetDialog.langspinner.setSelection(8)
 
-            var optionslanguage = DropDownValues.lang.map { it.first }
+            val optionslanguage = DropDownValues.lang.map { it.first }
 
             mBottomSheetDialog.langspinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
@@ -244,29 +236,6 @@ class SearchResultFragment : Fragment() {
 
             mBottomSheetDialog.edit_keyowrd.setText(model!!.q)
 
-            /*      mBottomSheetDialog.lang_spinner.adapter =
-                      MySpinnerAdapter(view.context, DropDownValues.lang)
-                  mBottomSheetDialog.lang_spinner.setSelection(8)
-                  mBottomSheetDialog.editiontype_spinner.adapter =
-                      MySpinnerAdapter(view.context, DropDownValues.editionType)
-                  mBottomSheetDialog.editiontype_spinner.setSelection(0)
-
-                       mBottomSheetDialog.surah_spinner.adapter =
-                      MySpinnerAdapter(view.context, DropDownValues.surah)
-                  mBottomSheetDialog.surah_spinner.setSelection(0)
-                  BottomSheetDialog.edition_spinner.adapter =
-                      MySpinnerAdapter(view.context, DropDownValues.edition)
-                  mBottomSheetDialog.edition_spinner.setSelection(0)
-
-                     mBottomSheetDialog.origin_spinner.adapter =
-                      MySpinnerAdapter(view.context, DropDownValues.origin)
-
-
-                  mBottomSheetDialog.sajda_spinner.adapter =
-                      MySpinnerAdapter(view.context, DropDownValues.sajda)
-                  mBottomSheetDialog.sajda_spinner.setSelection(0)
-
-      */
             //Range Seekbar
             mBottomSheetDialog.rangeSeekBar.setMinThumbValue(0)
             mBottomSheetDialog.rangeSeekBar.setMaxThumbValue(286)
@@ -286,9 +255,7 @@ class SearchResultFragment : Fragment() {
 
             //Filter Dialog Reset Button
             mBottomSheetDialog.resetfilter.onClick {
-                // val v = lang.indexOf(model!!.lang)
-                //val o=lang.get(model.q.toInt())
-                //Log.d("000", v.toString())
+                //resetting all filters in bottom sheet
                 mBottomSheetDialog.edit_keyowrd.setText("")
                 mBottomSheetDialog.edition_spinner.setSelection(0)
                 mBottomSheetDialog.langspinner.setSelection(8)
@@ -407,6 +374,7 @@ class SearchResultFragment : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
+        listener = null
     }
 
 
