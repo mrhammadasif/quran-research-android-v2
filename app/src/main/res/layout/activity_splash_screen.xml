@@ -83,12 +83,15 @@
             android:textSize="30sp" />
     </RelativeLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <Button
+        android:background="@drawable/button"
+        android:textColor="@color/white"
         android:id="@+id/go_to_next"
         android:alpha="0"
         android:fontFamily="@font/montserrat_light"
         android:paddingVertical="20dp"
-        android:textSize="20sp"
+        android:paddingHorizontal="20dp"
+        android:textSize="16sp"
         android:layout_marginHorizontal="20dp"
         android:layout_width="00dp"
         android:layout_marginBottom="50dp"

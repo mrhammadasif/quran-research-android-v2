@@ -59,10 +59,10 @@ class SearchResultFragment : Fragment() {
         //BottomSheet Dialog
         val mBottomSheetDialog = BottomSheetDialog(activity!!)
         val sheetView: View = activity!!.layoutInflater.inflate(R.layout.content_filers, null)
+
         mBottomSheetDialog.setContentView(sheetView)
         mBottomSheetDialog.setCancelable(false)
         mBottomSheetDialog.setCanceledOnTouchOutside(false)
-
 
         //Filter Button
         view.filterbtn.onClick {

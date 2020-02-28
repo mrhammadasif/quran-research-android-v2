@@ -12,6 +12,7 @@
         android:id="@+id/text2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_light"
         android:gravity="start"
         android:text="Hahaha i am very long value in this line and this is going to be second line and this is too long"
         android:textColor="@color/black"
@@ -21,6 +22,7 @@
         android:id="@+id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_light"
         android:gravity="start"
         android:text="asdasd" />
 
