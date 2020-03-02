@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/searchfragment"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/ayabg"
     tools:context=".Fragment.SearchFragment">
 
 
     <LinearLayout
         android:id="@+id/cardView"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="220dp"
         android:background="@drawable/cardshape"
         android:visibility="visible"
@@ -22,7 +22,7 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/applogo" />
@@ -31,7 +31,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,16 +40,16 @@
         app:layout_constraintTop_toBottomOf="@id/cardView">
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="80dp"
                 android:fontFamily="@font/montserrat_light"
                 android:gravity="center"
                 android:maxLines="2"
@@ -62,10 +62,10 @@
 
             <LinearLayout
                 android:id="@+id/inputlayout"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="60dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="@color/ayabg"
@@ -73,7 +73,7 @@
 
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/border"
@@ -81,18 +81,18 @@
                     android:padding="2dp">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardBackgroundColor="@color/ayabgwhite">
 
                         <LinearLayout
-                            android:layout_width="fill_parent"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:padding="10dp">
 
                             <TextView
-                                android:layout_width="fill_parent"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Keyword"
@@ -101,47 +101,56 @@
                                 android:textStyle="normal" />
 
                             <LinearLayout
-                                android:layout_width="fill_parent"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="1dp"
+                                android:weightSum="2"
                                 android:orientation="horizontal">
 
                                 <EditText
                                     android:fontFamily="@font/montserrat_light"
                                     android:id="@+id/keyword_search"
-                                    android:layout_width="fill_parent"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@null"
                                     android:hint="e.g. cow"
+                                    android:layout_weight="1"
                                     android:maxLines="1"
                                     android:textSize="18dp"
                                     android:visibility="visible" />
-
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="30dp"
+                                    android:id="@+id/audio_search"
+                                    android:src="@drawable/black_mic"
+                                    android:background="@null"
+                                    android:layout_weight="1"/>
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:visibility="gone"
                     android:background="@drawable/border"
                     android:orientation="vertical"
                     android:padding="2dp">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardBackgroundColor="@color/ayabgwhite">
 
                         <LinearLayout
-                            android:layout_width="fill_parent"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <TextView
-                                android:layout_width="fill_parent"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
                                 android:layout_weight="1"
@@ -152,7 +161,7 @@
                                 android:textStyle="normal" />
 
                             <LinearLayout
-                                android:layout_width="fill_parent"
+                                android:layout_width="match_parent"
                                 android:layout_height="48dp"
                                 android:layout_marginBottom="7dp"
                                 android:orientation="horizontal">
@@ -172,7 +181,7 @@
 
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:orientation="vertical">
@@ -198,7 +207,7 @@
 
             <RelativeLayout
                 android:id="@+id/inforelative"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/inputlayout">
 
@@ -207,7 +216,7 @@
 
             <RelativeLayout
                 android:id="@+id/imagee"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
@@ -223,7 +232,9 @@
 
                     <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginRight="5dp"
+                        android:id="@+id/disclaimer"
                         android:background="@android:color/transparent"
                         android:text="Disclaimer"
                         android:textAllCaps="true"
@@ -238,6 +249,7 @@
                         android:background="@android:color/transparent"
                         android:text="Privacy Policy"
                         android:textAllCaps="true"
+                        android:id="@+id/privacy_policy"
                         android:textColor="@color/red"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -246,13 +258,13 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="fill_parent"
+                    android:id="@+id/bottom_logo"
+                    android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_alignParentBottom="true"
                     android:background="@color/ayabgwhite"
                     android:padding="5dp"
-                    android:src="@drawable/nitroxis" />
+                    android:src="@drawable/bottom_logo" />
             </RelativeLayout>
 
         </LinearLayout>

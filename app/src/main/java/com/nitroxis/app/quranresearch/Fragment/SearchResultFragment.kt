@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
@@ -78,6 +80,9 @@ class SearchResultFragment : Fragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             mBottomSheetDialog.sspinner.adapter = adapter
             mBottomSheetDialog.sspinner.setSelection(0)
+            view.backbtn.onClick {
+
+            }
 
             val options = DropDownValues.surah.map { it.first }
 
@@ -216,6 +221,7 @@ class SearchResultFragment : Fragment() {
             mBottomSheetDialog.sajda_spinner.adapter = sajdaAdapter
             mBottomSheetDialog.sajda_spinner.setSelection(0)
 
+
             var optionssajda = DropDownValues.sajda.map { it.first }
 
             mBottomSheetDialog.sajda_spinner.onItemSelectedListener =
@@ -343,9 +349,9 @@ class SearchResultFragment : Fragment() {
 
                 if (context?.isNetworkReachable() == true) {
                     filteredModel?.let { it1 -> listener?.onFetchNewAyats(it1) }
-                    alert(filteredModel.toString()) {
-                        okButton { it.dismiss() }
-                    }.show()
+//                    alert(filteredModel.toString()) {
+//                        okButton { it.dismiss() }
+//                    }.show()
                 } else {
                     alert("No Internet Connection.Please Check Your Internet Connection And Try Again!") {
                         okButton {
@@ -371,6 +377,7 @@ class SearchResultFragment : Fragment() {
             throw RuntimeException("$context must implement OnFragmentInteractionListener")
         }
     }
+
 
     override fun onDetach() {
         super.onDetach()
