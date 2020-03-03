@@ -36,7 +36,7 @@ class SearchResultFragment : Fragment() {
     private var ayasResult: ArrayList<Model.AyaObject>? = null
     private var model: Model.AyaSearchBody? = null
     private var listener: OnFragmentInteractionListener? = null
-
+    var goback = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,9 +80,7 @@ class SearchResultFragment : Fragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             mBottomSheetDialog.sspinner.adapter = adapter
             mBottomSheetDialog.sspinner.setSelection(0)
-            view.backbtn.onClick {
 
-            }
 
             val options = DropDownValues.surah.map { it.first }
 
