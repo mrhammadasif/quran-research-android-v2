@@ -29,13 +29,12 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
     lateinit var searchFragment: SearchFragment
     lateinit var historyFragment: HistoryFragment
     //  var filtermodel: Model.AyaSearchBody = Model.AyaSearchBody(q = arrayOf(""))
-      var emptymodel: Model.AyaSearchResult? =null
-
+    var emptymodel: Model.AyaSearchResult? = null
+    var goback = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         historyFragment = HistoryFragment.newInstance()
         searchFragment = SearchFragment.newInstance()
@@ -89,10 +88,8 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
 
     override fun onFetchNewAyats(model: Model.AyaSearchBody) {
 
-
         val api = ApiFactory(this@MainActivity!!.applicationContext).myApi
         GlobalScope.launch {
-
             withContext(Dispatchers.Main) {
                 val myDialog = indeterminateProgressDialog("Searching Query")
                 myDialog.show()
@@ -100,7 +97,6 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                     withContext(Dispatchers.IO) {
                         try {
 
-                            Log.d("123456",model.toString())
                             val r = api.search(params = model)
                             if (r.isSuccessful && r.code() == 200) {
                                 withContext(Dispatchers.Main) {
@@ -116,6 +112,15 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                                         .replace(R.id.container, sf)
                                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                         .commit()
+                                    goback
+                                    if(goback){
+                                        supportFragmentManager
+                                            .beginTransaction()
+                                            .replace(R.id.container, sf)
+                                            .addToBackStack(null)
+                                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                            .commit()
+                                    }
                                     Log.d("Model of new Ayat", model.toString())
                                     Log.d("response1", r.code().toString())
                                     Log.d("response1", r.body().toString())
@@ -128,7 +133,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                             } else if (r.code() == 204) {
                                 withContext(Dispatchers.Main) {
                                     myDialog.dismiss()
-                                    Log.d("responsecode",r.code().toString())
+                                    Log.d("responsecode", r.code().toString())
                                     alert("No Query Found For This Keyword") {
                                         okButton {
                                             it.dismiss()
