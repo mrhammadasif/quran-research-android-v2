@@ -5,12 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.DropDownValues
@@ -86,6 +86,7 @@ class SearchFragment : Fragment() {
 
         }
 
+
         /* val tagView: TagView = v.findViewById(R.id.text_view_show_more)
          tagView.addTagSeparator(TagSeparator.SPACE_SEPARATOR)
          tagView.addTagLimit(5)
@@ -153,22 +154,20 @@ class SearchFragment : Fragment() {
 
         // Search Button On CLick
         v.searchbtn.onClick {
-            if (v.keyword_search.text.isNullOrEmpty()) {
-                v.keyword_search.requestFocus()
-                alert("Enter Keyword to Search") {
-                    okButton { it.dismiss() }
-                }.show()
+
+            if (v.loginUsernameField.editText?.text.isNullOrBlank()) {
+                v.loginUsernameField.error = "Enter a Valid Keyword"
+                v.loginUsernameField.isErrorEnabled = true
                 return@onClick
             }
             var selectedLanguage = ""
-
             val word = v.keyword_search.text.toString()
             selectedLanguage = DropDownValues.lang[v.lang_spinner.selectedItemPosition].first
 
             val parameter = Model.AyaSearchBody(
                 q = word // ,lang = selectedLanguage
             )
-            listener?.onFetchNewAyats(model = parameter)
+            listener?.onFetchNewAyats(model = parameter,goback = true)
 
         }
 
@@ -211,14 +210,9 @@ class SearchFragment : Fragment() {
 
 
     interface OnFragmentInteractionListener {
-        fun onFetchNewAyats(model: Model.AyaSearchBody)
+        fun onFetchNewAyats(model: Model.AyaSearchBody, goback:Boolean)
     }
 
-    fun onNetworkConnectionChanged(isConnected: Boolean) {
-        if (!isConnected) {
-
-        }
-    }
 
     companion object {
 

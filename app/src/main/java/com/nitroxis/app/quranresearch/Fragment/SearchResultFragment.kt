@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
@@ -36,7 +34,6 @@ class SearchResultFragment : Fragment() {
     private var ayasResult: ArrayList<Model.AyaObject>? = null
     private var model: Model.AyaSearchBody? = null
     private var listener: OnFragmentInteractionListener? = null
-    var goback = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -346,10 +343,8 @@ class SearchResultFragment : Fragment() {
                 val filteredModel = searchFilters
 
                 if (context?.isNetworkReachable() == true) {
-                    filteredModel?.let { it1 -> listener?.onFetchNewAyats(it1) }
-//                    alert(filteredModel.toString()) {
-//                        okButton { it.dismiss() }
-//                    }.show()
+                    filteredModel?.let { it1 -> listener?.onFetchNewAyats(it1,goback=false) }
+
                 } else {
                     alert("No Internet Connection.Please Check Your Internet Connection And Try Again!") {
                         okButton {
@@ -384,7 +379,7 @@ class SearchResultFragment : Fragment() {
 
 
     interface OnFragmentInteractionListener {
-        fun onFetchNewAyats(model: Model.AyaSearchBody)
+        fun onFetchNewAyats(model: Model.AyaSearchBody,goback:Boolean)
 
     }
 

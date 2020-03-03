@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
     lateinit var historyFragment: HistoryFragment
     //  var filtermodel: Model.AyaSearchBody = Model.AyaSearchBody(q = arrayOf(""))
     var emptymodel: Model.AyaSearchResult? = null
-    var goback = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +41,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, searchFragment)
+//            .addToBackStack(searchFragment.toString())
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
 
@@ -81,12 +81,10 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
         return cm!!.activeNetworkInfo != null && cm.activeNetworkInfo.isConnected
     }
 
-    override fun onFragmentInteraction(uri: Uri) {
-
-    }
+    override fun onFragmentInteraction(uri: Uri) {}
 
 
-    override fun onFetchNewAyats(model: Model.AyaSearchBody) {
+    override fun onFetchNewAyats(model: Model.AyaSearchBody, goback: Boolean) {
 
         val api = ApiFactory(this@MainActivity!!.applicationContext).myApi
         GlobalScope.launch {
@@ -96,31 +94,30 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                 if (isNetworkReachable()) {
                     withContext(Dispatchers.IO) {
                         try {
-
                             val r = api.search(params = model)
                             if (r.isSuccessful && r.code() == 200) {
                                 withContext(Dispatchers.Main) {
                                     myDialog.dismiss()
                                     val ayaresult = r.body()!!
-                                    val sf =
-                                        SearchResultFragment.newInstance(
-                                            ayaresult.ayas,
-                                            model = model
-                                        )
-                                    supportFragmentManager
-                                        .beginTransaction()
-                                        .replace(R.id.container, sf)
-                                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                                        .commit()
-                                    goback
-                                    if(goback){
+                                    val sf = SearchResultFragment.newInstance(
+                                        ayaresult.ayas,
+                                        model = model
+                                    )
+                                    if (goback) {
                                         supportFragmentManager
                                             .beginTransaction()
                                             .replace(R.id.container, sf)
-                                            .addToBackStack(null)
+                                            .addToBackStack(searchFragment.toString())
+                                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                            .commit()
+                                    } else {
+                                        supportFragmentManager
+                                            .beginTransaction()
+                                            .replace(R.id.container, sf)
                                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                             .commit()
                                     }
+
                                     Log.d("Model of new Ayat", model.toString())
                                     Log.d("response1", r.code().toString())
                                     Log.d("response1", r.body().toString())
