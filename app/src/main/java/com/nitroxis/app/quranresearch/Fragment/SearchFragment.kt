@@ -10,12 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import com.nitroxis.app.quranresearch.R
 import com.nitroxis.app.quranresearch.Utils.DropDownValues
 import com.nitroxis.app.quranresearch.Utils.Model
-import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -105,9 +103,7 @@ class SearchFragment : Fragment() {
           val Language = DropDownValues.lang.map {
             it.second
         }
-
-
-        // Language Adapter
+   // Language Adapter
         v.lang_spinner.adapter = MySpinnerAdapter(v.context, DropDownValues.lang)
         v.lang_spinner.setSelection(8)
 
@@ -149,8 +145,6 @@ class SearchFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>) {
             }
         }
-//        v.keyword_search.setText()
-
 
         // Search Button On CLick
         v.searchbtn.onClick {

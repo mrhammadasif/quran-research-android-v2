@@ -12,6 +12,7 @@ import com.nitroxis.app.quranresearch.Fragment.HistoryFragment
 import com.nitroxis.app.quranresearch.Fragment.SearchFragment
 import com.nitroxis.app.quranresearch.Fragment.SearchResultFragment
 import com.nitroxis.app.quranresearch.Utils.ApiFactory
+import com.nitroxis.app.quranresearch.Utils.DropDownValues.lang
 import com.nitroxis.app.quranresearch.Utils.Model
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
@@ -25,11 +26,14 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
     HistoryFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener,
     SearchResultFragment.OnFragmentInteractionListener {
 
+    lateinit var m: Model.AyaSearchBody
     lateinit var filterFragment: FilterFragment
     lateinit var searchFragment: SearchFragment
     lateinit var historyFragment: HistoryFragment
+
     //  var filtermodel: Model.AyaSearchBody = Model.AyaSearchBody(q = arrayOf(""))
     var emptymodel: Model.AyaSearchResult? = null
+    var emptyayaobject: Model.AyaObject? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +45,6 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, searchFragment)
-//            .addToBackStack(searchFragment.toString())
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
 
@@ -78,7 +81,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
 
     fun Context.isNetworkReachable(): Boolean {
         val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
-        return cm!!.activeNetworkInfo != null && cm.activeNetworkInfo.isConnected
+        return cm?.activeNetworkInfo != null && cm?.activeNetworkInfo.isConnected
     }
 
     override fun onFragmentInteraction(uri: Uri) {}
@@ -92,15 +95,15 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                 val myDialog = indeterminateProgressDialog("Searching Query")
                 myDialog.show()
                 if (isNetworkReachable()) {
+                    val r = api.search(params = model)
                     withContext(Dispatchers.IO) {
                         try {
-                            val r = api.search(params = model)
-                            if (r.isSuccessful && r.code() == 200) {
+                            if (r.isSuccessful) {
+                                val ayaResult = r.body()?.ayas ?: arrayListOf()
                                 withContext(Dispatchers.Main) {
                                     myDialog.dismiss()
-                                    val ayaresult = r.body()!!
                                     val sf = SearchResultFragment.newInstance(
-                                        ayaresult.ayas,
+                                        ayaResult,
                                         model = model
                                     )
                                     if (goback) {
@@ -117,41 +120,25 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                             .commit()
                                     }
-
-                                    Log.d("Model of new Ayat", model.toString())
-                                    Log.d("response1", r.code().toString())
-                                    Log.d("response1", r.body().toString())
-                                    Log.d("response", r.message())
-                                    Log.d("error", r.message())
-                                    Log.d("response", r.message())
-
                                 }
-
-                            } else if (r.code() == 204) {
+                            } else {
                                 withContext(Dispatchers.Main) {
                                     myDialog.dismiss()
-                                    Log.d("responsecode", r.code().toString())
-                                    alert("No Query Found For This Keyword") {
+                                    alert(getString(R.string.server_error)) {
                                         okButton {
                                             it.dismiss()
                                         }
                                     }.show()
+
                                 }
                                 null
-
-                            } else {
-                                myDialog.dismiss()
-                                Log.d(
-                                    "The Result for Error", r.errorBody()?.string().toString()
-                                )
-                                throw Exception(r.errorBody()?.string())
                             }
                         } catch (e: Exception) {
                             myDialog.dismiss()
                             Log.d("The Result for Error", e.message)
                             withContext(Dispatchers.Main) {
                                 myDialog.dismiss()
-                                alert(e.message.toString()) {
+                                alert(getString(R.string.server_error)) {
                                     okButton {
                                         it.dismiss()
                                     }
@@ -162,7 +149,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
                 } else {
                     withContext(Dispatchers.Main) {
                         myDialog.dismiss()
-                        alert("No Internet Connection.Please Check Your Internet Connection And Try Again!") {
+                        alert(getString(R.string.internet_error)) {
                             okButton {
                                 it.dismiss()
                                 finish()

@@ -19,11 +19,6 @@ class FilterFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
-    lateinit var ayastart: String
-    lateinit var ayaend: String
-    lateinit var surahstart: String
-    lateinit var surahend: String
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +34,6 @@ class FilterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val v = inflater.inflate(R.layout.fragment_filter, container, false)
-
-
-
-
         return v
     }
 
@@ -67,7 +58,6 @@ class FilterFragment : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(uri: Uri)
-        // fun newfilters(filtermodel: Model.AyaSearchBody)
 
     }
 

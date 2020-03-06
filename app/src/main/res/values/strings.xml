@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Quran Research</string>
+    <string name="internet_error">No Internet Connection. Check Your Internet Connection And Try Again!</string>
+    <string name="server_error">Unable to fetch result from server. Retry searching</string>
 </resources>
