@@ -23,13 +23,13 @@ import org.jetbrains.anko.*
 
 
 class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionListener,
-    HistoryFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener,
+     SearchFragment.OnFragmentInteractionListener,
     SearchResultFragment.OnFragmentInteractionListener {
 
     lateinit var m: Model.AyaSearchBody
     lateinit var filterFragment: FilterFragment
     lateinit var searchFragment: SearchFragment
-    lateinit var historyFragment: HistoryFragment
+//    lateinit var historyFragment: HistoryFragment
 
     //  var filtermodel: Model.AyaSearchBody = Model.AyaSearchBody(q = arrayOf(""))
     var emptymodel: Model.AyaSearchResult? = null
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        historyFragment = HistoryFragment.newInstance()
+//        historyFragment = HistoryFragment.newInstance()
         searchFragment = SearchFragment.newInstance()
         filterFragment = FilterFragment.newInstance()
         supportFragmentManager
@@ -48,35 +48,35 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
 
-        bottomBar.onItemSelected = {
-
-            if (it == 0) {
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.container, searchFragment)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .commit()
-            }
-            if (it == 1) {
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.container, historyFragment)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .commit()
-            }
-
-            if (it == 2) {
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.container, filterFragment)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .commit()
-            }
-        }
-        bottomBar.onItemReselected = {
-            // toast("Item $it re-selected")
-        }
-        bottomBar.setActiveItem(0)
+//        bottomBar.onItemSelected = {
+//
+//            if (it == 0) {
+//                supportFragmentManager
+//                    .beginTransaction()
+//                    .replace(R.id.container, searchFragment)
+//                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                    .commit()
+//            }
+//            if (it == 1) {
+//                supportFragmentManager
+//                    .beginTransaction()
+//                    .replace(R.id.container, historyFragment)
+//                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                    .commit()
+//            }
+//
+//            if (it == 2) {
+//                supportFragmentManager
+//                    .beginTransaction()
+//                    .replace(R.id.container, filterFragment)
+//                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                    .commit()
+//            }
+//        }
+//        bottomBar.onItemReselected = {
+//            // toast("Item $it re-selected")
+//        }
+//        bottomBar.setActiveItem(0)
     }
 
     fun Context.isNetworkReachable(): Boolean {
@@ -84,7 +84,9 @@ class MainActivity : AppCompatActivity(), FilterFragment.OnFragmentInteractionLi
         return cm?.activeNetworkInfo != null && cm?.activeNetworkInfo.isConnected
     }
 
-    override fun onFragmentInteraction(uri: Uri) {}
+    override fun onBackPressingFromChild() {
+        onBackPressed()
+    }
 
 
     override fun onFetchNewAyats(model: Model.AyaSearchBody, goback: Boolean) {

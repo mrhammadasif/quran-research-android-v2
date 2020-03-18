@@ -3,24 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:textColor="@color/red"
-        android:textSize="25dp"
-        android:fontFamily="@font/montserrat_regular"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/montserrat_bold"
         android:padding="5dp"
-        android:text="Disclaimer"/>
+        android:textSize="20sp"
+        android:lineHeight="30sp"
+        android:text="اَشْهَدُ اَنْ لَّآ اِلٰهَ اِلَّا اللهُ وَحْدَہٗ لَاشَرِيْكَ لَہٗ وَاَشْهَدُ اَنَّ مُحَمَّدًا عَبْدُهٗ وَرَسُولُہٗ‎	"
+        android:textAlignment="center"
+        android:textColor="@color/white" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/montserrat_regular"
-        android:layout_margin="15dp"
-        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." />
+        android:text="We have collected the translations and ayats text from tanzil.net. Thus, its possible to contain human made mistakes and/or typing errors. If any error is found, its the responsibility of Application user to report it at quran-research@nitroxis.com. We assure you, each complaint will be handled accordingly and promptly.\n\nWe are not attached to any individual ethnicity, sect or race. This Application is individual effort by a Muslim. Developer of this application can be contacted at hammad@nitroxis.com\n\nAll ayats and quranic texts are collected by tanzil.net and mistakes will be removed promptly by contacting at quran-research@nitroxis.com.\n\nApplication is solely for research purpose so you can search for any given word, query or filters in your language for given editions.\n\nAyat No. and Sura No. is provided to cross-verify your ayat in Quran."
+        android:textAlignment="center"
+        android:textColor="@color/black" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"
+        android:textAlignment="center"
+        android:padding="5dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="WE ARE NOT-RELATED/CONNECTED TO QADYANIYAT"
+        android:textColor="@color/colorPrimary" />
 </LinearLayout>

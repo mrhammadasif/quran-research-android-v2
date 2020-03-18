@@ -52,34 +52,34 @@ class SearchFragment : Fragment() {
         v.audio_search.onClick {
 
             val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-            intent.putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-            )
+//            intent.putExtra(
+//                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+//                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+//            )
             intent.putExtra(
                 RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 Locale.getAvailableLocales()
             )
-            intent.putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                Locale.ENGLISH
-            )
-            intent.putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                Locale.US
-            )
-            intent.putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                Locale.GERMAN
-            )
-            intent.putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                Locale.KOREA
-            )
-            if (intent.resolveActivity(context!!.packageManager) != null) {
+//            intent.putExtra(
+//                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+//                Locale.ENGLISH
+//            )
+//            intent.putExtra(
+//                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+//                Locale.US
+//            )
+//            intent.putExtra(
+//                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+//                Locale.GERMAN
+//            )
+//            intent.putExtra(
+//                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+//                Locale.KOREA
+//            )
+            if (context?.packageManager?.let { it1 -> intent.resolveActivity(it1) } != null) {
                 startActivityForResult(intent, 10)
             } else {
-                toast("Your Device Don't Support Speech Input")
+                alert("Your Device Don't Support Speech Input"){okButton { it.dismiss() }}
             }
 
         }
@@ -119,6 +119,7 @@ class SearchFragment : Fragment() {
         v.lang_spinner.setSelection(8)
 
 
+        // open disclaimer dialog
         v.disclaimer.onClick {
             alert {
                 val v = layoutInflater.inflate(R.layout.dialog_disclaimer, null)
@@ -179,7 +180,6 @@ class SearchFragment : Fragment() {
                 if (data != null) {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     result?.let {
-                        toast(it[0])
                         view?.keyword_search?.append(it[0])
                     }
                 }

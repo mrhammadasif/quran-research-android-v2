@@ -22,6 +22,7 @@ import com.nitroxis.app.quranresearch.Utils.fromJson
 import com.nitroxis.app.quranresearch.Utils.isNetworkReachable
 import kotlinx.android.synthetic.main.content_filers.*
 import kotlinx.android.synthetic.main.fragment_search_result.view.*
+import kotlinx.android.synthetic.main.no_item_found.view.*
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.alert
@@ -52,8 +53,19 @@ class SearchResultFragment : Fragment() {
 
         val view: View = inflater.inflate(R.layout.fragment_search_result, container, false)
         view.recycle_search.layoutManager = LinearLayoutManager(view.context)
-        view.recycle_search.adapter?.notifyDataSetChanged()
-        view.recycle_search.adapter = ayasResult?.let { SearchResultListAdapter(it, view.context) }
+//        view.recycle_search.adapter?.notifyDataSetChanged()
+        ayasResult?.let {
+            if (it.size > 0) {
+                view.recycle_search.adapter = SearchResultListAdapter(it, view.context)
+            }
+            else {
+                val v =  inflater.inflate(R.layout.no_item_found, container, false)
+                v.back_to_search_page.onClick{
+                    listener?.onBackPressingFromChild()
+                }
+                return v
+            }
+        }
 
         //BottomSheet Dialog
         val mBottomSheetDialog = BottomSheetDialog(activity!!)
@@ -72,7 +84,8 @@ class SearchResultFragment : Fragment() {
                 it.second
             }
 
-            val adapter = ArrayAdapter(view.context, android.R.layout.simple_spinner_item, edition)
+            val adapter =
+                ArrayAdapter(view.context, android.R.layout.simple_spinner_item, edition)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
             mBottomSheetDialog.sspinner.adapter = adapter
@@ -388,6 +401,7 @@ class SearchResultFragment : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun onFetchNewAyats(model: Model.AyaSearchBody, goback: Boolean)
+        fun onBackPressingFromChild()
 
     }
 
